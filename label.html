@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Label - Smartcoop Broadcast</title>
+
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF720D',
+                        'primary-dark': '#E6650B',
+                        'primary-light': '#FF8A3D',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed left-0 top-0 z-40 h-screen w-64 transition-transform -translate-x-full lg:translate-x-0 bg-white border-r border-gray-200">
+        <div class="h-full px-3 py-4 overflow-y-auto">
+            <!-- Logo -->
+            <div class="flex items-center mb-8 px-3 py-2">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <span class="text-white font-bold text-xl">S</span>
+                </div>
+                <span class="text-xl font-bold text-gray-800">Smartcoop</span>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="space-y-2">
+                <li>
+                    <a href="index.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-home-line text-xl mr-3"></i>
+                        <span>Beranda</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="label.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg bg-primary text-white group">
+                        <i class="ri-price-tag-line text-xl mr-3"></i>
+                        <span>Label</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kontak.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-group-line text-xl mr-3"></i>
+                        <span>Kontak</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pesan-template.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-message-3-line text-xl mr-3"></i>
+                        <span>Pesan Template</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-megaphone-line text-xl mr-3"></i>
+                        <span>Kampanye</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="laporan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-bar-chart-line text-xl mr-3"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pengaturan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-settings-3-line text-xl mr-3"></i>
+                        <span>Pengaturan</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Sidebar Card -->
+            <div class="mt-8 p-4 bg-primary rounded-lg text-white">
+                <h3 class="font-semibold mb-2">Panduan Broadcast</h3>
+                <p class="text-sm text-white/80 mb-3">Klik button dibawah untuk mempelajari Smartcoop Broadcast</p>
+                <button class="w-full py-2 bg-white text-primary rounded-lg font-medium hover:bg-gray-100 transition">
+                    Lihat Panduan
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-4 left-0 right-0 px-3">
+                <div class="flex items-center justify-center text-gray-500 text-sm">
+                    <i class="ri-customer-service-2-line mr-2"></i>
+                    <span>© 2025 All Rights Reserved</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-64">
+        <!-- Top Header -->
+        <header class="bg-white border-b border-gray-200 fixed top-0 right-0 left-0 lg:left-64 z-30">
+            <div class="px-4 py-3 flex items-center justify-between">
+                <!-- Left: Menu Toggle & Search -->
+                <div class="flex items-center space-x-4 flex-1">
+                    <button id="sidebar-toggle" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-menu-line text-xl"></i>
+                    </button>
+                    <div class="hidden md:flex items-center flex-1 max-w-md">
+                        <div class="relative w-full">
+                            <input type="text" placeholder="Search here..."
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <i
+                                class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Notifications & User -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-moon-line text-xl"></i>
+                    </button>
+
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button id="notification-toggle" class="p-2 rounded-lg hover:bg-gray-100 relative">
+                            <i class="ri-notification-3-line text-xl"></i>
+                            <span
+                                class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">12</span>
+                        </button>
+
+                        <!-- Notification Dropdown -->
+                        <div id="notification-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-96 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- Header -->
+                            <div class="p-4 border-b border-gray-100">
+                                <h3 class="text-lg font-bold text-gray-800">Notifikasi</h3>
+                            </div>
+
+                            <!-- Tabs -->
+                            <div class="px-4 pt-4 border-b border-gray-100 flex space-x-4">
+                                <button
+                                    class="notification-tab active px-4 py-2 text-sm font-medium text-gray-700 border-b-2 border-primary">
+                                    Inbox
+                                </button>
+                                <button class="notification-tab px-4 py-2 text-sm font-medium text-gray-500 relative">
+                                    Lainnya
+                                    <span
+                                        class="ml-2 px-2 py-0.5 bg-green-500 text-white text-xs rounded-full">9+</span>
+                                </button>
+                            </div>
+
+                            <!-- Notification List -->
+                            <div class="max-h-96 overflow-y-auto">
+                                <div id="notification-inbox" class="notification-content">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">2 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 3 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 3</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">3 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+
+                                <div id="notification-agen" class="notification-content hidden">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">30 menit yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Profile Dropdown -->
+                    <div class="relative pl-3 border-l border-gray-200">
+                        <button id="user-profile-toggle"
+                            class="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
+                            <div class="text-right hidden sm:block">
+                                <p class="text-sm font-medium text-gray-800">Nama Pengguna</p>
+                                <p class="text-xs text-gray-500">Super Admin</p>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold">
+                                <span class="text-sm">NP</span>
+                            </div>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="user-profile-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- User Info Section -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                                        <span>NP</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center space-x-2">
+                                            <p class="text-sm font-bold text-gray-800">Nama Pengguna</p>
+                                            <span
+                                                class="px-2 py-0.5 bg-green-500 text-white text-xs font-medium rounded-full">Super
+                                                Admin</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">developer@4visionmedia.com</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Subscription Section -->
+                            <div class="p-4 border-b border-gray-100 bg-gray-50">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-sm font-bold text-gray-800">Aktif Sampai</p>
+                                    <p class="text-sm font-medium text-gray-700">15 Februari 2030</p>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">Jangan lupa untuk memperbarui agar tetap dapat
+                                    menikmati
+                                    layanan kami.</p>
+                                <button
+                                    class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center space-x-2">
+                                    <i class="ri-rocket-line"></i>
+                                    <span>Perpanjang Langganan</span>
+                                </button>
+                            </div>
+
+                            <!-- Navigation Grid -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="grid grid-cols-3 gap-3">
+                                    <!-- Manage Kontak -->
+                                    <a href="kontak.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-group-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Manage Kontak</span>
+                                    </a>
+
+                                    <!-- Laporan -->
+                                    <a href="laporan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-bar-chart-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Laporan</span>
+                                    </a>
+
+                                    <!-- Pengaturan -->
+                                    <a href="pengaturan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-settings-3-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Pengaturan</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Logout -->
+                            <div class="p-4">
+                                <button id="logout-btn"
+                                    class="w-full flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+                                    <i class="ri-logout-box-line text-lg"></i>
+                                    <span class="text-sm font-medium">Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="p-6 pt-20">
+            <!-- Page Header -->
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Label</h1>
+                    <p class="text-gray-600">Kelola label untuk mengkategorikan kontak Anda</p>
+                </div>
+                <button id="btn-tambah-label"
+                    class="px-6 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors flex items-center space-x-2">
+                    <i class="ri-add-line"></i>
+                    <span>Tambah Label</span>
+                </button>
+            </div>
+
+            <!-- Table -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <div class="overflow-x-auto">
+                    <table id="label-table" class="w-full">
+                        <thead>
+                            <tr class="border-b border-gray-200">
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Nama Label</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Warna Label</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Nasabah Prioritas</td>
+                                <td class="py-3 px-4">
+                                    <i class="ri-price-tag-fill text-2xl" style="color: #FF720D;"></i>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-edit text-primary hover:text-primary-dark p-2 hover:bg-primary/10 rounded-lg transition-colors"
+                                            data-id="1">
+                                            <i class="ri-edit-line text-lg"></i>
+                                        </button>
+                                        <button
+                                            class="btn-hapus text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                            data-id="1">
+                                            <i class="ri-delete-bin-line text-lg"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Anggota Aktif</td>
+                                <td class="py-3 px-4">
+                                    <i class="ri-price-tag-fill text-2xl" style="color: #10b981;"></i>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-edit text-primary hover:text-primary-dark p-2 hover:bg-primary/10 rounded-lg transition-colors"
+                                            data-id="2">
+                                            <i class="ri-edit-line text-lg"></i>
+                                        </button>
+                                        <button
+                                            class="btn-hapus text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                            data-id="2">
+                                            <i class="ri-delete-bin-line text-lg"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pengurus Koperasi</td>
+                                <td class="py-3 px-4">
+                                    <i class="ri-price-tag-fill text-2xl" style="color: #3b82f6;"></i>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-edit text-primary hover:text-primary-dark p-2 hover:bg-primary/10 rounded-lg transition-colors"
+                                            data-id="3">
+                                            <i class="ri-edit-line text-lg"></i>
+                                        </button>
+                                        <button
+                                            class="btn-hapus text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                            data-id="3">
+                                            <i class="ri-delete-bin-line text-lg"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Peminjam Aktif</td>
+                                <td class="py-3 px-4">
+                                    <i class="ri-price-tag-fill text-2xl" style="color: #8b5cf6;"></i>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-edit text-primary hover:text-primary-dark p-2 hover:bg-primary/10 rounded-lg transition-colors"
+                                            data-id="4">
+                                            <i class="ri-edit-line text-lg"></i>
+                                        </button>
+                                        <button
+                                            class="btn-hapus text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                            data-id="4">
+                                            <i class="ri-delete-bin-line text-lg"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Penyimpan Tetap</td>
+                                <td class="py-3 px-4">
+                                    <i class="ri-price-tag-fill text-2xl" style="color: #ec4899;"></i>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-edit text-primary hover:text-primary-dark p-2 hover:bg-primary/10 rounded-lg transition-colors"
+                                            data-id="5">
+                                            <i class="ri-edit-line text-lg"></i>
+                                        </button>
+                                        <button
+                                            class="btn-hapus text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                            data-id="5">
+                                            <i class="ri-delete-bin-line text-lg"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Anggota Baru</td>
+                                <td class="py-3 px-4">
+                                    <i class="ri-price-tag-fill text-2xl" style="color: #f59e0b;"></i>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-edit text-primary hover:text-primary-dark p-2 hover:bg-primary/10 rounded-lg transition-colors"
+                                            data-id="6">
+                                            <i class="ri-edit-line text-lg"></i>
+                                        </button>
+                                        <button
+                                            class="btn-hapus text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                            data-id="6">
+                                            <i class="ri-delete-bin-line text-lg"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Calon Anggota</td>
+                                <td class="py-3 px-4">
+                                    <i class="ri-price-tag-fill text-2xl" style="color: #06b6d4;"></i>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-edit text-primary hover:text-primary-dark p-2 hover:bg-primary/10 rounded-lg transition-colors"
+                                            data-id="7">
+                                            <i class="ri-edit-line text-lg"></i>
+                                        </button>
+                                        <button
+                                            class="btn-hapus text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                            data-id="7">
+                                            <i class="ri-delete-bin-line text-lg"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Anggota VIP</td>
+                                <td class="py-3 px-4">
+                                    <i class="ri-price-tag-fill text-2xl" style="color: #ef4444;"></i>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-edit text-primary hover:text-primary-dark p-2 hover:bg-primary/10 rounded-lg transition-colors"
+                                            data-id="8">
+                                            <i class="ri-edit-line text-lg"></i>
+                                        </button>
+                                        <button
+                                            class="btn-hapus text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                            data-id="8">
+                                            <i class="ri-delete-bin-line text-lg"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Mitra Bisnis</td>
+                                <td class="py-3 px-4">
+                                    <i class="ri-price-tag-fill text-2xl" style="color: #14b8a6;"></i>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-edit text-primary hover:text-primary-dark p-2 hover:bg-primary/10 rounded-lg transition-colors"
+                                            data-id="9">
+                                            <i class="ri-edit-line text-lg"></i>
+                                        </button>
+                                        <button
+                                            class="btn-hapus text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                            data-id="9">
+                                            <i class="ri-delete-bin-line text-lg"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Anggota Khusus</td>
+                                <td class="py-3 px-4">
+                                    <i class="ri-price-tag-fill text-2xl" style="color: #6366f1;"></i>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-edit text-primary hover:text-primary-dark p-2 hover:bg-primary/10 rounded-lg transition-colors"
+                                            data-id="10">
+                                            <i class="ri-edit-line text-lg"></i>
+                                        </button>
+                                        <button
+                                            class="btn-hapus text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                            data-id="10">
+                                            <i class="ri-delete-bin-line text-lg"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- Modal Label -->
+    <div id="modal-label" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                <h3 id="modal-label-title" class="text-xl font-bold text-gray-800">Tambah Label Baru</h3>
+                <button id="modal-label-close" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6">
+                <!-- Input Nama Label -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Label</label>
+                    <div class="relative">
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
+                            <i id="label-icon-preview" class="ri-price-tag-fill text-xl" style="color: #6b7280;"></i>
+                        </div>
+                        <input type="text" id="input-nama-label"
+                            class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Masukan Nama Label">
+                    </div>
+                </div>
+
+                <!-- Pilih Warna -->
+                <div>
+                    <h4 class="text-sm font-bold text-gray-800 mb-3">Pilih Warna</h4>
+
+                    <!-- Toggle Default/Custom -->
+                    <div class="flex mb-4 bg-gray-100 rounded-lg p-1">
+                        <button id="tab-default"
+                            class="flex-1 py-2 px-4 rounded-md text-sm font-medium bg-white text-gray-800 shadow-sm transition-all">
+                            Default
+                        </button>
+                        <button id="tab-custom"
+                            class="flex-1 py-2 px-4 rounded-md text-sm font-medium text-gray-600 hover:text-gray-800 transition-all">
+                            Custom
+                        </button>
+                    </div>
+
+                    <!-- Default Color Grid -->
+                    <div id="default-colors" class="grid grid-cols-5 gap-2">
+                        <!-- Row 1 -->
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#e5e7eb" style="background-color: #e5e7eb;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#fce7f3" style="background-color: #fce7f3;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#dbeafe" style="background-color: #dbeafe;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#d1fae5" style="background-color: #d1fae5;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#fed7aa" style="background-color: #fed7aa;"></button>
+                        <!-- Row 2 -->
+                        <button class="color-option h-10 rounded-lg border-2 border-blue-400 transition-colors"
+                            data-color="#9ca3af" style="background-color: #9ca3af;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#f87171" style="background-color: #f87171;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#60a5fa" style="background-color: #60a5fa;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#34d399" style="background-color: #34d399;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#fbbf24" style="background-color: #fbbf24;"></button>
+                        <!-- Row 3 -->
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#4b5563" style="background-color: #4b5563;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#dc2626" style="background-color: #dc2626;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#2563eb" style="background-color: #2563eb;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#059669" style="background-color: #059669;"></button>
+                        <button
+                            class="color-option h-10 rounded-lg border-2 border-transparent hover:border-gray-300 transition-colors"
+                            data-color="#92400e" style="background-color: #92400e;"></button>
+                    </div>
+
+                    <!-- Custom Color Picker -->
+                    <div id="custom-colors" class="hidden">
+                        <div class="relative mb-3">
+                            <!-- Color Gradient Area -->
+                            <div id="color-gradient"
+                                class="w-full h-64 rounded-lg cursor-crosshair relative overflow-hidden"
+                                style="background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,1)), linear-gradient(to right, rgba(255,255,255,1), hsl(0, 100%, 50%));">
+                                <div id="color-picker-handle"
+                                    class="absolute w-4 h-4 border-2 border-white rounded-full shadow-lg transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                                    style="left: 50%; top: 50%;"></div>
+                            </div>
+                        </div>
+                        <!-- Hue Slider -->
+                        <div class="relative">
+                            <div id="hue-slider" class="w-full h-8 rounded-lg cursor-pointer relative overflow-hidden"
+                                style="background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);">
+                                <div id="hue-handle"
+                                    class="absolute w-4 h-4 border-2 border-white rounded-full shadow-lg transform -translate-y-1/2 top-1/2"
+                                    style="left: 0%;"></div>
+                            </div>
+                        </div>
+                        <!-- Selected Color Display -->
+                        <div class="mt-3 flex items-center space-x-3">
+                            <div id="selected-color-display" class="w-12 h-12 rounded-lg border-2 border-gray-300"
+                                style="background-color: #9ca3af;"></div>
+                            <input type="text" id="color-hex-input"
+                                class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                                value="#9ca3af" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-end space-x-3 p-6 border-t border-gray-200">
+                <button id="modal-label-cancel"
+                    class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition-colors">
+                    Batal
+                </button>
+                <button id="modal-label-save"
+                    class="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors">
+                    Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Label Page Specific JS -->
+    <script>
+        $(document).ready(function () {
+            // Initialize DataTable
+            if ($('#label-table').length) {
+                $('#label-table').DataTable({
+                    responsive: true,
+                    pageLength: 10,
+                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                    language: {
+                        search: "Cari:",
+                        lengthMenu: "Tampilkan _MENU_ data",
+                        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                        infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+                        infoFiltered: "(disaring dari _MAX_ total data)",
+                        paginate: {
+                            first: "Pertama",
+                            last: "Terakhir",
+                            next: "Selanjutnya",
+                            previous: "Sebelumnya"
+                        }
+                    },
+                    order: [[0, 'asc']],
+                    columnDefs: [
+                        { orderable: false, targets: [2] } // Disable sorting on Aksi column
+                    ]
+                });
+            }
+
+            // Modal State
+            let currentMode = 'default'; // 'default' or 'custom'
+            let selectedColor = '#9ca3af';
+            let currentHue = 0;
+            let isEditing = false;
+            let editingRow = null;
+
+            // Color Picker Functions
+            function updateColorPreview(color) {
+                selectedColor = color;
+                $('#label-icon-preview').css('color', color);
+                $('#selected-color-display').css('background-color', color);
+                $('#color-hex-input').val(color);
+            }
+
+            function rgbToHex(r, g, b) {
+                // Ensure values are valid numbers and within range
+                r = Math.max(0, Math.min(255, Math.round(r || 0)));
+                g = Math.max(0, Math.min(255, Math.round(g || 0)));
+                b = Math.max(0, Math.min(255, Math.round(b || 0)));
+
+                return "#" + [r, g, b].map(x => {
+                    const hex = x.toString(16);
+                    return hex.length === 1 ? "0" + hex : hex;
+                }).join("");
+            }
+
+            function hslToRgb(h, s, l) {
+                // Validate and normalize inputs
+                h = isNaN(h) ? 0 : Math.max(0, Math.min(360, h));
+                s = isNaN(s) ? 0 : Math.max(0, Math.min(100, s));
+                l = isNaN(l) ? 50 : Math.max(0, Math.min(100, l));
+
+                h /= 360;
+                s /= 100;
+                l /= 100;
+
+                let r, g, b;
+                if (s === 0) {
+                    r = g = b = l;
+                } else {
+                    const hue2rgb = (p, q, t) => {
+                        if (t < 0) t += 1;
+                        if (t > 1) t -= 1;
+                        if (t < 1 / 6) return p + (q - p) * 6 * t;
+                        if (t < 1 / 2) return q;
+                        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+                        return p;
+                    };
+                    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                    const p = 2 * l - q;
+                    r = hue2rgb(p, q, h + 1 / 3);
+                    g = hue2rgb(p, q, h);
+                    b = hue2rgb(p, q, h - 1 / 3);
+                }
+
+                // Ensure values are valid
+                r = isNaN(r) ? 0 : Math.max(0, Math.min(1, r));
+                g = isNaN(g) ? 0 : Math.max(0, Math.min(1, g));
+                b = isNaN(b) ? 0 : Math.max(0, Math.min(1, b));
+
+                return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+            }
+
+            function updateGradient() {
+                const hueColor = `hsl(${currentHue}, 100%, 50%)`;
+                $('#color-gradient').css('background',
+                    `linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,1)), linear-gradient(to right, rgba(255,255,255,1), ${hueColor})`
+                );
+            }
+
+            function handleColorGradientClick(e) {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+                const y = Math.max(0, Math.min(rect.height, e.clientY - rect.top));
+                const width = rect.width || 1;
+                const height = rect.height || 1;
+
+                if (width === 0 || height === 0) return;
+
+                // Calculate saturation (0-100%) from left to right
+                const saturation = (x / width) * 100;
+                // Calculate lightness (100-0%) from top to bottom
+                const lightness = 100 - (y / height) * 100;
+
+                // Clamp values
+                const clampedSaturation = Math.min(100, Math.max(0, saturation));
+                const clampedLightness = Math.min(100, Math.max(0, lightness));
+
+                const [r, g, b] = hslToRgb(currentHue, clampedSaturation, clampedLightness);
+
+                // Validate RGB values
+                if (isNaN(r) || isNaN(g) || isNaN(b)) {
+                    return;
+                }
+
+                const color = rgbToHex(r, g, b);
+
+                $('#color-picker-handle').css({
+                    'left': `${(x / width) * 100}%`,
+                    'top': `${(y / height) * 100}%`
+                });
+
+                updateColorPreview(color);
+            }
+
+            function handleHueSliderClick(e) {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+                const width = rect.width || 1;
+
+                if (width === 0) return;
+
+                currentHue = Math.min(360, Math.max(0, (x / width) * 360));
+
+                $('#hue-handle').css('left', `${(x / width) * 100}%`);
+                updateGradient();
+
+                // Update color based on current gradient position
+                const gradientElement = $('#color-gradient')[0];
+                if (!gradientElement) return;
+
+                const gradientRect = gradientElement.getBoundingClientRect();
+                const gradientWidth = gradientRect.width || 1;
+                const gradientHeight = gradientRect.height || 1;
+
+                if (gradientWidth === 0 || gradientHeight === 0) return;
+
+                // Get handle position, default to center if not set
+                let handleLeft = parseFloat($('#color-picker-handle').css('left'));
+                let handleTop = parseFloat($('#color-picker-handle').css('top'));
+
+                if (isNaN(handleLeft)) handleLeft = 50;
+                if (isNaN(handleTop)) handleTop = 50;
+
+                const handleX = (handleLeft / 100) * gradientWidth;
+                const handleY = (handleTop / 100) * gradientHeight;
+
+                // Calculate saturation (0-100%) from left to right
+                const saturation = (handleX / gradientWidth) * 100;
+                // Calculate lightness (100-0%) from top to bottom
+                const lightness = 100 - (handleY / gradientHeight) * 100;
+
+                // Clamp values
+                const clampedSaturation = Math.min(100, Math.max(0, saturation));
+                const clampedLightness = Math.min(100, Math.max(0, lightness));
+
+                const [r, g, b] = hslToRgb(currentHue, clampedSaturation, clampedLightness);
+
+                // Validate RGB values
+                if (isNaN(r) || isNaN(g) || isNaN(b)) {
+                    return;
+                }
+
+                const color = rgbToHex(r, g, b);
+                updateColorPreview(color);
+            }
+
+            // Modal Functions
+            function openModal(mode = 'add', data = null) {
+                isEditing = mode === 'edit';
+                editingRow = data;
+
+                // Reset to default tab
+                currentMode = 'default';
+                $('#tab-default').addClass('bg-white text-gray-800 shadow-sm').removeClass('text-gray-600');
+                $('#tab-custom').removeClass('bg-white text-gray-800 shadow-sm').addClass('text-gray-600');
+                $('#default-colors').removeClass('hidden');
+                $('#custom-colors').addClass('hidden');
+
+                $('#modal-label-title').text(mode === 'add' ? 'Tambah Label Baru' : 'Edit Label');
+                $('#input-nama-label').val(data ? data.nama : '');
+
+                if (data && data.warna) {
+                    selectedColor = data.warna;
+                    updateColorPreview(selectedColor);
+                    // Set default color as selected if it matches
+                    let colorFound = false;
+                    $('.color-option').removeClass('border-blue-400');
+                    $('.color-option').each(function () {
+                        if ($(this).data('color').toLowerCase() === selectedColor.toLowerCase()) {
+                            $(this).addClass('border-blue-400');
+                            colorFound = true;
+                        }
+                    });
+                    if (!colorFound) {
+                        // Switch to custom tab if color not in default
+                        $('#tab-custom').click();
+                    }
+                } else {
+                    // Select first default color (second row, first column - #9ca3af)
+                    $('.color-option').removeClass('border-blue-400');
+                    $('.color-option[data-color="#9ca3af"]').addClass('border-blue-400');
+                    selectedColor = '#9ca3af';
+                    updateColorPreview(selectedColor);
+                }
+
+                $('#modal-label').removeClass('hidden');
+                setTimeout(() => {
+                    $('#input-nama-label').focus();
+                }, 100);
+            }
+
+            function closeModal() {
+                $('#modal-label').addClass('hidden');
+                $('#input-nama-label').val('');
+                currentMode = 'default';
+                $('#tab-default').addClass('bg-white text-gray-800 shadow-sm').removeClass('text-gray-600');
+                $('#tab-custom').removeClass('bg-white text-gray-800 shadow-sm').addClass('text-gray-600');
+                $('#default-colors').removeClass('hidden');
+                $('#custom-colors').addClass('hidden');
+            }
+
+            // Event Handlers
+            $('#btn-tambah-label').on('click', function () {
+                openModal('add');
+            });
+
+            $(document).on('click', '.btn-edit', function () {
+                const id = $(this).data('id');
+                const row = $(this).closest('tr');
+                const nama = row.find('td:first').text();
+                const warnaElement = row.find('i.ri-price-tag-fill');
+                const warna = warnaElement.attr('style').match(/#[0-9a-fA-F]{6}/)[0];
+
+                openModal('edit', { id, nama, warna });
+            });
+
+            $('#modal-label-close, #modal-label-cancel').on('click', closeModal);
+
+            // Close modal on backdrop click
+            $('#modal-label').on('click', function (e) {
+                if ($(e.target).attr('id') === 'modal-label') {
+                    closeModal();
+                }
+            });
+
+            // Tab Toggle
+            $('#tab-default').on('click', function () {
+                currentMode = 'default';
+                $(this).addClass('bg-white text-gray-800 shadow-sm').removeClass('text-gray-600');
+                $('#tab-custom').removeClass('bg-white text-gray-800 shadow-sm').addClass('text-gray-600');
+                $('#default-colors').removeClass('hidden');
+                $('#custom-colors').addClass('hidden');
+            });
+
+            $('#tab-custom').on('click', function () {
+                currentMode = 'custom';
+                $(this).addClass('bg-white text-gray-800 shadow-sm').removeClass('text-gray-600');
+                $('#tab-default').removeClass('bg-white text-gray-800 shadow-sm').addClass('text-gray-600');
+                $('#default-colors').addClass('hidden');
+                $('#custom-colors').removeClass('hidden');
+
+                // Initialize hue and gradient
+                currentHue = 0;
+                updateGradient();
+
+                // Initialize handle position to center
+                $('#color-picker-handle').css({
+                    'left': '50%',
+                    'top': '50%'
+                });
+                $('#hue-handle').css('left', '0%');
+
+                // Calculate initial color (center of gradient = white to red, middle = grayish)
+                const [r, g, b] = hslToRgb(0, 50, 50);
+                const color = rgbToHex(r, g, b);
+                updateColorPreview(color);
+            });
+
+            // Default Color Selection
+            $(document).on('click', '.color-option', function () {
+                const color = $(this).data('color');
+                $('.color-option').removeClass('border-blue-400');
+                $(this).addClass('border-blue-400');
+                updateColorPreview(color);
+            });
+
+            // Custom Color Picker
+            let isDraggingGradient = false;
+            let isDraggingHue = false;
+            let gradientElement = null;
+            let hueSliderElement = null;
+
+            function handleGradientMouseMove(e) {
+                if (!gradientElement) return;
+                const rect = gradientElement.getBoundingClientRect();
+                const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+                const y = Math.max(0, Math.min(rect.height, e.clientY - rect.top));
+                const width = rect.width || 1;
+                const height = rect.height || 1;
+
+                if (width === 0 || height === 0) return;
+
+                // Calculate saturation (0-100%) from left to right
+                const saturation = (x / width) * 100;
+                // Calculate lightness (100-0%) from top to bottom
+                const lightness = 100 - (y / height) * 100;
+
+                // Clamp values
+                const clampedSaturation = Math.min(100, Math.max(0, saturation));
+                const clampedLightness = Math.min(100, Math.max(0, lightness));
+
+                const [r, g, b] = hslToRgb(currentHue, clampedSaturation, clampedLightness);
+
+                if (isNaN(r) || isNaN(g) || isNaN(b)) {
+                    return;
+                }
+
+                const color = rgbToHex(r, g, b);
+
+                $('#color-picker-handle').css({
+                    'left': `${(x / width) * 100}%`,
+                    'top': `${(y / height) * 100}%`
+                });
+
+                updateColorPreview(color);
+            }
+
+            function handleHueMouseMove(e) {
+                if (!hueSliderElement) return;
+                const rect = hueSliderElement.getBoundingClientRect();
+                const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+                const width = rect.width || 1;
+
+                if (width === 0) return;
+
+                currentHue = Math.min(360, Math.max(0, (x / width) * 360));
+                $('#hue-handle').css('left', `${(x / width) * 100}%`);
+                updateGradient();
+
+                // Update color based on current gradient position
+                const gradientEl = $('#color-gradient')[0];
+                if (!gradientEl) return;
+
+                const gradientRect = gradientEl.getBoundingClientRect();
+                const gradientWidth = gradientRect.width || 1;
+                const gradientHeight = gradientRect.height || 1;
+
+                if (gradientWidth === 0 || gradientHeight === 0) return;
+
+                let handleLeft = parseFloat($('#color-picker-handle').css('left'));
+                let handleTop = parseFloat($('#color-picker-handle').css('top'));
+
+                if (isNaN(handleLeft)) handleLeft = 50;
+                if (isNaN(handleTop)) handleTop = 50;
+
+                const handleX = (handleLeft / 100) * gradientWidth;
+                const handleY = (handleTop / 100) * gradientHeight;
+
+                // Calculate saturation (0-100%) from left to right
+                const saturation = (handleX / gradientWidth) * 100;
+                // Calculate lightness (100-0%) from top to bottom
+                const lightness = 100 - (handleY / gradientHeight) * 100;
+
+                // Clamp values
+                const clampedSaturation = Math.min(100, Math.max(0, saturation));
+                const clampedLightness = Math.min(100, Math.max(0, lightness));
+
+                const [r, g, b] = hslToRgb(currentHue, clampedSaturation, clampedLightness);
+
+                if (isNaN(r) || isNaN(g) || isNaN(b)) {
+                    return;
+                }
+
+                const color = rgbToHex(r, g, b);
+                updateColorPreview(color);
+            }
+
+            $('#color-gradient').on('mousedown', function (e) {
+                isDraggingGradient = true;
+                gradientElement = this;
+                handleColorGradientClick(e);
+                e.preventDefault();
+            });
+
+            $('#hue-slider').on('mousedown', function (e) {
+                isDraggingHue = true;
+                hueSliderElement = this;
+                handleHueSliderClick(e);
+                e.preventDefault();
+            });
+
+            $(document).on('mousemove', function (e) {
+                if (isDraggingGradient && currentMode === 'custom' && gradientElement) {
+                    handleGradientMouseMove(e);
+                    e.preventDefault();
+                }
+                if (isDraggingHue && currentMode === 'custom' && hueSliderElement) {
+                    handleHueMouseMove(e);
+                    e.preventDefault();
+                }
+            });
+
+            $(document).on('mouseup', function () {
+                isDraggingGradient = false;
+                isDraggingHue = false;
+                gradientElement = null;
+                hueSliderElement = null;
+            });
+
+            // Save Button
+            $('#modal-label-save').on('click', function () {
+                const nama = $('#input-nama-label').val().trim();
+
+                if (!nama) {
+                    $('#input-nama-label').addClass('border-red-500').focus();
+                    setTimeout(() => {
+                        $('#input-nama-label').removeClass('border-red-500');
+                    }, 2000);
+                    return;
+                }
+
+                if (isEditing && editingRow) {
+                    // Update existing row
+                    const row = $(`.btn-edit[data-id="${editingRow.id}"]`).closest('tr');
+                    row.find('td:first').text(nama);
+                    row.find('i.ri-price-tag-fill').css('color', selectedColor);
+                    toastr.success('Label berhasil diubah');
+                } else {
+                    // Add new row (you can implement actual add logic here)
+                    toastr.success('Label berhasil ditambahkan');
+                }
+
+                closeModal();
+            });
+
+            // Button Hapus
+            $(document).on('click', '.btn-hapus', function () {
+                const id = $(this).data('id');
+                const row = $(this).closest('tr');
+                const nama = row.find('td:first').text();
+
+                Swal.fire({
+                    title: 'Hapus Label?',
+                    html: `<p>Apakah Anda yakin ingin menghapus label <strong>${nama}</strong>?</p>`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Hapus',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#6b7280'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        toastr.success('Label berhasil dihapus');
+                        // Remove row atau reload table
+                        $('#label-table').DataTable().row(row).remove().draw();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

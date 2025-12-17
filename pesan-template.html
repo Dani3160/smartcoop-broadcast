@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Template - Smartcoop Broadcast</title>
+
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF720D',
+                        'primary-dark': '#E6650B',
+                        'primary-light': '#FF8A3D',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed left-0 top-0 z-40 h-screen w-64 transition-transform -translate-x-full lg:translate-x-0 bg-white border-r border-gray-200">
+        <div class="h-full px-3 py-4 overflow-y-auto">
+            <!-- Logo -->
+            <div class="flex items-center mb-8 px-3 py-2">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <span class="text-white font-bold text-xl">S</span>
+                </div>
+                <span class="text-xl font-bold text-gray-800">Smartcoop</span>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="space-y-2">
+                <li>
+                    <a href="index.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-home-line text-xl mr-3"></i>
+                        <span>Beranda</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="label.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-price-tag-line text-xl mr-3"></i>
+                        <span>Label</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kontak.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-group-line text-xl mr-3"></i>
+                        <span>Kontak</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pesan-template.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg bg-primary text-white group">
+                        <i class="ri-message-3-line text-xl mr-3"></i>
+                        <span>Pesan Template</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-megaphone-line text-xl mr-3"></i>
+                        <span>Kampanye</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="laporan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-bar-chart-line text-xl mr-3"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pengaturan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-settings-3-line text-xl mr-3"></i>
+                        <span>Pengaturan</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Sidebar Card -->
+            <div class="mt-8 p-4 bg-primary rounded-lg text-white">
+                <h3 class="font-semibold mb-2">Panduan Broadcast</h3>
+                <p class="text-sm text-white/80 mb-3">Klik button dibawah untuk mempelajari Smartcoop Broadcast</p>
+                <button class="w-full py-2 bg-white text-primary rounded-lg font-medium hover:bg-gray-100 transition">
+                    Lihat Panduan
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-4 left-0 right-0 px-3">
+                <div class="flex items-center justify-center text-gray-500 text-sm">
+                    <i class="ri-customer-service-2-line mr-2"></i>
+                    <span>© 2025 All Rights Reserved</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-64">
+        <!-- Top Header -->
+        <header class="bg-white border-b border-gray-200 fixed top-0 right-0 left-0 lg:left-64 z-30">
+            <div class="px-4 py-3 flex items-center justify-between">
+                <!-- Left: Menu Toggle & Search -->
+                <div class="flex items-center space-x-4 flex-1">
+                    <button id="sidebar-toggle" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-menu-line text-xl"></i>
+                    </button>
+                    <div class="hidden md:flex items-center flex-1 max-w-md">
+                        <div class="relative w-full">
+                            <input type="text" placeholder="Search here..."
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <i
+                                class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Notifications & User -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-moon-line text-xl"></i>
+                    </button>
+
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button id="notification-toggle" class="p-2 rounded-lg hover:bg-gray-100 relative">
+                            <i class="ri-notification-3-line text-xl"></i>
+                            <span
+                                class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">12</span>
+                        </button>
+
+                        <!-- Notification Dropdown -->
+                        <div id="notification-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-96 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- Header -->
+                            <div class="p-4 border-b border-gray-100">
+                                <h3 class="text-lg font-bold text-gray-800">Notifikasi</h3>
+                            </div>
+
+                            <!-- Tabs -->
+                            <div class="px-4 pt-4 border-b border-gray-100 flex space-x-4">
+                                <button
+                                    class="notification-tab active px-4 py-2 text-sm font-medium text-gray-700 border-b-2 border-primary">
+                                    Inbox
+                                </button>
+                                <button class="notification-tab px-4 py-2 text-sm font-medium text-gray-500 relative">
+                                    Lainnya
+                                    <span
+                                        class="ml-2 px-2 py-0.5 bg-green-500 text-white text-xs rounded-full">9+</span>
+                                </button>
+                            </div>
+
+                            <!-- Notification List -->
+                            <div class="max-h-96 overflow-y-auto">
+                                <div id="notification-inbox" class="notification-content">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">2 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 3 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 3</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">3 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+
+                                <div id="notification-agen" class="notification-content hidden">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">30 menit yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Profile Dropdown -->
+                    <div class="relative pl-3 border-l border-gray-200">
+                        <button id="user-profile-toggle"
+                            class="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
+                            <div class="text-right hidden sm:block">
+                                <p class="text-sm font-medium text-gray-800">Nama Pengguna</p>
+                                <p class="text-xs text-gray-500">Super Admin</p>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold">
+                                <span class="text-sm">NP</span>
+                            </div>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="user-profile-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- User Info Section -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                                        <span>NP</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center space-x-2">
+                                            <p class="text-sm font-bold text-gray-800">Nama Pengguna</p>
+                                            <span
+                                                class="px-2 py-0.5 bg-green-500 text-white text-xs font-medium rounded-full">Super
+                                                Admin</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">developer@4visionmedia.com</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Subscription Section -->
+                            <div class="p-4 border-b border-gray-100 bg-gray-50">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-sm font-bold text-gray-800">Aktif Sampai</p>
+                                    <p class="text-sm font-medium text-gray-700">15 Februari 2030</p>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">Jangan lupa untuk memperbarui agar tetap dapat
+                                    menikmati
+                                    layanan kami.</p>
+                                <button
+                                    class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center space-x-2">
+                                    <i class="ri-rocket-line"></i>
+                                    <span>Perpanjang Langganan</span>
+                                </button>
+                            </div>
+
+                            <!-- Navigation Grid -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="grid grid-cols-3 gap-3">
+                                    <!-- Manage Kontak -->
+                                    <a href="kontak.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-group-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Manage Kontak</span>
+                                    </a>
+
+                                    <!-- Laporan -->
+                                    <a href="laporan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-bar-chart-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Laporan</span>
+                                    </a>
+
+                                    <!-- Pengaturan -->
+                                    <a href="pengaturan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-settings-3-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Pengaturan</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Logout -->
+                            <div class="p-4">
+                                <button id="logout-btn"
+                                    class="w-full flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+                                    <i class="ri-logout-box-line text-lg"></i>
+                                    <span class="text-sm font-medium">Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="p-6 pt-20">
+            <!-- Page Header -->
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Pesan Template</h1>
+                </div>
+                <a href="pesan-template-tambah.html"
+                    class="px-6 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors flex items-center space-x-2">
+                    <i class="ri-add-line"></i>
+                    <span>Buat Pesan Template</span>
+                </a>
+            </div>
+
+            <!-- Filter Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="flex-1 max-w-md">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Cari Nama Pesan</label>
+                        <div class="relative">
+                            <input type="text" id="search-keyword" placeholder="Cari nama pesan template"
+                                class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <i
+                                class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <!-- Table -->
+                <div class="overflow-x-auto">
+                    <table id="pesan-template-table" class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Nama</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Tanggal Dibuat</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Status</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pesan-template-tbody">
+                            <!-- Row 1 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pengumuman Rapat Anggota Tahunan</td>
+                                <td class="py-3 px-4">20 Desember 2025</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-circle-fill text-xs" style="color: #10b981;"></i>
+                                        <span class="text-sm text-green-600 font-medium">Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-pesan px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="1">
+                                            <span>Aksi</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-pause-circle-line text-yellow-600"></i>
+                                                <span>Non Aktifkan</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 2 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Informasi Pembagian SHU Tahunan</td>
+                                <td class="py-3 px-4">18 Desember 2025</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-circle-fill text-xs" style="color: #10b981;"></i>
+                                        <span class="text-sm text-green-600 font-medium">Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-pesan px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="2">
+                                            <span>Aksi</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-pause-circle-line text-yellow-600"></i>
+                                                <span>Non Aktifkan</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 3 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Undangan Rapat Pengurus Koperasi</td>
+                                <td class="py-3 px-4">15 Desember 2025</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-circle-fill text-xs" style="color: #ef4444;"></i>
+                                        <span class="text-sm text-red-600 font-medium">Tidak Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-pesan px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="3">
+                                            <span>Aksi</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-pause-circle-line text-yellow-600"></i>
+                                                <span>Non Aktifkan</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 4 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pengumuman Program Simpan Pinjam Baru</td>
+                                <td class="py-3 px-4">12 Desember 2025</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-circle-fill text-xs" style="color: #10b981;"></i>
+                                        <span class="text-sm text-green-600 font-medium">Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-pesan px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="4">
+                                            <span>Aksi</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-pause-circle-line text-yellow-600"></i>
+                                                <span>Non Aktifkan</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 5 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pengingat Pembayaran Simpanan Wajib</td>
+                                <td class="py-3 px-4">10 Desember 2025</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-circle-fill text-xs" style="color: #10b981;"></i>
+                                        <span class="text-sm text-green-600 font-medium">Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-pesan px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="5">
+                                            <span>Aksi</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-pause-circle-line text-yellow-600"></i>
+                                                <span>Non Aktifkan</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 6 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Informasi Promosi Produk Koperasi</td>
+                                <td class="py-3 px-4">8 Desember 2025</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-circle-fill text-xs" style="color: #ef4444;"></i>
+                                        <span class="text-sm text-red-600 font-medium">Tidak Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-pesan px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="6">
+                                            <span>Aksi</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-pause-circle-line text-yellow-600"></i>
+                                                <span>Non Aktifkan</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 7 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pemberitahuan Jadwal Rapat Rutin</td>
+                                <td class="py-3 px-4">5 Desember 2025</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-circle-fill text-xs" style="color: #10b981;"></i>
+                                        <span class="text-sm text-green-600 font-medium">Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-pesan px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="7">
+                                            <span>Aksi</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-pause-circle-line text-yellow-600"></i>
+                                                <span>Non Aktifkan</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 8 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pengumuman Bunga Simpanan Berjangka</td>
+                                <td class="py-3 px-4">3 Desember 2025</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-circle-fill text-xs" style="color: #10b981;"></i>
+                                        <span class="text-sm text-green-600 font-medium">Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-pesan px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="8">
+                                            <span>Aksi</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-pause-circle-line text-yellow-600"></i>
+                                                <span>Non Aktifkan</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 9 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pemberitahuan Pelunasan Pinjaman</td>
+                                <td class="py-3 px-4">1 Desember 2025</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-circle-fill text-xs" style="color: #ef4444;"></i>
+                                        <span class="text-sm text-red-600 font-medium">Tidak Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-pesan px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="9">
+                                            <span>Aksi</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-pause-circle-line text-yellow-600"></i>
+                                                <span>Non Aktifkan</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 10 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Informasi Program Pelatihan Anggota</td>
+                                <td class="py-3 px-4">28 November 2025</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-circle-fill text-xs" style="color: #10b981;"></i>
+                                        <span class="text-sm text-green-600 font-medium">Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-pesan px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="10">
+                                            <span>Aksi</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-pause-circle-line text-yellow-600"></i>
+                                                <span>Non Aktifkan</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+                    <div class="text-sm text-gray-600">
+                        Menampilkan <span class="font-medium">1</span> sampai <span class="font-medium">10</span> dari
+                        <span class="font-medium">10</span> pesan template
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button
+                            class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
+                            <i class="ri-arrow-left-s-line"></i>
+                        </button>
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg font-medium">1</button>
+                        <button
+                            class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Detail Pesan Template -->
+    <div id="modal-detail-pesan"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-visible flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
+                <h3 class="text-xl font-bold text-gray-800">Detail Pesan Template</h3>
+                <button id="modal-detail-close" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+                <!-- Nama Pesan Template -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-500 mb-2">Nama Pesan Template</label>
+                    <p id="detail-nama-pesan" class="text-base font-semibold text-gray-800">Pengumuman Rapat Anggota
+                        Tahunan</p>
+                </div>
+
+                <!-- Status -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-500 mb-2">Status</label>
+                    <div class="flex items-center space-x-2">
+                        Aktif
+                    </div>
+                </div>
+
+                <!-- Preview Pesan -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-500 mb-3">Preview Pesan</label>
+                    <div
+                        class="bg-green-50 border-2 border-green-400 rounded-xl p-6 min-h-[200px] flex flex-col justify-end">
+                        <!-- WhatsApp-like Chat Bubble -->
+                        <div class="flex justify-end">
+                            <div class="max-w-[75%]">
+                                <div class="bg-green-500 text-white rounded-lg rounded-tr-none p-3 shadow-sm relative">
+                                    <p id="detail-preview-pesan"
+                                        class="text-sm whitespace-pre-wrap break-words leading-relaxed">
+                                        Ini hanya contoh pesan template.
+                                    </p>
+                                </div>
+                                <div class="flex items-center justify-end mt-1 space-x-1 px-1">
+                                    <span class="text-xs text-gray-500">12:30</span>
+                                    <i class="ri-check-double-line text-xs text-blue-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- Pesan Template Page Specific JS -->
+    <script>
+        $(document).ready(function () {
+            // Aksi Pesan Dropdown
+            $(document).on('click', '.btn-aksi-pesan', function (e) {
+                e.stopPropagation();
+                const dropdown = $(this).siblings('.dropdown-aksi');
+                $('.dropdown-aksi').not(dropdown).addClass('hidden');
+                dropdown.toggleClass('hidden');
+            });
+
+            // Close dropdown when clicking outside
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.btn-aksi-pesan, .dropdown-aksi').length) {
+                    $('.dropdown-aksi').addClass('hidden');
+                }
+            });
+
+            // Detail - Open Modal
+            $(document).on('click', '.dropdown-aksi button:first', function () {
+                const row = $(this).closest('tr');
+                const nama = row.find('td:first-child').text().trim();
+                const statusElement = row.find('td:nth-child(3) span');
+                const status = statusElement.text().trim();
+                const isAktif = statusElement.hasClass('text-green-600');
+
+                openModalDetail(nama, isAktif);
+            });
+
+            // Non Aktifkan
+            $(document).on('click', '.dropdown-aksi button:nth-child(2)', function () {
+                const row = $(this).closest('tr');
+                const nama = row.find('td:first-child').text();
+                const id = row.find('.btn-aksi-pesan').data('id');
+                const statusElement = row.find('td:nth-child(3)');
+                const isActive = statusElement.find('.text-green-600').length > 0;
+
+                if (!isActive) {
+                    toastr.warning('Pesan template sudah tidak aktif');
+                    return;
+                }
+
+                Swal.fire({
+                    title: 'Non Aktifkan Pesan Template?',
+                    html: `<p>Apakah Anda yakin ingin menonaktifkan pesan template <strong>${nama}</strong>?</p>`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Non Aktifkan',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#f59e0b',
+                    cancelButtonColor: '#6b7280'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Update status
+                        statusElement.html(`
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-circle-fill text-xs" style="color: #ef4444;"></i>
+                                <span class="text-sm text-red-600 font-medium">Tidak Aktif</span>
+                            </div>
+                        `);
+                        toastr.success('Pesan template berhasil dinonaktifkan');
+                    }
+                });
+            });
+
+            // Edit - Redirect
+            $(document).on('click', '.dropdown-aksi button:nth-child(3)', function () {
+                const id = $(this).closest('tr').find('.btn-aksi-pesan').data('id');
+                window.location.href = `pesan-template-edit.html?id=${id}`;
+            });
+
+            // Hapus
+            $(document).on('click', '.dropdown-aksi button:last', function () {
+                const row = $(this).closest('tr');
+                const nama = row.find('td:first-child').text();
+                const id = row.find('.btn-aksi-pesan').data('id');
+
+                Swal.fire({
+                    title: 'Hapus Pesan Template?',
+                    html: `<p>Apakah Anda yakin ingin menghapus pesan template <strong>${nama}</strong>?</p>`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Hapus',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#6b7280'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        toastr.success('Pesan template berhasil dihapus');
+                        row.fadeOut(300, function () {
+                            $(this).remove();
+                        });
+                    }
+                });
+            });
+
+            // Search Filter
+            $('#search-keyword').on('keyup', function () {
+                const keyword = $(this).val().toLowerCase();
+                $('#pesan-template-tbody tr').each(function () {
+                    const nama = $(this).find('td:first-child').text().toLowerCase();
+                    if (nama.includes(keyword)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+            // Modal Detail Functions
+            function openModalDetail(nama, isAktif) {
+                $('#modal-detail-pesan').removeClass('hidden');
+
+                // Update nama pesan template
+                $('#detail-nama-pesan').text(nama);
+
+                // Update status
+                if (isAktif) {
+                    $('#detail-status').text('Aktif').removeClass('text-red-600').addClass('text-green-600');
+                    $('#detail-status-dot').removeClass('bg-red-500').addClass('bg-green-500');
+                } else {
+                    $('#detail-status').text('Tidak Aktif').removeClass('text-green-600').addClass('text-red-600');
+                    $('#detail-status-dot').removeClass('bg-green-500').addClass('bg-red-500');
+                }
+
+                // Update preview pesan (dummy data)
+                const dummyMessages = [
+                    'Halo {nama}, terima kasih telah menggunakan layanan kami. Kami siap membantu Anda kapan saja.',
+                    'Selamat datang di koperasi kami, {nama}! Kami berkomitmen memberikan pelayanan terbaik untuk Anda.',
+                    'Halo {nama}, ini adalah pesan template untuk memberitahu informasi penting terkait layanan koperasi.',
+                    'Terima kasih {nama} atas kepercayaan Anda. Kami akan terus memberikan pelayanan yang terbaik.',
+                    'Halo {nama}, jangan lupa untuk melakukan simpanan bulanan Anda. Terima kasih.'
+                ];
+                const randomMessage = dummyMessages[Math.floor(Math.random() * dummyMessages.length)];
+                $('#detail-preview-pesan').text(randomMessage);
+            }
+
+            function closeModalDetail() {
+                $('#modal-detail-pesan').addClass('hidden');
+            }
+
+            // Close Modal
+            $('#modal-detail-close').on('click', closeModalDetail);
+            $('#modal-detail-pesan').on('click', function (e) {
+                if ($(e.target).attr('id') === 'modal-detail-pesan') {
+                    closeModalDetail();
+                }
+            });
+
+            // Modal Detail Functions
+            function openModalDetail(nama, status) {
+                $('#modal-detail-pesan').removeClass('hidden');
+
+                // Update nama pesan (bisa ditambahkan di header atau section tertentu jika diperlukan)
+                // Update status
+                $('#detail-status').text(status);
+                if (status === 'Aktif') {
+                    $('#detail-status').removeClass('text-red-600').addClass('text-green-600');
+                } else {
+                    $('#detail-status').removeClass('text-green-600').addClass('text-red-600');
+                }
+
+                // Update tanggal (bisa diambil dari data row jika ada)
+                const today = new Date();
+                const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                $('#detail-tanggal').text(today.toLocaleDateString('id-ID', options));
+            }
+
+            function closeModalDetail() {
+                $('#modal-detail-pesan').addClass('hidden');
+            }
+
+            // Close Modal
+            $('#modal-detail-close').on('click', closeModalDetail);
+            $('#modal-detail-pesan').on('click', function (e) {
+                if ($(e.target).attr('id') === 'modal-detail-pesan') {
+                    closeModalDetail();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Pesan Template - Smartcoop Broadcast</title>
+
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF720D',
+                        'primary-dark': '#E6650B',
+                        'primary-light': '#FF8A3D',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed left-0 top-0 z-40 h-screen w-64 transition-transform -translate-x-full lg:translate-x-0 bg-white border-r border-gray-200">
+        <div class="h-full px-3 py-4 overflow-y-auto">
+            <!-- Logo -->
+            <div class="flex items-center mb-8 px-3 py-2">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <span class="text-white font-bold text-xl">S</span>
+                </div>
+                <span class="text-xl font-bold text-gray-800">Smartcoop</span>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="space-y-2">
+                <li>
+                    <a href="index.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-home-line text-xl mr-3"></i>
+                        <span>Beranda</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="label.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-price-tag-line text-xl mr-3"></i>
+                        <span>Label</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kontak.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-group-line text-xl mr-3"></i>
+                        <span>Kontak</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pesan-template.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg bg-primary text-white group">
+                        <i class="ri-message-3-line text-xl mr-3"></i>
+                        <span>Pesan Template</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-megaphone-line text-xl mr-3"></i>
+                        <span>Kampanye</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="laporan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-bar-chart-line text-xl mr-3"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pengaturan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-settings-3-line text-xl mr-3"></i>
+                        <span>Pengaturan</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Sidebar Card -->
+            <div class="mt-8 p-4 bg-primary rounded-lg text-white">
+                <h3 class="font-semibold mb-2">Panduan Broadcast</h3>
+                <p class="text-sm text-white/80 mb-3">Klik button dibawah untuk mempelajari Smartcoop Broadcast</p>
+                <button class="w-full py-2 bg-white text-primary rounded-lg font-medium hover:bg-gray-100 transition">
+                    Lihat Panduan
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-4 left-0 right-0 px-3">
+                <div class="flex items-center justify-center text-gray-500 text-sm">
+                    <i class="ri-customer-service-2-line mr-2"></i>
+                    <span>© 2025 All Rights Reserved</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-64">
+        <!-- Top Header -->
+        <header class="bg-white border-b border-gray-200 fixed top-0 right-0 left-0 lg:left-64 z-30">
+            <div class="px-4 py-3 flex items-center justify-between">
+                <!-- Left: Menu Toggle & Search -->
+                <div class="flex items-center space-x-4 flex-1">
+                    <button id="sidebar-toggle" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-menu-line text-xl"></i>
+                    </button>
+                    <div class="hidden md:flex items-center flex-1 max-w-md">
+                        <div class="relative w-full">
+                            <input type="text" placeholder="Search here..."
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <i
+                                class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Notifications & User -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-moon-line text-xl"></i>
+                    </button>
+
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button id="notification-toggle" class="p-2 rounded-lg hover:bg-gray-100 relative">
+                            <i class="ri-notification-3-line text-xl"></i>
+                            <span
+                                class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">12</span>
+                        </button>
+
+                        <!-- Notification Dropdown -->
+                        <div id="notification-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-96 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- Header -->
+                            <div class="p-4 border-b border-gray-100">
+                                <h3 class="text-lg font-bold text-gray-800">Notifikasi</h3>
+                            </div>
+
+                            <!-- Tabs -->
+                            <div class="px-4 pt-4 border-b border-gray-100 flex space-x-4">
+                                <button
+                                    class="notification-tab active px-4 py-2 text-sm font-medium text-gray-700 border-b-2 border-primary">
+                                    Inbox
+                                </button>
+                                <button class="notification-tab px-4 py-2 text-sm font-medium text-gray-500 relative">
+                                    Lainnya
+                                    <span
+                                        class="ml-2 px-2 py-0.5 bg-green-500 text-white text-xs rounded-full">9+</span>
+                                </button>
+                            </div>
+
+                            <!-- Notification List -->
+                            <div class="max-h-96 overflow-y-auto">
+                                <div id="notification-inbox" class="notification-content">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">2 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 3 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 3</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">3 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+
+                                <div id="notification-agen" class="notification-content hidden">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">30 menit yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Profile Dropdown -->
+                    <div class="relative pl-3 border-l border-gray-200">
+                        <button id="user-profile-toggle"
+                            class="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
+                            <div class="text-right hidden sm:block">
+                                <p class="text-sm font-medium text-gray-800">Nama Pengguna</p>
+                                <p class="text-xs text-gray-500">Super Admin</p>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold">
+                                <span class="text-sm">NP</span>
+                            </div>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="user-profile-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- User Info Section -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                                        <span>NP</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center space-x-2">
+                                            <p class="text-sm font-bold text-gray-800">Nama Pengguna</p>
+                                            <span
+                                                class="px-2 py-0.5 bg-green-500 text-white text-xs font-medium rounded-full">Super
+                                                Admin</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">developer@4visionmedia.com</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Subscription Section -->
+                            <div class="p-4 border-b border-gray-100 bg-gray-50">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-sm font-bold text-gray-800">Aktif Sampai</p>
+                                    <p class="text-sm font-medium text-gray-700">15 Februari 2030</p>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">Jangan lupa untuk memperbarui agar tetap dapat
+                                    menikmati
+                                    layanan kami.</p>
+                                <button
+                                    class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center space-x-2">
+                                    <i class="ri-rocket-line"></i>
+                                    <span>Perpanjang Langganan</span>
+                                </button>
+                            </div>
+
+                            <!-- Navigation Grid -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="grid grid-cols-3 gap-3">
+                                    <!-- Manage Kontak -->
+                                    <a href="kontak.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-group-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Manage Kontak</span>
+                                    </a>
+
+                                    <!-- Laporan -->
+                                    <a href="laporan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-bar-chart-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Laporan</span>
+                                    </a>
+
+                                    <!-- Pengaturan -->
+                                    <a href="pengaturan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-settings-3-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Pengaturan</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Logout -->
+                            <div class="p-4">
+                                <button id="logout-btn"
+                                    class="w-full flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+                                    <i class="ri-logout-box-line text-lg"></i>
+                                    <span class="text-sm font-medium">Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="p-6 pt-20">
+            <!-- Page Header -->
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Tambah Pesan Template</h1>
+            </div>
+
+            <!-- Form and Preview -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Left: Form -->
+                <div class="space-y-6">
+                    <!-- Form Card -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <form id="form-pesan-template">
+                            <!-- Nama Pesan -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nama Pesan <span
+                                        class="text-red-500">*</span></label>
+                                <input type="text" id="input-nama-pesan" required
+                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="Masukkan nama pesan template">
+                            </div>
+
+                            <!-- Teks Pesan -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <label class="block text-sm font-medium text-gray-700">Teks Pesan <span
+                                            class="text-red-500">*</span></label>
+                                    <button type="button" id="btn-tambah-spintax"
+                                        class="text-sm text-primary hover:text-primary-dark font-medium flex items-center space-x-1">
+                                        <i class="ri-add-line"></i>
+                                        <span>Spintax</span>
+                                    </button>
+                                </div>
+                                <textarea id="input-teks-pesan" rows="8" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                                    placeholder="{nama}"></textarea>
+                            </div>
+
+                            <!-- Tips Penulisan -->
+                            <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                                <p class="text-sm font-medium text-gray-700 mb-2">Tips penulisan:</p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Gunakan <span class="font-semibold">*pesan*</span> untuk tulisan tebal</li>
+                                    <li>• Gunakan <span class="italic">_pesan_</span> untuk tulisan miring</li>
+                                    <li>• Gunakan <span class="line-through">-pesan-</span> untuk tulisan coret</li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right: Preview -->
+                <div class="lg:sticky lg:top-20">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Preview Pesan</h3>
+
+                        <!-- Preview Container -->
+                        <div
+                            class="bg-green-50 border-2 border-green-400 rounded-xl p-6 min-h-[400px] flex flex-col justify-end">
+                            <!-- WhatsApp-like Chat Bubble -->
+                            <div class="flex justify-end">
+                                <div class="max-w-[75%]">
+                                    <div
+                                        class="bg-green-500 text-white rounded-lg rounded-tr-none p-3 shadow-sm relative">
+                                        <p id="preview-teks-pesan"
+                                            class="text-sm whitespace-pre-wrap break-words leading-relaxed">
+                                            {nama}
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center justify-end mt-1 space-x-1 px-1">
+                                        <span class="text-xs text-gray-500">12:30</span>
+                                        <i class="ri-check-double-line text-xs text-blue-500"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-6 flex items-center justify-end space-x-3">
+                <a href="pesan-template.html"
+                    class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    Batal
+                </a>
+                <button id="btn-buat-broadcast"
+                    class="px-6 py-2.5 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors">
+                    Buat Broadcast
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Tambah Spintax -->
+    <div id="modal-tambah-spintax"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-visible flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
+                <h3 class="text-xl font-bold text-gray-800">Tambahkan Spintax</h3>
+                <button id="modal-spintax-close" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+                <!-- Search -->
+                <div class="mb-6">
+                    <div class="relative">
+                        <input type="text" id="search-spintax" placeholder="Cari Spintax"
+                            class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <i class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Spintax Standar Section -->
+                <div class="mb-4">
+                    <button id="toggle-spintax-standar"
+                        class="w-full flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <span class="font-semibold text-gray-800">Spintax Standar</span>
+                        <i id="icon-spintax-standar" class="ri-arrow-up-s-line text-gray-600"></i>
+                    </button>
+
+                    <!-- Spintax List -->
+                    <div id="spintax-list" class="mt-2 space-y-1">
+                        <!-- Spintax Item -->
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Nama</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{nama}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Nama Belakang</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{nama_belakang}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Nama Panggilan</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{nama_panggilan}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Nomor Telepon</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{nomor}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Email</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{email}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Tanggal Lahir</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{tanggal_lahir}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Bulan Lahir</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{bulan_lahir}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Tahun Lahir</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{tahun_lahir}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Nama Perusahaan</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{perusahaan}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Posisi Perusahaan</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{posisi_perusahaan}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Jabatan</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{jabatan}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Negara</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{negara}">
+                                + Tambahkan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- Pesan Template Tambah Page Specific JS -->
+    <script>
+        $(document).ready(function () {
+            // Real-time Preview Update
+            $('#input-teks-pesan').on('input', function () {
+                updatePreview();
+            });
+
+            // Format text for preview (bold, italic, strikethrough)
+            function formatText(text) {
+                // Convert *text* to bold
+                text = text.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
+                // Convert _text_ to italic
+                text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
+                // Convert -text- to strikethrough
+                text = text.replace(/-([^-]+)-/g, '<del>$1</del>');
+                return text;
+            }
+
+            // Update Preview
+            function updatePreview() {
+                const teksPesan = $('#input-teks-pesan').val() || '{nama}';
+                const formattedText = formatText(teksPesan);
+                $('#preview-teks-pesan').html(formattedText);
+            }
+
+            // Toggle Jeda Random
+            $('#toggle-jeda-random').on('change', function () {
+                const isChecked = $(this).is(':checked');
+                const container = $('#container-jeda-waktu');
+                const input = $('#input-jeda-waktu');
+
+                if (isChecked) {
+                    container.slideDown(200);
+                    input.prop('disabled', false);
+                } else {
+                    container.slideUp(200);
+                    input.prop('disabled', true);
+                    input.val('');
+                }
+            });
+
+            // Modal Spintax Functions
+            function openModalSpintax() {
+                $('#modal-tambah-spintax').removeClass('hidden');
+                $('#search-spintax').val('');
+                filterSpintax('');
+            }
+
+            function closeModalSpintax() {
+                $('#modal-tambah-spintax').addClass('hidden');
+                $('#search-spintax').val('');
+            }
+
+            // Tambah Spintax - Open Modal
+            $('#btn-tambah-spintax').on('click', function () {
+                openModalSpintax();
+            });
+
+            // Close Modal
+            $('#modal-spintax-close').on('click', closeModalSpintax);
+            $('#modal-tambah-spintax').on('click', function (e) {
+                if ($(e.target).attr('id') === 'modal-tambah-spintax') {
+                    closeModalSpintax();
+                }
+            });
+
+            // Toggle Spintax Standar Section
+            let spintaxStandarExpanded = true;
+            $('#toggle-spintax-standar').on('click', function () {
+                spintaxStandarExpanded = !spintaxStandarExpanded;
+                if (spintaxStandarExpanded) {
+                    $('#spintax-list').slideDown(200);
+                    $('#icon-spintax-standar').removeClass('ri-arrow-down-s-line').addClass('ri-arrow-up-s-line');
+                } else {
+                    $('#spintax-list').slideUp(200);
+                    $('#icon-spintax-standar').removeClass('ri-arrow-up-s-line').addClass('ri-arrow-down-s-line');
+                }
+            });
+
+            // Search Spintax
+            $('#search-spintax').on('keyup', function () {
+                const keyword = $(this).val().toLowerCase();
+                filterSpintax(keyword);
+            });
+
+            // Filter Spintax
+            function filterSpintax(keyword) {
+                $('.spintax-item').each(function () {
+                    const text = $(this).find('span').text().toLowerCase();
+                    if (text.includes(keyword)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+
+            // Tambah Spintax ke Textarea
+            $(document).on('click', '.btn-tambah-spintax', function () {
+                const spintax = $(this).data('spintax');
+                const textarea = $('#input-teks-pesan');
+                const cursorPos = textarea[0].selectionStart;
+                const textBefore = textarea.val().substring(0, cursorPos);
+                const textAfter = textarea.val().substring(cursorPos);
+
+                textarea.val(textBefore + spintax + textAfter);
+                textarea.focus();
+
+                // Set cursor position after inserted spintax
+                const newCursorPos = cursorPos + spintax.length;
+                textarea[0].setSelectionRange(newCursorPos, newCursorPos);
+
+                updatePreview();
+                closeModalSpintax();
+            });
+
+            // Buat Broadcast
+            $('#btn-buat-broadcast').on('click', function () {
+                const namaPesan = $('#input-nama-pesan').val().trim();
+                const teksPesan = $('#input-teks-pesan').val().trim();
+
+                if (!namaPesan || !teksPesan) {
+                    toastr.warning('Nama Pesan dan Teks Pesan wajib diisi');
+                    return;
+                }
+
+                // Simulate save
+                toastr.info('Menyimpan pesan template...');
+
+                setTimeout(() => {
+                    toastr.success('Pesan template berhasil dibuat');
+                    setTimeout(() => {
+                        window.location.href = 'pesan-template.html';
+                    }, 1000);
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+
+</html>

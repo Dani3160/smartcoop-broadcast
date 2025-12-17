@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Components - Smartcoop Broadcast</title>
+
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF720D',
+                        'primary-dark': '#E6650B',
+                        'primary-light': '#FF8A3D',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed left-0 top-0 z-40 h-screen w-64 transition-transform -translate-x-full lg:translate-x-0 bg-white border-r border-gray-200">
+        <div class="h-full px-3 py-4 overflow-y-auto">
+            <!-- Logo -->
+            <div class="flex items-center mb-8 px-3 py-2">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <span class="text-white font-bold text-xl">S</span>
+                </div>
+                <span class="text-xl font-bold text-gray-800">Smartcoop</span>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="space-y-2">
+                <li>
+                    <a href="index.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-home-line text-xl mr-3"></i>
+                        <span>Beranda</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-price-tag-line text-xl mr-3"></i>
+                        <span>Label</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-group-line text-xl mr-3"></i>
+                        <span>Kontak</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-message-3-line text-xl mr-3"></i>
+                        <span>Pesan Template</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-megaphone-line text-xl mr-3"></i>
+                        <span>Kampanye</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-bar-chart-line text-xl mr-3"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-settings-3-line text-xl mr-3"></i>
+                        <span>Pengaturan</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Sidebar Card -->
+            <div class="mt-8 p-4 bg-primary rounded-lg text-white">
+                <h3 class="font-semibold mb-2">Panduan Broadcast</h3>
+                <p class="text-sm text-white/80 mb-3">Klik button dibawah untuk mempelajari Smartcoop Broadcast</p>
+                <button class="w-full py-2 bg-white text-primary rounded-lg font-medium hover:bg-gray-100 transition">
+                    Lihat Panduan
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-4 left-0 right-0 px-3">
+                <div class="flex items-center justify-center text-gray-500 text-sm">
+                    <i class="ri-customer-service-2-line mr-2"></i>
+                    <span>© 2025 All Rights Reserved</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-64">
+        <!-- Top Header -->
+        <header class="bg-white border-b border-gray-200 fixed top-0 right-0 left-0 lg:left-64 z-30">
+            <div class="px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center space-x-4 flex-1">
+                    <button id="sidebar-toggle" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-menu-line text-xl"></i>
+                    </button>
+                    <div class="hidden md:flex items-center flex-1 max-w-md">
+                        <div class="relative w-full">
+                            <input type="text" placeholder="Search here..."
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <i
+                                class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+
+                    <!-- Dark Mode Toggle -->
+                    <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-moon-line text-xl"></i>
+                    </button>
+
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button id="notification-toggle" class="p-2 rounded-lg hover:bg-gray-100 relative">
+                            <i class="ri-notification-3-line text-xl"></i>
+                            <span
+                                class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">12</span>
+                        </button>
+
+                        <!-- Notification Dropdown -->
+                        <div id="notification-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-96 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- Header -->
+                            <div class="p-4 border-b border-gray-100">
+                                <h3 class="text-lg font-bold text-gray-800">Notifikasi</h3>
+                            </div>
+
+                            <!-- Tabs -->
+                            <div class="px-4 pt-4 border-b border-gray-100 flex space-x-4">
+                                <button
+                                    class="notification-tab active px-4 py-2 text-sm font-medium text-gray-700 border-b-2 border-primary">
+                                    Inbox
+                                </button>
+                                <button class="notification-tab px-4 py-2 text-sm font-medium text-gray-500 relative">
+                                    Lainnya
+                                    <span
+                                        class="ml-2 px-2 py-0.5 bg-green-500 text-white text-xs rounded-full">9+</span>
+                                </button>
+                            </div>
+
+                            <!-- Notification List -->
+                            <div class="max-h-96 overflow-y-auto">
+                                <div id="notification-inbox" class="notification-content">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">2 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 3 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 3</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">3 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+
+                                <div id="notification-agen" class="notification-content hidden">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">30 menit yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Profile Dropdown -->
+                    <div class="relative pl-3 border-l border-gray-200">
+                        <button id="user-profile-toggle"
+                            class="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
+                            <div class="text-right hidden sm:block">
+                                <p class="text-sm font-medium text-gray-800">Nama Pengguna</p>
+                                <p class="text-xs text-gray-500">Super Admin</p>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold">
+                                <span class="text-sm">NP</span>
+                            </div>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="user-profile-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- User Info Section -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                                        <span>NP</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center space-x-2">
+                                            <p class="text-sm font-bold text-gray-800">Nama Pengguna</p>
+                                            <span
+                                                class="px-2 py-0.5 bg-green-500 text-white text-xs font-medium rounded-full">Super
+                                                Admin</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">developer@4visionmedia.com</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Subscription Section -->
+                            <div class="p-4 border-b border-gray-100 bg-gray-50">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-sm font-bold text-gray-800">Aktif Sampai</p>
+                                    <p class="text-sm font-medium text-gray-700">15 Februari 2030</p>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">Jangan lupa untuk memperbarui agar tetap dapat
+                                    menikmati
+                                    layanan kami.</p>
+                                <button
+                                    class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center space-x-2">
+                                    <i class="ri-rocket-line"></i>
+                                    <span>Perpanjang Langganan</span>
+                                </button>
+                            </div>
+
+                            <!-- Navigation Grid -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="grid grid-cols-3 gap-3">
+                                    <!-- Manage Kontak -->
+                                    <a href="kontak.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-group-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Manage Kontak</span>
+                                    </a>
+
+                                    <!-- Laporan -->
+                                    <a href="laporan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-bar-chart-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Laporan</span>
+                                    </a>
+
+                                    <!-- Pengaturan -->
+                                    <a href="pengaturan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-settings-3-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Pengaturan</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Logout -->
+                            <div class="p-4">
+                                <button id="logout-btn"
+                                    class="w-full flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+                                    <i class="ri-logout-box-line text-lg"></i>
+                                    <span class="text-sm font-medium">Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="p-6 pt-20">
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">UI Components</h1>
+                <p class="text-gray-600">Beautiful and customizable UI components</p>
+            </div>
+
+            <!-- Buttons Section -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Buttons</h2>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-700 mb-3">Primary Buttons</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <button
+                                class="btn-primary px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition transform hover:scale-105">
+                                Primary
+                            </button>
+                            <button
+                                class="btn-primary px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition transform hover:scale-105 shadow-lg">
+                                With Shadow
+                            </button>
+                            <button
+                                class="btn-primary px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition transform hover:scale-105 opacity-50 cursor-not-allowed"
+                                disabled>
+                                Disabled
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-700 mb-3">Secondary Buttons</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <button
+                                class="px-6 py-2 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition transform hover:scale-105">
+                                Secondary
+                            </button>
+                            <button
+                                class="px-6 py-2 border-2 border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition transform hover:scale-105">
+                                Outline
+                            </button>
+                            <button
+                                class="px-6 py-2 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition transform hover:scale-105">
+                                Success
+                            </button>
+                            <button
+                                class="px-6 py-2 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition transform hover:scale-105">
+                                Danger
+                            </button>
+                            <button
+                                class="px-6 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition transform hover:scale-105">
+                                Info
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-700 mb-3">Icon Buttons</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <button
+                                class="px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition transform hover:scale-105 flex items-center">
+                                <i class="ri-save-line mr-2"></i> Save
+                            </button>
+                            <button
+                                class="px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition transform hover:scale-105 flex items-center">
+                                <i class="ri-download-line mr-2"></i> Download
+                            </button>
+                            <button
+                                class="w-10 h-10 bg-primary text-white rounded-full hover:bg-primary-dark transition transform hover:scale-110 flex items-center justify-center">
+                                <i class="ri-heart-line"></i>
+                            </button>
+                            <button
+                                class="w-10 h-10 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition transform hover:scale-110 flex items-center justify-center">
+                                <i class="ri-settings-3-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards Section -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Cards</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div
+                        class="bg-gradient-to-br from-primary to-primary-dark rounded-xl p-6 text-white transform hover:scale-105 transition shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="ri-user-line text-3xl"></i>
+                            <span class="text-sm bg-white/20 px-3 py-1 rounded-full">New</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Users</h3>
+                        <p class="text-3xl font-bold mb-1">1,234</p>
+                        <p class="text-sm opacity-90">+12% from last month</p>
+                    </div>
+                    <div
+                        class="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-primary transition transform hover:scale-105 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="ri-shopping-cart-line text-3xl text-primary"></i>
+                            <span class="text-sm bg-green-100 text-green-700 px-3 py-1 rounded-full">Active</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Orders</h3>
+                        <p class="text-3xl font-bold mb-1 text-gray-800">567</p>
+                        <p class="text-sm text-gray-600">+8% from last month</p>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl p-6 shadow-lg border border-gray-100 transform hover:scale-105 transition">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="ri-money-dollar-circle-line text-3xl text-green-500"></i>
+                            <span class="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full">Trending</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Revenue</h3>
+                        <p class="text-3xl font-bold mb-1 text-gray-800">$45.6k</p>
+                        <p class="text-sm text-gray-600">+23% from last month</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerts Section -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Alerts</h2>
+                <div class="space-y-3">
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg flex items-start">
+                        <i class="ri-information-line text-blue-500 text-xl mr-3 mt-0.5"></i>
+                        <div>
+                            <p class="font-medium text-blue-800">Info Alert</p>
+                            <p class="text-sm text-blue-700">This is an informational message.</p>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg flex items-start">
+                        <i class="ri-checkbox-circle-line text-green-500 text-xl mr-3 mt-0.5"></i>
+                        <div>
+                            <p class="font-medium text-green-800">Success Alert</p>
+                            <p class="text-sm text-green-700">Operation completed successfully.</p>
+                        </div>
+                    </div>
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg flex items-start">
+                        <i class="ri-alert-line text-yellow-500 text-xl mr-3 mt-0.5"></i>
+                        <div>
+                            <p class="font-medium text-yellow-800">Warning Alert</p>
+                            <p class="text-sm text-yellow-700">Please review your input.</p>
+                        </div>
+                    </div>
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg flex items-start">
+                        <i class="ri-error-warning-line text-red-500 text-xl mr-3 mt-0.5"></i>
+                        <div>
+                            <p class="font-medium text-red-800">Error Alert</p>
+                            <p class="text-sm text-red-700">Something went wrong.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Badges Section -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Badges</h2>
+                <div class="flex flex-wrap gap-3 items-center">
+                    <span class="px-3 py-1 bg-primary text-white rounded-full text-sm font-medium">Primary</span>
+                    <span class="px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-sm font-medium">Secondary</span>
+                    <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">Success</span>
+                    <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">Danger</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">Info</span>
+                    <span
+                        class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm font-medium">Warning</span>
+                    <span class="px-3 py-1 bg-primary text-white rounded-full text-sm font-medium relative">
+                        Notifications
+                        <span
+                            class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">5</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Progress Bars Section -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Progress Bars</h2>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-700">Progress 1</span>
+                            <span class="text-sm text-gray-600">75%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-primary h-3 rounded-full transition-all duration-500" style="width: 75%">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-700">Progress 2</span>
+                            <span class="text-sm text-gray-600">50%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-green-500 h-3 rounded-full transition-all duration-500" style="width: 50%">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-700">Progress 3</span>
+                            <span class="text-sm text-gray-600">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-primary to-primary-dark h-3 rounded-full transition-all duration-500"
+                                style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modals Demo -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Modals</h2>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="showModal('success')"
+                        class="px-6 py-2 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition">
+                        Success Modal
+                    </button>
+                    <button onclick="showModal('info')"
+                        class="px-6 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition">
+                        Info Modal
+                    </button>
+                    <button onclick="showModal('warning')"
+                        class="px-6 py-2 bg-yellow-500 text-white rounded-lg font-medium hover:bg-yellow-600 transition">
+                        Warning Modal
+                    </button>
+                    <button onclick="showModal('error')"
+                        class="px-6 py-2 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition">
+                        Error Modal
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        function showModal(type) {
+            const configs = {
+                success: { title: 'Success!', text: 'Operation completed successfully.', icon: 'success', color: '#10b981' },
+                info: { title: 'Information', text: 'This is an informational message.', icon: 'info', color: '#3b82f6' },
+                warning: { title: 'Warning!', text: 'Please review your input.', icon: 'warning', color: '#f59e0b' },
+                error: { title: 'Error!', text: 'Something went wrong.', icon: 'error', color: '#ef4444' }
+            };
+            const config = configs[type];
+            Swal.fire({
+                title: config.title,
+                text: config.text,
+                icon: config.icon,
+                confirmButtonColor: config.color,
+                confirmButtonText: 'OK'
+            });
+        }
+    </script>
+</body>
+
+</html>

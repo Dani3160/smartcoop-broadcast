@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak - Smartcoop Broadcast</title>
+
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Custom Styles for Select2 and Flatpickr -->
+    <style>
+        /* Select2 Custom Styling */
+        .select2-container--bootstrap-5 .select2-selection {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            min-height: 42px;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple {
+            padding: 0.5rem 0.75rem !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            margin-left: 0 !important;
+            list-style: none;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered li {
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__placeholder {
+            color: #9ca3af !important;
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            text-indent: 0 !important;
+            position: relative !important;
+            left: 0 !important;
+        }
+
+        /* More specific targeting for placeholder */
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__placeholder {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-search--inline {
+            margin-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-search--inline .select2-search__field {
+            margin-top: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice {
+            background-color: #FF720D;
+            border: none;
+            color: white;
+            border-radius: 0.375rem;
+            padding: 0.25rem 0.5rem;
+            margin: 0.125rem 0.5rem 0.125rem 0;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove {
+            color: white;
+            margin-right: 0.25rem;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove:hover {
+            color: #fef2f2;
+        }
+
+        .select2-container--bootstrap-5 .select2-dropdown {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            z-index: 9999 !important;
+        }
+
+        /* Fix Select2 dropdown in modals */
+        .select2-container--bootstrap-5.select2-container--open .select2-dropdown {
+            z-index: 10000 !important;
+        }
+
+        /* Ensure Select2 dropdown appears correctly in modals */
+        #modal-tambah-kontak .select2-container,
+        #modal-edit-kontak .select2-container {
+            z-index: 10001;
+        }
+
+        #modal-tambah-kontak .select2-dropdown,
+        #modal-edit-kontak .select2-dropdown {
+            z-index: 10002 !important;
+            position: absolute !important;
+        }
+
+        /* Fix overflow issue in modal - allow dropdown to overflow */
+        #modal-tambah-kontak>div,
+        #modal-edit-kontak>div {
+            overflow: visible !important;
+        }
+
+        /* But keep scrollable for modal body */
+        #modal-tambah-kontak .p-6,
+        #modal-edit-kontak .p-6 {
+            overflow-y: auto;
+            max-height: calc(90vh - 140px);
+        }
+
+        /* Ensure Select2 dropdown is positioned correctly and not clipped */
+        #modal-tambah-kontak .select2-dropdown,
+        #modal-edit-kontak .select2-dropdown {
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            width: 100% !important;
+            margin-top: 4px !important;
+        }
+
+        /* Prevent modal body from clipping dropdown */
+        #modal-tambah-kontak .p-6,
+        #modal-edit-kontak .p-6 {
+            position: relative;
+            overflow-y: auto;
+            overflow-x: visible;
+        }
+
+        /* Ensure Select2 results container is visible */
+        .select2-results {
+            overflow-y: auto;
+            max-height: 200px;
+        }
+
+        /* Flatpickr Custom Styling */
+        .flatpickr-input {
+            cursor: pointer;
+        }
+
+        .flatpickr-calendar {
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+        }
+
+        .flatpickr-day.selected,
+        .flatpickr-day.startRange,
+        .flatpickr-day.endRange {
+            background: #FF720D;
+            border-color: #FF720D;
+        }
+
+        .flatpickr-day.selected:hover,
+        .flatpickr-day.startRange:hover,
+        .flatpickr-day.endRange:hover {
+            background: #E6650B;
+            border-color: #E6650B;
+        }
+
+        .flatpickr-day.inRange {
+            background: #fff5ed;
+            border-color: #fff5ed;
+        }
+    </style>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF720D',
+                        'primary-dark': '#E6650B',
+                        'primary-light': '#FF8A3D',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed left-0 top-0 z-40 h-screen w-64 transition-transform -translate-x-full lg:translate-x-0 bg-white border-r border-gray-200">
+        <div class="h-full px-3 py-4 overflow-y-auto">
+            <!-- Logo -->
+            <div class="flex items-center mb-8 px-3 py-2">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <span class="text-white font-bold text-xl">S</span>
+                </div>
+                <span class="text-xl font-bold text-gray-800">Smartcoop</span>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="space-y-2">
+                <li>
+                    <a href="index.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-home-line text-xl mr-3"></i>
+                        <span>Beranda</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="label.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-price-tag-line text-xl mr-3"></i>
+                        <span>Label</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kontak.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg bg-primary text-white group">
+                        <i class="ri-group-line text-xl mr-3"></i>
+                        <span>Kontak</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pesan-template.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-message-3-line text-xl mr-3"></i>
+                        <span>Pesan Template</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-megaphone-line text-xl mr-3"></i>
+                        <span>Kampanye</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="laporan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-bar-chart-line text-xl mr-3"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pengaturan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-settings-3-line text-xl mr-3"></i>
+                        <span>Pengaturan</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Sidebar Card -->
+            <div class="mt-8 p-4 bg-primary rounded-lg text-white">
+                <h3 class="font-semibold mb-2">Panduan Broadcast</h3>
+                <p class="text-sm text-white/80 mb-3">Klik button dibawah untuk mempelajari Smartcoop Broadcast</p>
+                <button class="w-full py-2 bg-white text-primary rounded-lg font-medium hover:bg-gray-100 transition">
+                    Lihat Panduan
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-4 left-0 right-0 px-3">
+                <div class="flex items-center justify-center text-gray-500 text-sm">
+                    <i class="ri-customer-service-2-line mr-2"></i>
+                    <span>© 2025 All Rights Reserved</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-64">
+        <!-- Top Header -->
+        <header class="bg-white border-b border-gray-200 fixed top-0 right-0 left-0 lg:left-64 z-30">
+            <div class="px-4 py-3 flex items-center justify-between">
+                <!-- Left: Menu Toggle & Search -->
+                <div class="flex items-center space-x-4 flex-1">
+                    <button id="sidebar-toggle" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-menu-line text-xl"></i>
+                    </button>
+                    <div class="hidden md:flex items-center flex-1 max-w-md">
+                        <div class="relative w-full">
+                            <input type="text" placeholder="Search here..."
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <i
+                                class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Notifications & User -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-moon-line text-xl"></i>
+                    </button>
+
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button id="notification-toggle" class="p-2 rounded-lg hover:bg-gray-100 relative">
+                            <i class="ri-notification-3-line text-xl"></i>
+                            <span
+                                class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">12</span>
+                        </button>
+
+                        <!-- Notification Dropdown -->
+                        <div id="notification-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-96 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- Header -->
+                            <div class="p-4 border-b border-gray-100">
+                                <h3 class="text-lg font-bold text-gray-800">Notifikasi</h3>
+                            </div>
+
+                            <!-- Tabs -->
+                            <div class="px-4 pt-4 border-b border-gray-100 flex space-x-4">
+                                <button
+                                    class="notification-tab active px-4 py-2 text-sm font-medium text-gray-700 border-b-2 border-primary">
+                                    Inbox
+                                </button>
+                                <button class="notification-tab px-4 py-2 text-sm font-medium text-gray-500 relative">
+                                    Lainnya
+                                    <span
+                                        class="ml-2 px-2 py-0.5 bg-green-500 text-white text-xs rounded-full">9+</span>
+                                </button>
+                            </div>
+
+                            <!-- Notification List -->
+                            <div class="max-h-96 overflow-y-auto">
+                                <div id="notification-inbox" class="notification-content">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">2 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 3 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 3</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">3 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+
+                                <div id="notification-agen" class="notification-content hidden">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">30 menit yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Profile Dropdown -->
+                    <div class="relative pl-3 border-l border-gray-200">
+                        <button id="user-profile-toggle"
+                            class="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
+                            <div class="text-right hidden sm:block">
+                                <p class="text-sm font-medium text-gray-800">Nama Pengguna</p>
+                                <p class="text-xs text-gray-500">Super Admin</p>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold">
+                                <span class="text-sm">NP</span>
+                            </div>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="user-profile-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- User Info Section -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                                        <span>NP</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center space-x-2">
+                                            <p class="text-sm font-bold text-gray-800">Nama Pengguna</p>
+                                            <span
+                                                class="px-2 py-0.5 bg-green-500 text-white text-xs font-medium rounded-full">Super
+                                                Admin</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">developer@4visionmedia.com</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Subscription Section -->
+                            <div class="p-4 border-b border-gray-100 bg-gray-50">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-sm font-bold text-gray-800">Aktif Sampai</p>
+                                    <p class="text-sm font-medium text-gray-700">15 Februari 2030</p>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">Jangan lupa untuk memperbarui agar tetap dapat
+                                    menikmati
+                                    layanan kami.</p>
+                                <button
+                                    class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center space-x-2">
+                                    <i class="ri-rocket-line"></i>
+                                    <span>Perpanjang Langganan</span>
+                                </button>
+                            </div>
+
+                            <!-- Navigation Grid -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="grid grid-cols-3 gap-3">
+                                    <!-- Manage Kontak -->
+                                    <a href="kontak.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-group-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Manage Kontak</span>
+                                    </a>
+
+                                    <!-- Laporan -->
+                                    <a href="laporan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-bar-chart-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Laporan</span>
+                                    </a>
+
+                                    <!-- Pengaturan -->
+                                    <a href="pengaturan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-settings-3-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Pengaturan</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Logout -->
+                            <div class="p-4">
+                                <button id="logout-btn"
+                                    class="w-full flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+                                    <i class="ri-logout-box-line text-lg"></i>
+                                    <span class="text-sm font-medium">Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="p-6 pt-20">
+            <!-- Page Header -->
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">List Kontak</h1>
+            </div>
+
+            <!-- Filters and Actions -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mb-6">
+                <!-- Search and Date Row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <!-- Search Keyword -->
+                    <div class="flex flex-col">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Cari nama atau nomor kontak</label>
+                        <div class="relative">
+                            <input type="text" id="search-keyword" placeholder="Cari nama atau nomor kontak"
+                                class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <i
+                                class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Filter Tanggal -->
+                    <div class="flex flex-col">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Dibuat</label>
+                        <input type="text" id="filter-tanggal" placeholder="Pilih rentang tanggal"
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                </div>
+
+                <!-- Filter Label and Action Buttons Row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Filter Label -->
+                    <div class="flex flex-col">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Filter Label</label>
+                        <select id="filter-label" multiple
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="1">Nasabah Prioritas</option>
+                            <option value="2">Anggota Aktif</option>
+                            <option value="3">Pengurus Koperasi</option>
+                            <option value="4">Peminjam Aktif</option>
+                            <option value="5">Penyimpan Tetap</option>
+                            <option value="6">Anggota Baru</option>
+                            <option value="7">Calon Anggota</option>
+                            <option value="8">Anggota VIP</option>
+                            <option value="9">Mitra Bisnis</option>
+                            <option value="10">Anggota Khusus</option>
+                        </select>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col justify-end">
+                        <div class="flex flex-wrap items-center gap-3">
+                            <!-- Export Kontak -->
+                            <button id="btn-export-excel"
+                                class="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center space-x-2 whitespace-nowrap">
+                                <i class="ri-file-excel-2-line text-green-600"></i>
+                                <span>Export Kontak</span>
+                            </button>
+
+                            <!-- Kontak Google -->
+                            <button id="btn-google-contacts"
+                                class="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center space-x-2 whitespace-nowrap">
+                                <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+                                    <path fill="#4285F4"
+                                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                    <path fill="#34A853"
+                                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                    <path fill="#FBBC05"
+                                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                    <path fill="#EA4335"
+                                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                </svg>
+                                <span>Kontak Google</span>
+                            </button>
+
+                            <!-- Tambah Kontak Dropdown -->
+                            <div class="relative" id="container-tambah-kontak">
+                                <button id="btn-tambah-kontak"
+                                    class="px-6 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors flex items-center space-x-2 whitespace-nowrap">
+                                    <span>Tambah</span>
+                                    <i class="ri-arrow-down-s-line"></i>
+                                </button>
+                                <div id="dropdown-tambah-kontak"
+                                    class="hidden absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                    <button
+                                        class="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center space-x-3">
+                                        <i class="ri-add-line text-primary"></i>
+                                        <span>Tambahkan Manual</span>
+                                    </button>
+                                    <button
+                                        class="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center space-x-3 border-t border-gray-100">
+                                        <i class="ri-file-excel-2-line text-green-600"></i>
+                                        <span>Import dari CSV</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Aksi Massal Dropdown -->
+                            <div class="relative hidden" id="container-aksi-massal">
+                                <button id="btn-aksi-massal"
+                                    class="px-4 py-2.5 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors flex items-center space-x-2 whitespace-nowrap">
+                                    <span>Aksi Massal</span>
+                                    <i class="ri-arrow-down-s-line"></i>
+                                </button>
+                                <div id="dropdown-aksi-massal"
+                                    class="hidden absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                    <button
+                                        class="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center space-x-3">
+                                        <i class="ri-price-tag-line text-primary"></i>
+                                        <span>Tambahkan Label</span>
+                                    </button>
+                                    <button
+                                        class="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center space-x-3 border-t border-gray-100 text-red-600">
+                                        <i class="ri-delete-bin-line"></i>
+                                        <span>Hapus <span id="selected-count">0</span> kontak</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table id="kontak-table" class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                                    <input type="checkbox" id="select-all"
+                                        class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
+                                </th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Nama</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Nomor</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Label</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Perusahaan</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Jabatan</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Catatan</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="kontak-tbody">
+                            <!-- Row 1 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <input type="checkbox"
+                                        class="kontak-checkbox w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        data-id="1">
+                                </td>
+                                <td class="py-3 px-4 font-medium">Budi Santoso</td>
+                                <td class="py-3 px-4">6281234567890</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-price-tag-fill text-xl" style="color: #FF720D;"></i>
+                                        <span class="text-sm">Nasabah Prioritas</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">PT Koperasi Sejahtera</td>
+                                <td class="py-3 px-4">Ketua</td>
+                                <td class="py-3 px-4 text-sm text-gray-600">Anggota aktif sejak 2020</td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-kontak px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="1">
+                                            <span>Aksi Kontak</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus Kontak</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 2 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <input type="checkbox"
+                                        class="kontak-checkbox w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        data-id="2">
+                                </td>
+                                <td class="py-3 px-4 font-medium">Siti Nurhaliza</td>
+                                <td class="py-3 px-4">6289876543210</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-price-tag-fill text-xl" style="color: #10b981;"></i>
+                                        <span class="text-sm">Anggota Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">CV Mandiri Jaya</td>
+                                <td class="py-3 px-4">Sekretaris</td>
+                                <td class="py-3 px-4 text-sm text-gray-600">Penyimpan tetap</td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-kontak px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="2">
+                                            <span>Aksi Kontak</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus Kontak</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 3 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <input type="checkbox"
+                                        class="kontak-checkbox w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        data-id="3">
+                                </td>
+                                <td class="py-3 px-4 font-medium">Ahmad Hidayat</td>
+                                <td class="py-3 px-4">6281122334455</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-price-tag-fill text-xl" style="color: #3b82f6;"></i>
+                                        <span class="text-sm">Pengurus Koperasi</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">UD Berkah Makmur</td>
+                                <td class="py-3 px-4">Bendahara</td>
+                                <td class="py-3 px-4 text-sm text-gray-600">-</td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-kontak px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="3">
+                                            <span>Aksi Kontak</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus Kontak</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 4 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <input type="checkbox"
+                                        class="kontak-checkbox w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        data-id="4">
+                                </td>
+                                <td class="py-3 px-4 font-medium">Dewi Sartika</td>
+                                <td class="py-3 px-4">6282233445566</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-price-tag-fill text-xl" style="color: #8b5cf6;"></i>
+                                        <span class="text-sm">Peminjam Aktif</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">PT Usaha Bersama</td>
+                                <td class="py-3 px-4">Manager</td>
+                                <td class="py-3 px-4 text-sm text-gray-600">Pinjaman aktif</td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-kontak px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="4">
+                                            <span>Aksi Kontak</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus Kontak</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 5 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <input type="checkbox"
+                                        class="kontak-checkbox w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        data-id="5">
+                                </td>
+                                <td class="py-3 px-4 font-medium">Eko Prasetyo</td>
+                                <td class="py-3 px-4">6283344556677</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-price-tag-fill text-xl" style="color: #ec4899;"></i>
+                                        <span class="text-sm">Penyimpan Tetap</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">CV Maju Terus</td>
+                                <td class="py-3 px-4">Direktur</td>
+                                <td class="py-3 px-4 text-sm text-gray-600">Simpanan besar</td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-kontak px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="5">
+                                            <span>Aksi Kontak</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus Kontak</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 6 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <input type="checkbox"
+                                        class="kontak-checkbox w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        data-id="6">
+                                </td>
+                                <td class="py-3 px-4 font-medium">Fitri Handayani</td>
+                                <td class="py-3 px-4">6284455667788</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-price-tag-fill text-xl" style="color: #f59e0b;"></i>
+                                        <span class="text-sm">Anggota Baru</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">PT Sejahtera Abadi</td>
+                                <td class="py-3 px-4">Supervisor</td>
+                                <td class="py-3 px-4 text-sm text-gray-600">Bergabung 2024</td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-kontak px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="6">
+                                            <span>Aksi Kontak</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus Kontak</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 7 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <input type="checkbox"
+                                        class="kontak-checkbox w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        data-id="7">
+                                </td>
+                                <td class="py-3 px-4 font-medium">Gunawan Wijaya</td>
+                                <td class="py-3 px-4">6285566778899</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-price-tag-fill text-xl" style="color: #06b6d4;"></i>
+                                        <span class="text-sm">Calon Anggota</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">UD Makmur Jaya</td>
+                                <td class="py-3 px-4">Owner</td>
+                                <td class="py-3 px-4 text-sm text-gray-600">Proses verifikasi</td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-kontak px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="7">
+                                            <span>Aksi Kontak</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus Kontak</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 8 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <input type="checkbox"
+                                        class="kontak-checkbox w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        data-id="8">
+                                </td>
+                                <td class="py-3 px-4 font-medium">Hendra Kurniawan</td>
+                                <td class="py-3 px-4">6286677889900</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-price-tag-fill text-xl" style="color: #ef4444;"></i>
+                                        <span class="text-sm">Anggota VIP</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">PT Prima Mandiri</td>
+                                <td class="py-3 px-4">CEO</td>
+                                <td class="py-3 px-4 text-sm text-gray-600">VIP sejak 2019</td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-kontak px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="8">
+                                            <span>Aksi Kontak</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus Kontak</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 9 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <input type="checkbox"
+                                        class="kontak-checkbox w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        data-id="9">
+                                </td>
+                                <td class="py-3 px-4 font-medium">Indah Permata</td>
+                                <td class="py-3 px-4">6287788990011</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-price-tag-fill text-xl" style="color: #14b8a6;"></i>
+                                        <span class="text-sm">Mitra Bisnis</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">CV Harmoni Sejahtera</td>
+                                <td class="py-3 px-4">Partner</td>
+                                <td class="py-3 px-4 text-sm text-gray-600">Mitra strategis</td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-kontak px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="9">
+                                            <span>Aksi Kontak</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus Kontak</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 10 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <input type="checkbox"
+                                        class="kontak-checkbox w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        data-id="10">
+                                </td>
+                                <td class="py-3 px-4 font-medium">Zaki</td>
+                                <td class="py-3 px-4">6288899001122</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-price-tag-fill text-xl" style="color: #6366f1;"></i>
+                                        <span class="text-sm">Anggota Khusus</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">PT Nusantara Jaya</td>
+                                <td class="py-3 px-4">Founder</td>
+                                <td class="py-3 px-4 text-sm text-gray-600">Anggota khusus</td>
+                                <td class="py-3 px-4">
+                                    <div class="relative">
+                                        <button
+                                            class="btn-aksi-kontak px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                            data-id="10">
+                                            <span>Aksi Kontak</span>
+                                            <i class="ri-arrow-down-s-line"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                                <i class="ri-eye-line text-blue-600"></i>
+                                                <span>Detail Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                                <i class="ri-edit-line text-primary"></i>
+                                                <span>Edit Kontak</span>
+                                            </button>
+                                            <button
+                                                class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                                <i class="ri-delete-bin-line"></i>
+                                                <span>Hapus Kontak</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+                    <div class="text-sm text-gray-600">
+                        Menampilkan <span class="font-medium">1</span> sampai <span class="font-medium">10</span> dari
+                        <span class="font-medium">10</span> kontak
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button
+                            class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
+                            <i class="ri-arrow-left-s-line"></i>
+                        </button>
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg font-medium">1</button>
+                        <button
+                            class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Tambah Kontak -->
+    <div id="modal-tambah-kontak"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-visible flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
+                <h3 class="text-xl font-bold text-gray-800">Tambah Kontak Baru</h3>
+                <button id="modal-tambah-kontak-close" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6">
+                <form id="form-tambah-kontak">
+                    <!-- Nama -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama <span
+                                class="text-red-500">*</span></label>
+                        <input type="text" id="input-nama-kontak" required
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Masukkan nama kontak">
+                    </div>
+
+                    <!-- Nomor -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nomor <span
+                                class="text-red-500">*</span></label>
+                        <input type="text" id="input-nomor-kontak" required
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Masukkan nomor kontak">
+                    </div>
+
+                    <!-- Label -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Label</label>
+                        <select id="input-label-kontak" multiple
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="1">Nasabah Prioritas</option>
+                            <option value="2">Anggota Aktif</option>
+                            <option value="3">Pengurus Koperasi</option>
+                            <option value="4">Peminjam Aktif</option>
+                            <option value="5">Penyimpan Tetap</option>
+                            <option value="6">Anggota Baru</option>
+                            <option value="7">Calon Anggota</option>
+                            <option value="8">Anggota VIP</option>
+                            <option value="9">Mitra Bisnis</option>
+                            <option value="10">Anggota Khusus</option>
+                        </select>
+                    </div>
+
+                    <!-- Perusahaan -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Perusahaan</label>
+                        <input type="text" id="input-perusahaan-kontak"
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Masukkan nama perusahaan">
+                    </div>
+
+                    <!-- Jabatan -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Jabatan</label>
+                        <input type="text" id="input-jabatan-kontak"
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Masukkan jabatan">
+                    </div>
+
+                    <!-- Catatan -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Catatan</label>
+                        <textarea id="input-catatan-kontak" rows="3"
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Masukkan catatan"></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-end space-x-3 p-6 border-t border-gray-200 sticky bottom-0 bg-white">
+                <button id="modal-tambah-kontak-cancel"
+                    class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition-colors">
+                    Batal
+                </button>
+                <button id="modal-tambah-kontak-save"
+                    class="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors">
+                    Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detail Kontak -->
+    <div id="modal-detail-kontak"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-visible flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
+                <h3 class="text-xl font-bold text-gray-800">Detail Kontak</h3>
+                <button id="modal-detail-kontak-close" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6">
+                <div class="space-y-4">
+                    <!-- Nama -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-500 mb-1">Nama</label>
+                        <p id="detail-nama" class="text-base font-semibold text-gray-800">-</p>
+                    </div>
+
+                    <!-- Nomor -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-500 mb-1">Nomor</label>
+                        <p id="detail-nomor" class="text-base text-gray-800">-</p>
+                    </div>
+
+                    <!-- Label -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-500 mb-1">Label</label>
+                        <div id="detail-label" class="flex flex-wrap gap-2">
+                            <span class="text-sm text-gray-500">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Perusahaan -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-500 mb-1">Perusahaan</label>
+                        <p id="detail-perusahaan" class="text-base text-gray-800">-</p>
+                    </div>
+
+                    <!-- Jabatan -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-500 mb-1">Jabatan</label>
+                        <p id="detail-jabatan" class="text-base text-gray-800">-</p>
+                    </div>
+
+                    <!-- Catatan -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-500 mb-1">Catatan</label>
+                        <p id="detail-catatan" class="text-base text-gray-800">-</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-end space-x-3 p-6 border-t border-gray-200 sticky bottom-0 bg-white">
+                <button id="modal-detail-kontak-close-btn"
+                    class="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Kontak -->
+    <div id="modal-edit-kontak"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-visible">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
+                <h3 class="text-xl font-bold text-gray-800">Edit Kontak</h3>
+                <button id="modal-edit-kontak-close" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+                <form id="form-edit-kontak">
+                    <input type="hidden" id="edit-id-kontak">
+
+                    <!-- Nama -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama <span
+                                class="text-red-500">*</span></label>
+                        <input type="text" id="edit-nama-kontak" required
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Masukkan nama kontak">
+                    </div>
+
+                    <!-- Nomor -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nomor <span
+                                class="text-red-500">*</span></label>
+                        <input type="text" id="edit-nomor-kontak" required
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Masukkan nomor kontak">
+                    </div>
+
+                    <!-- Label -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Label</label>
+                        <select id="edit-label-kontak" multiple
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="1">Nasabah Prioritas</option>
+                            <option value="2">Anggota Aktif</option>
+                            <option value="3">Pengurus Koperasi</option>
+                            <option value="4">Peminjam Aktif</option>
+                            <option value="5">Penyimpan Tetap</option>
+                            <option value="6">Anggota Baru</option>
+                            <option value="7">Calon Anggota</option>
+                            <option value="8">Anggota VIP</option>
+                            <option value="9">Mitra Bisnis</option>
+                            <option value="10">Anggota Khusus</option>
+                        </select>
+                    </div>
+
+                    <!-- Perusahaan -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Perusahaan</label>
+                        <input type="text" id="edit-perusahaan-kontak"
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Masukkan nama perusahaan">
+                    </div>
+
+                    <!-- Jabatan -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Jabatan</label>
+                        <input type="text" id="edit-jabatan-kontak"
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Masukkan jabatan">
+                    </div>
+
+                    <!-- Catatan -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Catatan</label>
+                        <textarea id="edit-catatan-kontak" rows="3"
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Masukkan catatan"></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-end space-x-3 p-6 border-t border-gray-200 sticky bottom-0 bg-white">
+                <button id="modal-edit-kontak-cancel"
+                    class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition-colors">
+                    Batal
+                </button>
+                <button id="modal-edit-kontak-save"
+                    class="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors">
+                    Simpan Perubahan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Import CSV -->
+    <div id="modal-import-csv"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-visible flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800">Impor Kontak</h3>
+                    <p class="text-sm text-gray-600 mt-1">Untuk mengimpor kontak, Max 20mb</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button id="btn-download-template"
+                        class="px-4 py-2 border-2 border-green-500 text-green-600 rounded-lg font-medium hover:bg-green-50 transition-colors flex items-center space-x-2">
+                        <i class="ri-download-line"></i>
+                        <span>DOWNLOAD TEMPLATE</span>
+                    </button>
+                    <button id="modal-import-csv-close" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <i class="ri-close-line text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+                <!-- File Upload Area -->
+                <div class="mb-6">
+                    <div id="upload-area"
+                        class="relative border-2 border-dashed border-green-400 bg-green-50 rounded-xl p-12 text-center cursor-pointer hover:bg-green-100 transition-colors">
+                        <input type="file" id="file-input" accept=".csv,.xlsx,.xls" class="hidden">
+                        <div class="flex flex-col items-center justify-center">
+                            <i class="ri-download-line text-5xl text-green-600 mb-4"></i>
+                            <p class="text-lg font-medium text-gray-800 mb-2">Pilih File Excel</p>
+                            <p class="text-sm text-gray-500">atau drag and drop file di sini</p>
+                            <p class="text-xs text-gray-400 mt-2">Format yang didukung: CSV, XLSX, XLS</p>
+                        </div>
+                    </div>
+
+                    <!-- Selected File Info -->
+                    <div id="file-info" class="hidden mt-4 p-4 bg-gray-50 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="ri-file-excel-2-line text-2xl text-green-600"></i>
+                                <div>
+                                    <p id="file-name" class="font-medium text-gray-800"></p>
+                                    <p id="file-size" class="text-sm text-gray-500"></p>
+                                </div>
+                            </div>
+                            <button id="remove-file" class="text-red-500 hover:text-red-700">
+                                <i class="ri-close-circle-line text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Section (will show after file selected) -->
+                <div id="preview-section" class="hidden">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Preview Data</h4>
+                    <div class="bg-gray-50 rounded-lg p-4 overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead id="preview-thead" class="bg-white">
+                                <!-- Headers will be inserted here -->
+                            </thead>
+                            <tbody id="preview-tbody" class="bg-white">
+                                <!-- Preview rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">
+                        <span id="preview-row-count">0</span> baris akan diimpor
+                    </p>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-end space-x-3 p-6 border-t border-gray-200 sticky bottom-0 bg-white">
+                <button id="modal-import-csv-cancel"
+                    class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition-colors">
+                    Batal
+                </button>
+                <button id="modal-import-csv-import"
+                    class="px-6 py-2 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled>
+                    Impor Kontak
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- Kontak Page Specific JS -->
+    <script>
+        $(document).ready(function () {
+            // Initialize Select2 for Filter Label
+            $('#filter-label').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: 'Pilih Label',
+                closeOnSelect: false
+            });
+
+            // Initialize Flatpickr for Date Range
+            flatpickr('#filter-tanggal', {
+                mode: 'range',
+                dateFormat: 'd/m/Y',
+                locale: 'id',
+                placeholder: 'Pilih rentang tanggal'
+            });
+
+            // Dropdown Tambah Kontak
+            $('#btn-tambah-kontak').on('click', function (e) {
+                e.stopPropagation();
+                $('#dropdown-tambah-kontak').toggleClass('hidden');
+            });
+
+            // Dropdown Aksi Massal
+            $('#btn-aksi-massal').on('click', function (e) {
+                e.stopPropagation();
+                $('#dropdown-aksi-massal').toggleClass('hidden');
+            });
+
+            // Close dropdowns when clicking outside
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('#btn-tambah-kontak, #dropdown-tambah-kontak').length) {
+                    $('#dropdown-tambah-kontak').addClass('hidden');
+                }
+                if (!$(e.target).closest('#btn-aksi-massal, #dropdown-aksi-massal').length) {
+                    $('#dropdown-aksi-massal').addClass('hidden');
+                }
+            });
+
+            // Select All Checkbox
+            $('#select-all').on('change', function () {
+                const isChecked = $(this).is(':checked');
+                $('.kontak-checkbox').prop('checked', isChecked);
+                updateSelectedCount();
+            });
+
+            // Individual Checkbox
+            $(document).on('change', '.kontak-checkbox', function () {
+                updateSelectedCount();
+                // Update select all checkbox state
+                const totalCheckboxes = $('.kontak-checkbox').length;
+                const checkedCheckboxes = $('.kontak-checkbox:checked').length;
+                $('#select-all').prop('checked', totalCheckboxes === checkedCheckboxes);
+            });
+
+            // Update Selected Count
+            function updateSelectedCount() {
+                const count = $('.kontak-checkbox:checked').length;
+                $('#selected-count').text(count);
+
+                // Show/hide buttons based on checkbox selection
+                if (count > 0) {
+                    $('#container-aksi-massal').removeClass('hidden');
+                    $('#container-tambah-kontak').addClass('hidden');
+                } else {
+                    $('#container-aksi-massal').addClass('hidden');
+                    $('#container-tambah-kontak').removeClass('hidden');
+                }
+            }
+
+            // Aksi Kontak Dropdown
+            $(document).on('click', '.btn-aksi-kontak', function (e) {
+                e.stopPropagation();
+                const dropdown = $(this).siblings('.dropdown-aksi');
+                $('.dropdown-aksi').not(dropdown).addClass('hidden');
+                dropdown.toggleClass('hidden');
+            });
+
+            // Close dropdown when clicking outside
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.btn-aksi-kontak, .dropdown-aksi').length) {
+                    $('.dropdown-aksi').addClass('hidden');
+                }
+            });
+
+            // Export Excel
+            $('#btn-export-excel').on('click', function () {
+                toastr.info('Fitur export Excel akan segera tersedia');
+            });
+
+            // Kontak Google
+            $('#btn-google-contacts').on('click', function () {
+                toastr.info('Fitur integrasi Google Contacts akan segera tersedia');
+            });
+
+            // Initialize Select2 for Label in Modals
+            // Note: Select2 will be initialized when modal opens to ensure dropdownParent is set correctly
+
+            // Tambah Manual - Open Modal
+            $('#dropdown-tambah-kontak button:first').on('click', function () {
+                $('#dropdown-tambah-kontak').addClass('hidden');
+                openModalTambahKontak();
+            });
+
+            // Import CSV - Open Modal
+            $('#dropdown-tambah-kontak button:last').on('click', function () {
+                $('#dropdown-tambah-kontak').addClass('hidden');
+                openModalImportCSV();
+            });
+
+            // Tambahkan Label Massal
+            $('#dropdown-aksi-massal button:first').on('click', function () {
+                const selected = $('.kontak-checkbox:checked').length;
+                if (selected === 0) {
+                    toastr.warning('Pilih kontak terlebih dahulu');
+                    return;
+                }
+                toastr.info(`Update label untuk ${selected} kontak akan segera tersedia`);
+            });
+
+            // Hapus Massal
+            $('#dropdown-aksi-massal button:last').on('click', function () {
+                const selected = $('.kontak-checkbox:checked').length;
+                if (selected === 0) {
+                    toastr.warning('Pilih kontak terlebih dahulu');
+                    return;
+                }
+                Swal.fire({
+                    title: 'Hapus Kontak?',
+                    html: `<p>Apakah Anda yakin ingin menghapus <strong>${selected}</strong> kontak?</p>`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Hapus',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#6b7280'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        toastr.success(`${selected} kontak berhasil dihapus`);
+                        $('.kontak-checkbox:checked').closest('tr').fadeOut(300, function () {
+                            $(this).remove();
+                            updateSelectedCount();
+                        });
+                    }
+                });
+            });
+
+            // Detail Kontak - Open Modal
+            $(document).on('click', '.dropdown-aksi button:first', function () {
+                const row = $(this).closest('tr');
+                const id = row.find('.kontak-checkbox').data('id');
+                const nama = row.find('td:nth-child(2)').text().trim();
+                const nomor = row.find('td:nth-child(3)').text().trim();
+                const labelHtml = row.find('td:nth-child(4)').html();
+                const perusahaan = row.find('td:nth-child(5)').text().trim();
+                const jabatan = row.find('td:nth-child(6)').text().trim();
+                const catatan = row.find('td:nth-child(7)').text().trim();
+
+                openModalDetailKontak({
+                    id, nama, nomor, labelHtml, perusahaan, jabatan, catatan
+                });
+            });
+
+            // Edit Kontak - Open Modal
+            $(document).on('click', '.dropdown-aksi button:nth-child(2)', function () {
+                const row = $(this).closest('tr');
+                const id = row.find('.kontak-checkbox').data('id');
+                const nama = row.find('td:nth-child(2)').text().trim();
+                const nomor = row.find('td:nth-child(3)').text().trim();
+                const labelElement = row.find('td:nth-child(4) .ri-price-tag-fill');
+                const labelValue = labelElement.length > 0 ? labelElement.closest('div').find('span').text().trim() : '';
+                const perusahaan = row.find('td:nth-child(5)').text().trim();
+                const jabatan = row.find('td:nth-child(6)').text().trim();
+                const catatan = row.find('td:nth-child(7)').text().trim();
+
+                // Get label value from option text
+                let labelIds = [];
+                if (labelValue) {
+                    $('#edit-label-kontak option').each(function () {
+                        if ($(this).text().trim() === labelValue) {
+                            labelIds.push($(this).val());
+                        }
+                    });
+                }
+
+                openModalEditKontak({
+                    id, nama, nomor, labelIds, perusahaan, jabatan, catatan
+                });
+            });
+
+            // Hapus Kontak
+            $(document).on('click', '.dropdown-aksi button:last', function () {
+                const row = $(this).closest('tr');
+                const nama = row.find('td:nth-child(2)').text();
+                const id = row.find('.kontak-checkbox').data('id');
+
+                Swal.fire({
+                    title: 'Hapus Kontak?',
+                    html: `<p>Apakah Anda yakin ingin menghapus kontak <strong>${nama}</strong>?</p>`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Hapus',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#6b7280'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        toastr.success('Kontak berhasil dihapus');
+                        row.fadeOut(300, function () {
+                            $(this).remove();
+                            updateSelectedCount();
+                        });
+                    }
+                });
+            });
+
+            // Auto filter on change
+            $('#search-keyword').on('keyup', function () {
+                const keyword = $(this).val();
+                // Implement filter logic here
+            });
+
+            // Filter on Select2 change
+            $('#filter-label').on('change', function () {
+                const labels = $(this).val();
+                // Implement filter logic here
+            });
+
+            // Filter on date range change
+            $('#filter-tanggal').on('change', function () {
+                const dateRange = $(this).val();
+                // Implement filter logic here
+            });
+
+            // Modal Functions
+            function openModalTambahKontak() {
+                $('#form-tambah-kontak')[0].reset();
+
+                // Initialize or reinitialize Select2 with dropdownParent
+                if ($('#input-label-kontak').hasClass('select2-hidden-accessible')) {
+                    $('#input-label-kontak').select2('destroy');
+                }
+                $('#input-label-kontak').select2({
+                    theme: 'bootstrap-5',
+                    width: '100%',
+                    placeholder: 'Pilih Label',
+                    closeOnSelect: false,
+                    dropdownParent: $('#modal-tambah-kontak')
+                });
+
+                $('#input-label-kontak').val(null).trigger('change');
+                $('#modal-tambah-kontak').removeClass('hidden');
+            }
+
+            function closeModalTambahKontak() {
+                $('#modal-tambah-kontak').addClass('hidden');
+                $('#form-tambah-kontak')[0].reset();
+                $('#input-label-kontak').val(null).trigger('change');
+            }
+
+            function openModalDetailKontak(data) {
+                $('#detail-nama').text(data.nama || '-');
+                $('#detail-nomor').text(data.nomor || '-');
+                $('#detail-perusahaan').text(data.perusahaan || '-');
+                $('#detail-jabatan').text(data.jabatan || '-');
+                $('#detail-catatan').text(data.catatan || '-');
+
+                // Set label
+                const labelContainer = $('#detail-label');
+                if (data.labelHtml && data.labelHtml.trim() !== '') {
+                    labelContainer.html(data.labelHtml);
+                } else {
+                    labelContainer.html('<span class="text-sm text-gray-500">-</span>');
+                }
+
+                $('#modal-detail-kontak').removeClass('hidden');
+            }
+
+            function closeModalDetailKontak() {
+                $('#modal-detail-kontak').addClass('hidden');
+            }
+
+            function openModalEditKontak(data) {
+                $('#edit-id-kontak').val(data.id);
+                $('#edit-nama-kontak').val(data.nama || '');
+                $('#edit-nomor-kontak').val(data.nomor || '');
+                $('#edit-perusahaan-kontak').val(data.perusahaan || '');
+                $('#edit-jabatan-kontak').val(data.jabatan || '');
+                $('#edit-catatan-kontak').val(data.catatan || '');
+
+                // Initialize or reinitialize Select2 with dropdownParent
+                if ($('#edit-label-kontak').hasClass('select2-hidden-accessible')) {
+                    $('#edit-label-kontak').select2('destroy');
+                }
+                $('#edit-label-kontak').select2({
+                    theme: 'bootstrap-5',
+                    width: '100%',
+                    placeholder: 'Pilih Label',
+                    closeOnSelect: false,
+                    dropdownParent: $('#modal-edit-kontak')
+                });
+
+                // Set label
+                if (data.labelIds && data.labelIds.length > 0) {
+                    $('#edit-label-kontak').val(data.labelIds).trigger('change');
+                } else {
+                    $('#edit-label-kontak').val(null).trigger('change');
+                }
+
+                $('#modal-edit-kontak').removeClass('hidden');
+            }
+
+            function closeModalEditKontak() {
+                $('#modal-edit-kontak').addClass('hidden');
+                $('#form-edit-kontak')[0].reset();
+                $('#edit-label-kontak').val(null).trigger('change');
+            }
+
+            // Modal Event Handlers - Tambah Kontak
+            $('#modal-tambah-kontak-close, #modal-tambah-kontak-cancel').on('click', closeModalTambahKontak);
+            $('#modal-tambah-kontak').on('click', function (e) {
+                if ($(e.target).attr('id') === 'modal-tambah-kontak') {
+                    closeModalTambahKontak();
+                }
+            });
+
+            $('#modal-tambah-kontak-save').on('click', function () {
+                const nama = $('#input-nama-kontak').val().trim();
+                const nomor = $('#input-nomor-kontak').val().trim();
+
+                if (!nama || !nomor) {
+                    toastr.warning('Nama dan Nomor wajib diisi');
+                    return;
+                }
+
+                const labelIds = $('#input-label-kontak').val() || [];
+                const perusahaan = $('#input-perusahaan-kontak').val().trim();
+                const jabatan = $('#input-jabatan-kontak').val().trim();
+                const catatan = $('#input-catatan-kontak').val().trim();
+
+                // Get label names for display
+                let labelHtml = '';
+                if (labelIds.length > 0) {
+                    labelIds.forEach(function (labelId) {
+                        const labelText = $(`#input-label-kontak option[value="${labelId}"]`).text();
+                        const labelColors = {
+                            '1': '#FF720D', '2': '#10b981', '3': '#3b82f6', '4': '#8b5cf6',
+                            '5': '#ec4899', '6': '#f59e0b', '7': '#06b6d4', '8': '#ef4444',
+                            '9': '#14b8a6', '10': '#6366f1'
+                        };
+                        const color = labelColors[labelId] || '#6b7280';
+                        labelHtml += `<div class="flex items-center space-x-2">
+                            <i class="ri-price-tag-fill text-xl" style="color: ${color};"></i>
+                            <span class="text-sm">${labelText}</span>
+                        </div>`;
+                    });
+                } else {
+                    labelHtml = '<span class="text-sm text-gray-500">-</span>';
+                }
+
+                // Add new row to table (simulate)
+                const newId = $('.kontak-checkbox').length + 1;
+                const newRow = `
+                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                        <td class="py-3 px-4">
+                            <input type="checkbox"
+                                class="kontak-checkbox w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                data-id="${newId}">
+                        </td>
+                        <td class="py-3 px-4 font-medium">${nama}</td>
+                        <td class="py-3 px-4">${nomor}</td>
+                        <td class="py-3 px-4">
+                            ${labelHtml}
+                        </td>
+                        <td class="py-3 px-4">${perusahaan || '-'}</td>
+                        <td class="py-3 px-4">${jabatan || '-'}</td>
+                        <td class="py-3 px-4 text-sm text-gray-600">${catatan || '-'}</td>
+                        <td class="py-3 px-4">
+                            <div class="relative">
+                                <button
+                                    class="btn-aksi-kontak px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center space-x-1"
+                                    data-id="${newId}">
+                                    <span>Aksi Kontak</span>
+                                    <i class="ri-arrow-down-s-line"></i>
+                                </button>
+                                <div
+                                    class="dropdown-aksi hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                    <button
+                                        class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2">
+                                        <i class="ri-eye-line text-blue-600"></i>
+                                        <span>Detail Kontak</span>
+                                    </button>
+                                    <button
+                                        class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100">
+                                        <i class="ri-edit-line text-primary"></i>
+                                        <span>Edit Kontak</span>
+                                    </button>
+                                    <button
+                                        class="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-2 border-t border-gray-100 text-red-600">
+                                        <i class="ri-delete-bin-line"></i>
+                                        <span>Hapus Kontak</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+
+                $('#kontak-tbody').prepend(newRow);
+                toastr.success('Kontak berhasil ditambahkan');
+                closeModalTambahKontak();
+            });
+
+            // Modal Event Handlers - Detail Kontak
+            $('#modal-detail-kontak-close, #modal-detail-kontak-close-btn').on('click', closeModalDetailKontak);
+            $('#modal-detail-kontak').on('click', function (e) {
+                if ($(e.target).attr('id') === 'modal-detail-kontak') {
+                    closeModalDetailKontak();
+                }
+            });
+
+            // Modal Event Handlers - Edit Kontak
+            $('#modal-edit-kontak-close, #modal-edit-kontak-cancel').on('click', closeModalEditKontak);
+            $('#modal-edit-kontak').on('click', function (e) {
+                if ($(e.target).attr('id') === 'modal-edit-kontak') {
+                    closeModalEditKontak();
+                }
+            });
+
+            $('#modal-edit-kontak-save').on('click', function () {
+                const id = $('#edit-id-kontak').val();
+                const nama = $('#edit-nama-kontak').val().trim();
+                const nomor = $('#edit-nomor-kontak').val().trim();
+
+                if (!nama || !nomor) {
+                    toastr.warning('Nama dan Nomor wajib diisi');
+                    return;
+                }
+
+                const labelIds = $('#edit-label-kontak').val() || [];
+                const perusahaan = $('#edit-perusahaan-kontak').val().trim();
+                const jabatan = $('#edit-jabatan-kontak').val().trim();
+                const catatan = $('#edit-catatan-kontak').val().trim();
+
+                // Find and update row
+                const row = $(`.kontak-checkbox[data-id="${id}"]`).closest('tr');
+
+                // Update row data
+                row.find('td:nth-child(2)').text(nama);
+                row.find('td:nth-child(3)').text(nomor);
+
+                // Update label
+                let labelHtml = '';
+                if (labelIds.length > 0) {
+                    labelIds.forEach(function (labelId) {
+                        const labelText = $(`#edit-label-kontak option[value="${labelId}"]`).text();
+                        const labelColors = {
+                            '1': '#FF720D', '2': '#10b981', '3': '#3b82f6', '4': '#8b5cf6',
+                            '5': '#ec4899', '6': '#f59e0b', '7': '#06b6d4', '8': '#ef4444',
+                            '9': '#14b8a6', '10': '#6366f1'
+                        };
+                        const color = labelColors[labelId] || '#6b7280';
+                        labelHtml += `<div class="flex items-center space-x-2">
+                            <i class="ri-price-tag-fill text-xl" style="color: ${color};"></i>
+                            <span class="text-sm">${labelText}</span>
+                        </div>`;
+                    });
+                } else {
+                    labelHtml = '<span class="text-sm text-gray-500">-</span>';
+                }
+                row.find('td:nth-child(4)').html(labelHtml);
+
+                row.find('td:nth-child(5)').text(perusahaan || '-');
+                row.find('td:nth-child(6)').text(jabatan || '-');
+                row.find('td:nth-child(7)').text(catatan || '-');
+
+                toastr.success('Kontak berhasil diperbarui');
+                closeModalEditKontak();
+            });
+
+            // Modal Functions - Import CSV
+            function openModalImportCSV() {
+                // Reset form
+                $('#file-input').val('');
+                $('#file-info').addClass('hidden');
+                $('#preview-section').addClass('hidden');
+                $('#modal-import-csv-import').prop('disabled', true);
+                $('#modal-import-csv').removeClass('hidden');
+            }
+
+            function closeModalImportCSV() {
+                $('#modal-import-csv').addClass('hidden');
+                $('#file-input').val('');
+                $('#file-info').addClass('hidden');
+                $('#preview-section').addClass('hidden');
+                $('#modal-import-csv-import').prop('disabled', true);
+            }
+
+            // Modal Event Handlers - Import CSV
+            $('#modal-import-csv-close, #modal-import-csv-cancel').on('click', closeModalImportCSV);
+            $('#modal-import-csv').on('click', function (e) {
+                if ($(e.target).attr('id') === 'modal-import-csv') {
+                    closeModalImportCSV();
+                }
+            });
+
+            // File Upload Area Click
+            $('#upload-area').on('click', function () {
+                $('#file-input').click();
+            });
+
+            // Drag and Drop
+            $('#upload-area').on('dragover', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).addClass('bg-green-100 border-green-500');
+            });
+
+            $('#upload-area').on('dragleave', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).removeClass('bg-green-100 border-green-500');
+            });
+
+            $('#upload-area').on('drop', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).removeClass('bg-green-100 border-green-500');
+
+                const files = e.originalEvent.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFileSelect(files[0]);
+                }
+            });
+
+            // File Input Change
+            $('#file-input').on('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    handleFileSelect(file);
+                }
+            });
+
+            // Handle File Select
+            function handleFileSelect(file) {
+                // Check file size (20MB = 20 * 1024 * 1024 bytes)
+                const maxSize = 20 * 1024 * 1024;
+                if (file.size > maxSize) {
+                    toastr.error('File terlalu besar. Maksimal ukuran file adalah 20MB');
+                    return;
+                }
+
+                // Check file type
+                const fileExtension = file.name.split('.').pop().toLowerCase();
+                if (!['csv', 'xls', 'xlsx'].includes(fileExtension)) {
+                    toastr.error('Format file tidak didukung. Gunakan CSV, XLS, atau XLSX');
+                    return;
+                }
+
+                // Show file info
+                $('#file-name').text(file.name);
+                $('#file-size').text(formatFileSize(file.size));
+                $('#file-info').removeClass('hidden');
+                $('#modal-import-csv-import').prop('disabled', false);
+
+                // Show preview (simulated - in real app, you would parse the file)
+                showPreview(file);
+            }
+
+            // Format File Size
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+            }
+
+            // Show Preview (simulated)
+            function showPreview(file) {
+                // In a real application, you would parse the CSV/Excel file here
+                // For now, we'll show a simulated preview
+                const previewRows = 5; // Show first 5 rows as preview
+
+                // Simulated headers
+                const headers = ['Nama', 'Nomor', 'Label', 'Perusahaan', 'Jabatan', 'Catatan'];
+                let theadHtml = '<tr>';
+                headers.forEach(header => {
+                    theadHtml += `<th class="px-4 py-2 text-left font-semibold text-gray-700">${header}</th>`;
+                });
+                theadHtml += '</tr>';
+                $('#preview-thead').html(theadHtml);
+
+                // Simulated data rows
+                let tbodyHtml = '';
+                for (let i = 0; i < previewRows; i++) {
+                    tbodyHtml += '<tr class="border-b border-gray-200">';
+                    headers.forEach(() => {
+                        tbodyHtml += `<td class="px-4 py-2 text-gray-600">Data ${i + 1}</td>`;
+                    });
+                    tbodyHtml += '</tr>';
+                }
+                $('#preview-tbody').html(tbodyHtml);
+                $('#preview-row-count').text(previewRows);
+                $('#preview-section').removeClass('hidden');
+            }
+
+            // Remove File
+            $('#remove-file').on('click', function (e) {
+                e.stopPropagation();
+                $('#file-input').val('');
+                $('#file-info').addClass('hidden');
+                $('#preview-section').addClass('hidden');
+                $('#modal-import-csv-import').prop('disabled', true);
+            });
+
+            // Download Template
+            $('#btn-download-template').on('click', function () {
+                // Create a simple CSV template
+                const csvContent = 'Nama,Nomor,Label,Perusahaan,Jabatan,Catatan\n' +
+                    'Contoh Nama,6281234567890,Nasabah Prioritas,PT Contoh,Manager,Contoh catatan';
+
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'template_kontak.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                toastr.success('Template berhasil diunduh');
+            });
+
+            // Import Button
+            $('#modal-import-csv-import').on('click', function () {
+                const file = $('#file-input')[0].files[0];
+                if (!file) {
+                    toastr.warning('Pilih file terlebih dahulu');
+                    return;
+                }
+
+                // In a real application, you would upload the file to the server here
+                toastr.info('Mengimpor kontak...');
+
+                // Simulate import process
+                setTimeout(() => {
+                    toastr.success('Kontak berhasil diimpor');
+                    closeModalImportCSV();
+                    // Optionally refresh the contact list
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+
+</html>
