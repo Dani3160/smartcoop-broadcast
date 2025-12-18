@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampanye Broadcast - Smartcoop Broadcast</title>
+
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Custom Styles for Select2 and Flatpickr -->
+    <style>
+        /* Select2 Custom Styling */
+        .select2-container--bootstrap-5 .select2-selection {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            min-height: 42px;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple {
+            padding: 0.5rem 0.75rem !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            margin-left: 0 !important;
+            list-style: none;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered li {
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__placeholder {
+            color: #9ca3af !important;
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            text-indent: 0 !important;
+            position: relative !important;
+            left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__placeholder {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-search--inline {
+            margin-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-search--inline .select2-search__field {
+            margin-top: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice {
+            background-color: #FF720D;
+            border: none;
+            color: white;
+            border-radius: 0.375rem;
+            padding: 0.25rem 0.5rem;
+            margin: 0.125rem 0.5rem 0.125rem 0;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove {
+            color: white;
+            margin-right: 0.25rem;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove:hover {
+            color: #fef2f2;
+        }
+
+        .select2-container--bootstrap-5 .select2-dropdown {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            z-index: 9999 !important;
+        }
+
+        /* Flatpickr Custom Styling */
+        .flatpickr-input {
+            cursor: pointer;
+        }
+
+        .flatpickr-calendar {
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+        }
+
+        .flatpickr-day.selected,
+        .flatpickr-day.startRange,
+        .flatpickr-day.endRange {
+            background: #FF720D;
+            border-color: #FF720D;
+        }
+
+        .flatpickr-day.selected:hover,
+        .flatpickr-day.startRange:hover,
+        .flatpickr-day.endRange:hover {
+            background: #E6650B;
+            border-color: #E6650B;
+        }
+
+        .flatpickr-day.inRange {
+            background: #fff5ed;
+            border-color: #fff5ed;
+        }
+    </style>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF720D',
+                        'primary-dark': '#E6650B',
+                        'primary-light': '#FF8A3D',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed left-0 top-0 z-40 h-screen w-64 transition-transform -translate-x-full lg:translate-x-0 bg-white border-r border-gray-200">
+        <div class="h-full px-3 py-4 overflow-y-auto">
+            <!-- Logo -->
+            <div class="flex items-center mb-8 px-3 py-2">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <span class="text-white font-bold text-xl">S</span>
+                </div>
+                <span class="text-xl font-bold text-gray-800">Smartcoop</span>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="space-y-2">
+                <li>
+                    <a href="index.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-home-line text-xl mr-3"></i>
+                        <span>Beranda</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="label.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-price-tag-line text-xl mr-3"></i>
+                        <span>Label</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kontak.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-group-line text-xl mr-3"></i>
+                        <span>Kontak</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pesan-template.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-message-3-line text-xl mr-3"></i>
+                        <span>Pesan Template</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kampanye.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg bg-primary text-white group">
+                        <i class="ri-megaphone-line text-xl mr-3"></i>
+                        <span>Kampanye</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="laporan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-bar-chart-line text-xl mr-3"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pengaturan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-settings-3-line text-xl mr-3"></i>
+                        <span>Pengaturan</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Sidebar Card -->
+            <div class="mt-8 p-4 bg-primary rounded-lg text-white">
+                <h3 class="font-semibold mb-2">Panduan Broadcast</h3>
+                <p class="text-sm text-white/80 mb-3">Klik button dibawah untuk mempelajari Smartcoop Broadcast</p>
+                <button class="w-full py-2 bg-white text-primary rounded-lg font-medium hover:bg-gray-100 transition">
+                    Lihat Panduan
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-4 left-0 right-0 px-3">
+                <div class="flex items-center justify-center text-gray-500 text-sm">
+                    <i class="ri-customer-service-2-line mr-2"></i>
+                    <span>© 2025 All Rights Reserved</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-64">
+        <!-- Top Header -->
+        <header class="bg-white border-b border-gray-200 fixed top-0 right-0 left-0 lg:left-64 z-30">
+            <div class="px-4 py-3 flex items-center justify-between">
+                <!-- Left: Menu Toggle & Search -->
+                <div class="flex items-center space-x-4 flex-1">
+                    <button id="sidebar-toggle" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-menu-line text-xl"></i>
+                    </button>
+                    <div class="hidden md:flex items-center flex-1 max-w-md">
+                        <div class="relative w-full">
+                            <input type="text" placeholder="Search here..."
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <i
+                                class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Notifications & User -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-moon-line text-xl"></i>
+                    </button>
+
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button id="notification-toggle" class="p-2 rounded-lg hover:bg-gray-100 relative">
+                            <i class="ri-notification-3-line text-xl"></i>
+                            <span
+                                class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">12</span>
+                        </button>
+
+                        <!-- Notification Dropdown -->
+                        <div id="notification-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-96 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- Header -->
+                            <div class="p-4 border-b border-gray-100">
+                                <h3 class="text-lg font-bold text-gray-800">Notifikasi</h3>
+                            </div>
+
+                            <!-- Tabs -->
+                            <div class="px-4 pt-4 border-b border-gray-100 flex space-x-4">
+                                <button
+                                    class="notification-tab active px-4 py-2 text-sm font-medium text-gray-700 border-b-2 border-primary">
+                                    Inbox
+                                </button>
+                                <button class="notification-tab px-4 py-2 text-sm font-medium text-gray-500 relative">
+                                    Lainnya
+                                    <span
+                                        class="ml-2 px-2 py-0.5 bg-green-500 text-white text-xs rounded-full">9+</span>
+                                </button>
+                            </div>
+
+                            <!-- Notification List -->
+                            <div class="max-h-96 overflow-y-auto">
+                                <div id="notification-inbox" class="notification-content">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">2 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 3 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 3</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">3 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+
+                                <div id="notification-agen" class="notification-content hidden">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">30 menit yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Profile Dropdown -->
+                    <div class="relative pl-3 border-l border-gray-200">
+                        <button id="user-profile-toggle"
+                            class="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
+                            <div class="text-right hidden sm:block">
+                                <p class="text-sm font-medium text-gray-800">Nama Pengguna</p>
+                                <p class="text-xs text-gray-500">Super Admin</p>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold">
+                                <span class="text-sm">NP</span>
+                            </div>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="user-profile-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- User Info Section -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                                        <span>NP</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center space-x-2">
+                                            <p class="text-sm font-bold text-gray-800">Nama Pengguna</p>
+                                            <span
+                                                class="px-2 py-0.5 bg-green-500 text-white text-xs font-medium rounded-full">Super
+                                                Admin</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">developer@4visionmedia.com</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Subscription Section -->
+                            <div class="p-4 border-b border-gray-100 bg-gray-50">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-sm font-bold text-gray-800">Aktif Sampai</p>
+                                    <p class="text-sm font-medium text-gray-700">15 Februari 2030</p>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">Jangan lupa untuk memperbarui agar tetap dapat
+                                    menikmati
+                                    layanan kami.</p>
+                                <button
+                                    class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center space-x-2">
+                                    <i class="ri-rocket-line"></i>
+                                    <span>Perpanjang Langganan</span>
+                                </button>
+                            </div>
+
+                            <!-- Navigation Grid -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="grid grid-cols-3 gap-3">
+                                    <!-- Manage Kontak -->
+                                    <a href="kontak.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-group-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Manage Kontak</span>
+                                    </a>
+
+                                    <!-- Laporan -->
+                                    <a href="laporan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-bar-chart-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Laporan</span>
+                                    </a>
+
+                                    <!-- Pengaturan -->
+                                    <a href="pengaturan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-settings-3-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Pengaturan</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Logout -->
+                            <div class="p-4">
+                                <button id="logout-btn"
+                                    class="w-full flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+                                    <i class="ri-logout-box-line text-lg"></i>
+                                    <span class="text-sm font-medium">Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="p-6 pt-20">
+            <!-- Page Header -->
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Broadcast</h1>
+            </div>
+
+            <!-- Filters -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Filter Label -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Filter Label</label>
+                        <select id="filter-label" multiple
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="1">Nasabah Prioritas</option>
+                            <option value="2">Anggota Aktif</option>
+                            <option value="3">Pengurus Koperasi</option>
+                            <option value="4">Peminjam Aktif</option>
+                            <option value="5">Penyimpan Tetap</option>
+                            <option value="6">Anggota Baru</option>
+                            <option value="7">Calon Anggota</option>
+                            <option value="8">Anggota VIP</option>
+                            <option value="9">Mitra Bisnis</option>
+                            <option value="10">Anggota Khusus</option>
+                        </select>
+                    </div>
+
+                    <!-- Filter Tanggal -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Filter Tanggal</label>
+                        <input type="text" id="filter-tanggal" placeholder="Pilih rentang tanggal"
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+
+                    <!-- Keyword Filter -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Keyword Search</label>
+                        <div class="relative">
+                            <input type="text" id="filter-keyword" placeholder="Cari judul broadcast..."
+                                class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <i
+                                class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tambah Broadcast Button -->
+            <div class="mb-6 flex justify-end">
+                <a href="kampanye-tambah.html"
+                    class="px-6 py-2.5 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors flex items-center justify-center space-x-2">
+                    <i class="ri-add-line"></i>
+                    <span>Tambah Broadcast</span>
+                </a>
+            </div>
+
+            <!-- Riwayat Broadcast Table -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-100">
+                    <h2 class="text-lg font-semibold text-gray-800">List Broadcast</h2>
+                </div>
+
+                <!-- Table -->
+                <div class="overflow-x-auto">
+                    <table id="riwayat-table" class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Judul Broadcast</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Tanggal</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Tipe Pesan</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Dikirim Ke</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Status</th>
+                                <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="riwayat-tbody">
+                            <!-- Row 1 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pengumuman Rapat Anggota Tahunan 2025</td>
+                                <td class="py-3 px-4">17 Des 2025 16:26</td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm font-medium">Pesan
+                                        Text</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-file-line text-gray-500"></i>
+                                        <span class="text-sm text-gray-700">162 kontak (csv)</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Selesai</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-detail p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            data-id="1">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                        <a href="kampanye-edit.html?id=1"
+                                            class="p-2 text-primary hover:bg-orange-50 rounded-lg transition-colors">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 2 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Informasi Pembagian SHU Tahunan</td>
+                                <td class="py-3 px-4">16 Des 2025 14:15</td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-purple-100 text-purple-700 rounded text-sm font-medium">Pesan
+                                        Gambar</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-3 py-1.5 bg-blue-500 text-white rounded-lg text-sm font-medium">Testing
+                                        2</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Selesai</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-detail p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            data-id="2">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                        <a href="kampanye-edit.html?id=2"
+                                            class="p-2 text-primary hover:bg-orange-50 rounded-lg transition-colors">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 3 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Undangan Rapat Pengurus Koperasi</td>
+                                <td class="py-3 px-4">15 Des 2025 10:30</td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-1 bg-red-100 text-red-700 rounded text-sm font-medium">Pesan
+                                        Video</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-file-line text-gray-500"></i>
+                                        <span class="text-sm text-gray-700">420 kontak (csv)</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-sm font-medium">Proses</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-detail p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            data-id="3">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                        <a href="kampanye-edit.html?id=3"
+                                            class="p-2 text-primary hover:bg-orange-50 rounded-lg transition-colors">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 4 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pengumuman Program Simpan Pinjam Baru</td>
+                                <td class="py-3 px-4">14 Des 2025 09:45</td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Pesan
+                                        Template</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium">Nasabah
+                                        Prioritas</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Selesai</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-detail p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            data-id="4">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                        <a href="kampanye-edit.html?id=4"
+                                            class="p-2 text-primary hover:bg-orange-50 rounded-lg transition-colors">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 5 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pengingat Pembayaran Simpanan Wajib</td>
+                                <td class="py-3 px-4">13 Des 2025 11:20</td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm font-medium">Pesan
+                                        Text</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-file-line text-gray-500"></i>
+                                        <span class="text-sm text-gray-700">1,850 kontak (csv)</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Selesai</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-detail p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            data-id="5">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                        <a href="kampanye-edit.html?id=5"
+                                            class="p-2 text-primary hover:bg-orange-50 rounded-lg transition-colors">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 6 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Notifikasi Bunga Simpanan Bulanan</td>
+                                <td class="py-3 px-4">12 Des 2025 15:10</td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-purple-100 text-purple-700 rounded text-sm font-medium">Pesan
+                                        Gambar</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-3 py-1.5 bg-purple-500 text-white rounded-lg text-sm font-medium">Anggota
+                                        Aktif</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Selesai</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-detail p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            data-id="6">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                        <a href="kampanye-edit.html?id=6"
+                                            class="p-2 text-primary hover:bg-orange-50 rounded-lg transition-colors">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 7 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pemberitahuan Jadwal Pelatihan Koperasi</td>
+                                <td class="py-3 px-4">11 Des 2025 08:55</td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-1 bg-red-100 text-red-700 rounded text-sm font-medium">Pesan
+                                        Video</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-file-line text-gray-500"></i>
+                                        <span class="text-sm text-gray-700">950 kontak (csv)</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-sm font-medium">Proses</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-detail p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            data-id="7">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                        <a href="kampanye-edit.html?id=7"
+                                            class="p-2 text-primary hover:bg-orange-50 rounded-lg transition-colors">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 8 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pengumuman Update Sistem Koperasi</td>
+                                <td class="py-3 px-4">10 Des 2025 13:40</td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Pesan
+                                        Template</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-3 py-1.5 bg-orange-500 text-white rounded-lg text-sm font-medium">Peminjam
+                                        Aktif</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Selesai</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-detail p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            data-id="8">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                        <a href="kampanye-edit.html?id=8"
+                                            class="p-2 text-primary hover:bg-orange-50 rounded-lg transition-colors">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 9 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Undangan Workshop Keuangan Koperasi</td>
+                                <td class="py-3 px-4">9 Des 2025 16:25</td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm font-medium">Pesan
+                                        Text</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="ri-file-line text-gray-500"></i>
+                                        <span class="text-sm text-gray-700">680 kontak (csv)</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Selesai</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-detail p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            data-id="9">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                        <a href="kampanye-edit.html?id=9"
+                                            class="p-2 text-primary hover:bg-orange-50 rounded-lg transition-colors">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 10 -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-3 px-4 font-medium">Pengingat Pembayaran Angsuran Pinjaman</td>
+                                <td class="py-3 px-4">8 Des 2025 10:15</td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-purple-100 text-purple-700 rounded text-sm font-medium">Pesan
+                                        Gambar</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-3 py-1.5 bg-red-500 text-white rounded-lg text-sm font-medium">Penyimpan
+                                        Tetap</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 text-green-700 rounded text-sm font-medium">Selesai</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center space-x-2">
+                                        <button
+                                            class="btn-detail p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            data-id="10">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                        <a href="kampanye-edit.html?id=10"
+                                            class="p-2 text-primary hover:bg-orange-50 rounded-lg transition-colors">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+                    <div class="text-sm text-gray-600">
+                        Menampilkan <span class="font-medium">1</span> sampai <span class="font-medium">10</span> dari
+                        <span class="font-medium">10</span> broadcast
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button
+                            class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
+                            <i class="ri-arrow-left-s-line"></i>
+                        </button>
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg font-medium">1</button>
+                        <button
+                            class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Detail Broadcast -->
+    <div id="modal-detail-broadcast"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-visible flex flex-col">
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">Detail Broadcast</h3>
+                    <button id="modal-detail-close" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <i class="ri-close-line text-2xl"></i>
+                    </button>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex space-x-4 border-b border-gray-200">
+                    <button
+                        class="tab-btn active px-4 py-2 text-sm font-medium text-gray-700 border-b-2 border-primary transition-colors"
+                        data-tab="info">
+                        Info
+                    </button>
+                    <button
+                        class="tab-btn px-4 py-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 transition-colors"
+                        data-tab="hasil">
+                        Hasil
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+                <!-- Tab Info Content -->
+                <div id="tab-content-info" class="tab-content">
+                    <div class="space-y-6">
+                        <!-- Judul Broadcast -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Judul Broadcast</label>
+                            <p id="detail-judul" class="text-gray-800 font-semibold">-</p>
+                        </div>
+
+                        <!-- Tanggal -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal</label>
+                            <p id="detail-tanggal" class="text-gray-800">-</p>
+                        </div>
+
+                        <!-- Tipe Pesan -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tipe Pesan</label>
+                            <div id="detail-tipe-pesan"></div>
+                        </div>
+
+                        <!-- Dikirim Ke -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Dikirim Ke</label>
+                            <div id="detail-dikirim-ke"></div>
+                        </div>
+
+                        <!-- Status -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                            <div id="detail-status"></div>
+                        </div>
+
+                        <!-- Isi Pesan -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Isi Pesan</label>
+                            <div id="detail-isi-pesan"
+                                class="bg-gray-50 rounded-lg p-4 text-gray-800 whitespace-pre-wrap">
+                                -
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Hasil Content -->
+                <div id="tab-content-hasil" class="tab-content hidden">
+                    <!-- Summary and Download -->
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <p class="text-sm text-gray-600">Total Kontak</p>
+                            <p id="detail-total-kontak" class="text-2xl font-bold text-gray-800">0</p>
+                        </div>
+                        <button id="btn-download-hasil"
+                            class="px-4 py-2 border-2 border-green-500 text-green-600 rounded-lg font-medium hover:bg-green-50 transition-colors flex items-center space-x-2">
+                            <i class="ri-download-line"></i>
+                            <span>Download</span>
+                        </button>
+                    </div>
+
+                    <!-- Kontak List -->
+                    <div id="detail-kontak-list" class="space-y-3">
+                        <!-- Kontak items will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-6 border-t border-gray-200 flex justify-end">
+                <button id="modal-detail-close-btn"
+                    class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
+
+    <!-- Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- Laporan Page Specific JS -->
+    <script>
+        $(document).ready(function () {
+            // Initialize Select2 for Filter Label
+            $('#filter-label').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: 'Pilih Label',
+                closeOnSelect: false
+            });
+
+            // Initialize Flatpickr for Date Range
+            const flatpickrInstance = flatpickr('#filter-tanggal', {
+                mode: 'range',
+                dateFormat: 'd/m/Y',
+                locale: 'id',
+                placeholder: 'Pilih rentang tanggal'
+            });
+
+            // Quick Filter Buttons
+            $('.quick-filter-btn').on('click', function () {
+                const filter = $(this).data('filter');
+                const today = new Date();
+                let startDate, endDate;
+
+                // Remove active class from all buttons
+                $('.quick-filter-btn').removeClass('bg-primary text-white border-primary').addClass('border-gray-300');
+
+                switch (filter) {
+                    case 'today':
+                        startDate = new Date(today);
+                        endDate = new Date(today);
+                        $(this).addClass('bg-primary text-white border-primary').removeClass('border-gray-300');
+                        break;
+                    case 'yesterday':
+                        startDate = new Date(today);
+                        startDate.setDate(startDate.getDate() - 1);
+                        endDate = new Date(startDate);
+                        $(this).addClass('bg-primary text-white border-primary').removeClass('border-gray-300');
+                        break;
+                    case '7days':
+                        startDate = new Date(today);
+                        startDate.setDate(startDate.getDate() - 7);
+                        endDate = new Date(today);
+                        $(this).addClass('bg-primary text-white border-primary').removeClass('border-gray-300');
+                        break;
+                    case 'month':
+                        startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                        endDate = new Date(today);
+                        $(this).addClass('bg-primary text-white border-primary').removeClass('border-gray-300');
+                        break;
+                }
+
+                if (startDate && endDate) {
+                    flatpickrInstance.setDate([startDate, endDate], true);
+                }
+            });
+
+            // Sample data for detail modal
+            const broadcastData = {
+                '1': {
+                    judul: 'Pengumuman Rapat Anggota Tahunan 2025',
+                    tanggal: '17 Des 2025 16:26',
+                    tipe: 'Pesan Text',
+                    tipeClass: 'bg-blue-100 text-blue-700',
+                    dikirimKe: { type: 'csv', value: '162 kontak (csv)' },
+                    status: 'Selesai',
+                    statusClass: 'bg-green-100 text-green-700',
+                    isi: 'Halo {nama}, kami mengundang Anda untuk menghadiri Rapat Anggota Tahunan 2025 yang akan dilaksanakan pada tanggal 25 Desember 2025. Harap hadir tepat waktu.',
+                    kontak: [
+                        { nama: 'Moh Aozini', nomor: '6285642484003', status: 'Berhasil', waktu: '17 Des 2025 16:29' },
+                        { nama: 'Anggi', nomor: '6281234567890', status: 'Berhasil', waktu: '17 Des 2025 16:29' },
+                        { nama: 'Andaru Satryo', nomor: '6289876543210', status: 'Berhasil', waktu: '17 Des 2025 16:30' },
+                        { nama: 'Adam', nomor: '6281122334455', status: 'Berhasil', waktu: '17 Des 2025 16:30' },
+                        { nama: 'Budi Santoso', nomor: '6282233445566', status: 'Berhasil', waktu: '17 Des 2025 16:31' },
+                        { nama: 'Citra Dewi', nomor: '6283344556677', status: 'Berhasil', waktu: '17 Des 2025 16:31' },
+                        { nama: 'Dedi Kurniawan', nomor: '6284455667788', status: 'Berhasil', waktu: '17 Des 2025 16:32' },
+                        { nama: 'Eka Putri', nomor: '6285566778899', status: 'Berhasil', waktu: '17 Des 2025 16:32' },
+                        { nama: 'Fajar Pratama', nomor: '6286677889900', status: 'Berhasil', waktu: '17 Des 2025 16:33' },
+                        { nama: 'Gita Sari', nomor: '6287788990011', status: 'Berhasil', waktu: '17 Des 2025 16:33' },
+                        { nama: 'Hadi Wijaya', nomor: '6288899001122', status: 'Berhasil', waktu: '17 Des 2025 16:34' },
+                        { nama: 'Indah Permata', nomor: '6289900112233', status: 'Berhasil', waktu: '17 Des 2025 16:34' },
+                        { nama: 'Joko Susilo', nomor: '6280011223344', status: 'Berhasil', waktu: '17 Des 2025 16:35' }
+                    ]
+                },
+                '2': {
+                    judul: 'Informasi Pembagian SHU Tahunan',
+                    tanggal: '16 Des 2025 14:15',
+                    tipe: 'Pesan Gambar',
+                    tipeClass: 'bg-purple-100 text-purple-700',
+                    dikirimKe: { type: 'label', value: 'Testing 2', color: 'bg-blue-500' },
+                    status: 'Selesai',
+                    statusClass: 'bg-green-100 text-green-700',
+                    isi: 'Selamat {nama}! Sisa Hasil Usaha (SHU) tahun ini telah dihitung. Anda akan menerima pembagian SHU sebesar Rp {jumlah}.',
+                    kontak: [
+                        { nama: 'Ahmad Fauzi', nomor: '6281112223334', status: 'Berhasil', waktu: '16 Des 2025 14:20' },
+                        { nama: 'Siti Nurhaliza', nomor: '6282223334445', status: 'Berhasil', waktu: '16 Des 2025 14:21' },
+                        { nama: 'Bambang Sutrisno', nomor: '6283334445556', status: 'Berhasil', waktu: '16 Des 2025 14:22' }
+                    ]
+                },
+                '3': {
+                    judul: 'Undangan Rapat Pengurus Koperasi',
+                    tanggal: '15 Des 2025 10:30',
+                    tipe: 'Pesan Video',
+                    tipeClass: 'bg-red-100 text-red-700',
+                    dikirimKe: { type: 'csv', value: '420 kontak (csv)' },
+                    status: 'Proses',
+                    statusClass: 'bg-yellow-100 text-yellow-700',
+                    isi: 'Kepada {nama}, kami mengundang Anda untuk menghadiri rapat pengurus koperasi pada {tanggal} di {lokasi}.',
+                    kontak: [
+                        { nama: 'Rudi Hartono', nomor: '6281111111111', status: 'Berhasil', waktu: '15 Des 2025 10:35' },
+                        { nama: 'Sari Indah', nomor: '6282222222222', status: 'Berhasil', waktu: '15 Des 2025 10:36' }
+                    ]
+                },
+                '4': {
+                    judul: 'Pengumuman Program Simpan Pinjam Baru',
+                    tanggal: '14 Des 2025 09:45',
+                    tipe: 'Pesan Template',
+                    tipeClass: 'bg-green-100 text-green-700',
+                    dikirimKe: { type: 'label', value: 'Nasabah Prioritas', color: 'bg-green-500' },
+                    status: 'Selesai',
+                    statusClass: 'bg-green-100 text-green-700',
+                    isi: 'Halo {nama}, koperasi kami telah meluncurkan program simpan pinjam baru dengan bunga menarik. Informasi lengkap dapat dilihat di website kami.',
+                    kontak: [
+                        { nama: 'Tono Wijaya', nomor: '6283333333333', status: 'Berhasil', waktu: '14 Des 2025 09:50' },
+                        { nama: 'Lina Sari', nomor: '6284444444444', status: 'Berhasil', waktu: '14 Des 2025 09:51' },
+                        { nama: 'Wawan Setiawan', nomor: '6285555555555', status: 'Berhasil', waktu: '14 Des 2025 09:52' }
+                    ]
+                },
+                '5': {
+                    judul: 'Pengingat Pembayaran Simpanan Wajib',
+                    tanggal: '13 Des 2025 11:20',
+                    tipe: 'Pesan Text',
+                    tipeClass: 'bg-blue-100 text-blue-700',
+                    dikirimKe: { type: 'csv', value: '1,850 kontak (csv)' },
+                    status: 'Selesai',
+                    statusClass: 'bg-green-100 text-green-700',
+                    isi: 'Halo {nama}, ini adalah pengingat untuk pembayaran simpanan wajib bulanan Anda. Terima kasih.'
+                },
+                '6': {
+                    judul: 'Notifikasi Bunga Simpanan Bulanan',
+                    tanggal: '12 Des 2025 15:10',
+                    tipe: 'Pesan Gambar',
+                    tipeClass: 'bg-purple-100 text-purple-700',
+                    dikirimKe: { type: 'label', value: 'Anggota Aktif', color: 'bg-purple-500' },
+                    status: 'Selesai',
+                    statusClass: 'bg-green-100 text-green-700',
+                    isi: 'Halo {nama}, bunga simpanan Anda untuk bulan ini telah ditambahkan. Saldo terbaru: Rp {saldo}.'
+                },
+                '7': {
+                    judul: 'Pemberitahuan Jadwal Pelatihan Koperasi',
+                    tanggal: '11 Des 2025 08:55',
+                    tipe: 'Pesan Video',
+                    tipeClass: 'bg-red-100 text-red-700',
+                    dikirimKe: { type: 'csv', value: '950 kontak (csv)' },
+                    status: 'Proses',
+                    statusClass: 'bg-yellow-100 text-yellow-700',
+                    isi: 'Kepada {nama}, kami mengundang Anda untuk mengikuti pelatihan koperasi pada {tanggal}. Daftar segera, kuota terbatas!'
+                },
+                '8': {
+                    judul: 'Pengumuman Update Sistem Koperasi',
+                    tanggal: '10 Des 2025 13:40',
+                    tipe: 'Pesan Template',
+                    tipeClass: 'bg-green-100 text-green-700',
+                    dikirimKe: { type: 'label', value: 'Peminjam Aktif', color: 'bg-orange-500' },
+                    status: 'Selesai',
+                    statusClass: 'bg-green-100 text-green-700',
+                    isi: 'Halo {nama}, sistem koperasi telah diperbarui dengan fitur-fitur baru. Silakan login untuk melihat perubahan.'
+                },
+                '9': {
+                    judul: 'Undangan Workshop Keuangan Koperasi',
+                    tanggal: '9 Des 2025 16:25',
+                    tipe: 'Pesan Text',
+                    tipeClass: 'bg-blue-100 text-blue-700',
+                    dikirimKe: { type: 'csv', value: '680 kontak (csv)' },
+                    status: 'Selesai',
+                    statusClass: 'bg-green-100 text-green-700',
+                    isi: 'Kepada {nama}, kami mengundang Anda untuk menghadiri workshop keuangan koperasi pada {tanggal}.'
+                },
+                '10': {
+                    judul: 'Pengingat Pembayaran Angsuran Pinjaman',
+                    tanggal: '8 Des 2025 10:15',
+                    tipe: 'Pesan Gambar',
+                    tipeClass: 'bg-purple-100 text-purple-700',
+                    dikirimKe: { type: 'label', value: 'Penyimpan Tetap', color: 'bg-red-500' },
+                    status: 'Selesai',
+                    statusClass: 'bg-green-100 text-green-700',
+                    isi: 'Halo {nama}, ini adalah pengingat untuk pembayaran angsuran pinjaman Anda yang jatuh tempo pada {tanggal}.'
+                }
+            };
+
+            // Tab Switching
+            $('.tab-btn').on('click', function () {
+                const tab = $(this).data('tab');
+
+                // Update tab buttons
+                $('.tab-btn').removeClass('active text-gray-700 border-primary').addClass('text-gray-500 border-transparent');
+                $(this).addClass('active text-gray-700 border-primary').removeClass('text-gray-500 border-transparent');
+
+                // Show/hide tab content
+                $('.tab-content').addClass('hidden');
+                $(`#tab-content-${tab}`).removeClass('hidden');
+            });
+
+            // Render Kontak List
+            function renderKontakList(kontakList) {
+                if (!kontakList || kontakList.length === 0) {
+                    $('#detail-kontak-list').html('<p class="text-gray-500 text-center py-4">Tidak ada data kontak</p>');
+                    return;
+                }
+
+                let html = '';
+                kontakList.forEach(function (kontak) {
+                    html += `
+                        <div class="flex items-start justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800 mb-1">${kontak.nama}</p>
+                                <p class="text-sm text-gray-600 mb-3">${kontak.nomor}</p>
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <i class="ri-checkbox-circle-line text-green-500 text-lg"></i>
+                                    <span class="text-sm text-green-600 font-medium">${kontak.status}</span>
+                                </div>
+                                <p class="text-xs text-gray-500 mb-2">${kontak.waktu}</p>
+                                <i class="ri-file-line text-gray-400 text-sm"></i>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                $('#detail-kontak-list').html(html);
+            }
+
+            // Open Detail Modal
+            function openDetailModal(id) {
+                const data = broadcastData[id];
+                if (!data) {
+                    toastr.error('Data tidak ditemukan');
+                    return;
+                }
+
+                // Reset to Info tab
+                $('.tab-btn').removeClass('active text-gray-700 border-primary').addClass('text-gray-500 border-transparent');
+                $('.tab-btn[data-tab="info"]').addClass('active text-gray-700 border-primary').removeClass('text-gray-500 border-transparent');
+                $('.tab-content').addClass('hidden');
+                $('#tab-content-info').removeClass('hidden');
+
+                $('#detail-judul').text(data.judul);
+                $('#detail-tanggal').text(data.tanggal);
+
+                // Set Tipe Pesan
+                $('#detail-tipe-pesan').html(`<span class="px-2 py-1 ${data.tipeClass} rounded text-sm font-medium">${data.tipe}</span>`);
+
+                // Set Dikirim Ke
+                if (data.dikirimKe.type === 'csv') {
+                    $('#detail-dikirim-ke').html(`
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-file-line text-gray-500"></i>
+                            <span class="text-sm text-gray-700">${data.dikirimKe.value}</span>
+                        </div>
+                    `);
+                } else {
+                    $('#detail-dikirim-ke').html(`
+                        <span class="px-3 py-1.5 ${data.dikirimKe.color} text-white rounded-lg text-sm font-medium">${data.dikirimKe.value}</span>
+                    `);
+                }
+
+                // Set Status
+                $('#detail-status').html(`<span class="px-2 py-1 ${data.statusClass} rounded text-sm font-medium">${data.status}</span>`);
+
+                // Set Isi Pesan
+                $('#detail-isi-pesan').text(data.isi);
+
+                // Set Kontak Data
+                if (data.kontak) {
+                    $('#detail-total-kontak').text(data.kontak.length);
+                    renderKontakList(data.kontak);
+                } else {
+                    $('#detail-total-kontak').text('0');
+                    $('#detail-kontak-list').html('<p class="text-gray-500 text-center py-4">Tidak ada data kontak</p>');
+                }
+
+                $('#modal-detail-broadcast').removeClass('hidden');
+            }
+
+            // Close Detail Modal
+            function closeDetailModal() {
+                $('#modal-detail-broadcast').addClass('hidden');
+            }
+
+            // Handle Detail Button Click
+            $(document).on('click', '.btn-detail', function () {
+                const id = $(this).data('id');
+                openDetailModal(id);
+            });
+
+            // Close Modal
+            $('#modal-detail-close, #modal-detail-close-btn').on('click', closeDetailModal);
+            $('#modal-detail-broadcast').on('click', function (e) {
+                if ($(e.target).attr('id') === 'modal-detail-broadcast') {
+                    closeDetailModal();
+                }
+            });
+
+            // Download Hasil
+            $('#btn-download-hasil').on('click', function () {
+                toastr.info('Mengunduh hasil broadcast...');
+                // Simulate download
+                setTimeout(() => {
+                    toastr.success('File berhasil diunduh');
+                }, 1000);
+            });
+
+            // Filter on change
+            $('#filter-label').on('change', function () {
+                const labels = $(this).val();
+                // Implement filter logic here
+            });
+
+            $('#filter-tanggal').on('change', function () {
+                const dateRange = $(this).val();
+                // Implement filter logic here
+            });
+
+            $('#filter-keyword').on('keyup', function () {
+                const keyword = $(this).val().toLowerCase();
+                // Implement filter logic here
+                $('#riwayat-tbody tr').each(function () {
+                    const text = $(this).text().toLowerCase();
+                    if (text.includes(keyword)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

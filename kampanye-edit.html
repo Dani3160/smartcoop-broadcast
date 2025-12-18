@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Broadcast - Smartcoop Broadcast</title>
+
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Custom Styles for Select2 -->
+    <style>
+        /* Select2 Custom Styling */
+        .select2-container--bootstrap-5 .select2-selection {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            min-height: 42px;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple {
+            padding: 0.5rem 0.75rem !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            margin-left: 0 !important;
+            list-style: none;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered li {
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__placeholder {
+            color: #9ca3af !important;
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            text-indent: 0 !important;
+            position: relative !important;
+            left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__placeholder {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-search--inline {
+            margin-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-search--inline .select2-search__field {
+            margin-top: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice {
+            background-color: #FF720D;
+            border: none;
+            color: white;
+            border-radius: 0.375rem;
+            padding: 0.25rem 0.5rem;
+            margin: 0.125rem 0.5rem 0.125rem 0;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove {
+            color: white;
+            margin-right: 0.25rem;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove:hover {
+            color: #fef2f2;
+        }
+
+        .select2-container--bootstrap-5 .select2-dropdown {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            z-index: 9999 !important;
+        }
+
+        /* Flatpickr Custom Styling */
+        .flatpickr-input {
+            cursor: pointer;
+        }
+
+        .flatpickr-calendar {
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+        }
+
+        .flatpickr-day.selected,
+        .flatpickr-day.startRange,
+        .flatpickr-day.endRange {
+            background: #FF720D;
+            border-color: #FF720D;
+        }
+
+        .flatpickr-day.selected:hover,
+        .flatpickr-day.startRange:hover,
+        .flatpickr-day.endRange:hover {
+            background: #E6650B;
+            border-color: #E6650B;
+        }
+
+        .flatpickr-time input.flatpickr-hour,
+        .flatpickr-time input.flatpickr-minute {
+            color: #FF720D;
+        }
+
+        .flatpickr-time .flatpickr-time-separator {
+            color: #FF720D;
+        }
+    </style>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF720D',
+                        'primary-dark': '#E6650B',
+                        'primary-light': '#FF8A3D',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed left-0 top-0 z-40 h-screen w-64 transition-transform -translate-x-full lg:translate-x-0 bg-white border-r border-gray-200">
+        <div class="h-full px-3 py-4 overflow-y-auto">
+            <!-- Logo -->
+            <div class="flex items-center mb-8 px-3 py-2">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <span class="text-white font-bold text-xl">S</span>
+                </div>
+                <span class="text-xl font-bold text-gray-800">Smartcoop</span>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="space-y-2">
+                <li>
+                    <a href="index.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-home-line text-xl mr-3"></i>
+                        <span>Beranda</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="label.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-price-tag-line text-xl mr-3"></i>
+                        <span>Label</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kontak.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-group-line text-xl mr-3"></i>
+                        <span>Kontak</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pesan-template.html"
+                        class="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg group">
+                        <i class="ri-message-3-line text-xl mr-3"></i>
+                        <span>Pesan Template</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kampanye.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg bg-primary text-white group">
+                        <i class="ri-megaphone-line text-xl mr-3"></i>
+                        <span>Kampanye</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="laporan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-bar-chart-line text-xl mr-3"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pengaturan.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        <i class="ri-settings-3-line text-xl mr-3"></i>
+                        <span>Pengaturan</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Sidebar Card -->
+            <div class="mt-8 p-4 bg-primary rounded-lg text-white">
+                <h3 class="font-semibold mb-2">Panduan Broadcast</h3>
+                <p class="text-sm text-white/80 mb-3">Klik button dibawah untuk mempelajari Smartcoop Broadcast</p>
+                <button class="w-full py-2 bg-white text-primary rounded-lg font-medium hover:bg-gray-100 transition">
+                    Lihat Panduan
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-4 left-0 right-0 px-3">
+                <div class="flex items-center justify-center text-gray-500 text-sm">
+                    <i class="ri-customer-service-2-line mr-2"></i>
+                    <span>© 2025 All Rights Reserved</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-64">
+        <!-- Top Header -->
+        <header class="bg-white border-b border-gray-200 fixed top-0 right-0 left-0 lg:left-64 z-30">
+            <div class="px-4 py-3 flex items-center justify-between">
+                <!-- Left: Menu Toggle & Search -->
+                <div class="flex items-center space-x-4 flex-1">
+                    <button id="sidebar-toggle" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-menu-line text-xl"></i>
+                    </button>
+                    <div class="hidden md:flex items-center flex-1 max-w-md">
+                        <div class="relative w-full">
+                            <input type="text" placeholder="Search here..."
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <i
+                                class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Notifications & User -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-moon-line text-xl"></i>
+                    </button>
+
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button id="notification-toggle" class="p-2 rounded-lg hover:bg-gray-100 relative">
+                            <i class="ri-notification-3-line text-xl"></i>
+                            <span
+                                class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">12</span>
+                        </button>
+
+                        <!-- Notification Dropdown -->
+                        <div id="notification-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-96 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- Header -->
+                            <div class="p-4 border-b border-gray-100">
+                                <h3 class="text-lg font-bold text-gray-800">Notifikasi</h3>
+                            </div>
+
+                            <!-- Tabs -->
+                            <div class="px-4 pt-4 border-b border-gray-100 flex space-x-4">
+                                <button
+                                    class="notification-tab active px-4 py-2 text-sm font-medium text-gray-700 border-b-2 border-primary">
+                                    Inbox
+                                </button>
+                                <button class="notification-tab px-4 py-2 text-sm font-medium text-gray-500 relative">
+                                    Lainnya
+                                    <span
+                                        class="ml-2 px-2 py-0.5 bg-green-500 text-white text-xs rounded-full">9+</span>
+                                </button>
+                            </div>
+
+                            <!-- Notification List -->
+                            <div class="max-h-96 overflow-y-auto">
+                                <div id="notification-inbox" class="notification-content">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">2 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 3 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast 3</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">3 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+
+                                <div id="notification-agen" class="notification-content hidden">
+                                    <!-- Notification Item 1 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 1</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">30 menit yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+
+                                    <!-- Notification Item 2 -->
+                                    <div
+                                        class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-start space-x-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <i class="ri-user-line text-gray-500"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-bold text-gray-800 mb-1">Judul Broadcast Agen 2</p>
+                                            <p class="text-xs text-gray-600 mb-1">berhasil dikirim</p>
+                                            <p class="text-xs text-gray-500">1 jam yang lalu</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Profile Dropdown -->
+                    <div class="relative pl-3 border-l border-gray-200">
+                        <button id="user-profile-toggle"
+                            class="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
+                            <div class="text-right hidden sm:block">
+                                <p class="text-sm font-medium text-gray-800">Nama Pengguna</p>
+                                <p class="text-xs text-gray-500">Super Admin</p>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold">
+                                <span class="text-sm">NP</span>
+                            </div>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="user-profile-dropdown"
+                            class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <!-- User Info Section -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                                        <span>NP</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center space-x-2">
+                                            <p class="text-sm font-bold text-gray-800">Nama Pengguna</p>
+                                            <span
+                                                class="px-2 py-0.5 bg-green-500 text-white text-xs font-medium rounded-full">Super
+                                                Admin</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">developer@4visionmedia.com</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Subscription Section -->
+                            <div class="p-4 border-b border-gray-100 bg-gray-50">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-sm font-bold text-gray-800">Aktif Sampai</p>
+                                    <p class="text-sm font-medium text-gray-700">15 Februari 2030</p>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">Jangan lupa untuk memperbarui agar tetap dapat
+                                    menikmati
+                                    layanan kami.</p>
+                                <button
+                                    class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center space-x-2">
+                                    <i class="ri-rocket-line"></i>
+                                    <span>Perpanjang Langganan</span>
+                                </button>
+                            </div>
+
+                            <!-- Navigation Grid -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="grid grid-cols-3 gap-3">
+                                    <!-- Manage Kontak -->
+                                    <a href="kontak.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-group-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Manage Kontak</span>
+                                    </a>
+
+                                    <!-- Laporan -->
+                                    <a href="laporan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-bar-chart-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Laporan</span>
+                                    </a>
+
+                                    <!-- Pengaturan -->
+                                    <a href="pengaturan.html"
+                                        class="flex flex-col items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary transition-colors group">
+                                        <i
+                                            class="ri-settings-3-line text-2xl text-gray-600 group-hover:text-primary mb-2"></i>
+                                        <span class="text-xs text-gray-700 text-center">Pengaturan</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Logout -->
+                            <div class="p-4">
+                                <button id="logout-btn"
+                                    class="w-full flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+                                    <i class="ri-logout-box-line text-lg"></i>
+                                    <span class="text-sm font-medium">Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="p-6 pt-20">
+            <!-- Page Header -->
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Edit Broadcast</h1>
+            </div>
+
+            <!-- Form and Preview -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Left: Form -->
+                <div class="space-y-6">
+                    <!-- Form Card -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <form id="form-pesan-template">
+                            <input type="hidden" id="input-id-broadcast">
+
+                            <!-- Judul Broadcast -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Judul Broadcast <span
+                                        class="text-red-500">*</span></label>
+                                <input type="text" id="input-nama-pesan" required
+                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="Masukkan judul broadcast">
+                            </div>
+
+                            <!-- Pilih Tipe Pengiriman -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Tipe Pengiriman <span
+                                        class="text-red-500">*</span></label>
+                                <select id="select-tipe-pengiriman" required
+                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="label" selected>Label</option>
+                                    <option value="csv">Csv / Excel</option>
+                                </select>
+                            </div>
+
+                            <!-- Container Label -->
+                            <div id="container-tipe-label" class="mb-6">
+                                <!-- Pilih Label -->
+                                <div class="mb-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="block text-sm font-medium text-gray-700">Pilih Label</label>
+                                        <span id="count-pilih-label" class="text-sm text-gray-500">0 kontak</span>
+                                    </div>
+                                    <select id="select-pilih-label" multiple
+                                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="1">Nasabah Prioritas</option>
+                                        <option value="2">Anggota Aktif</option>
+                                        <option value="3">Pengurus Koperasi</option>
+                                        <option value="4">Peminjam Aktif</option>
+                                        <option value="5">Penyimpan Tetap</option>
+                                        <option value="6">Anggota Baru</option>
+                                        <option value="7">Calon Anggota</option>
+                                        <option value="8">Anggota VIP</option>
+                                        <option value="9">Mitra Bisnis</option>
+                                        <option value="10">Anggota Khusus</option>
+                                    </select>
+                                </div>
+
+                                <!-- Kecualikan Label -->
+                                <div class="mb-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="block text-sm font-medium text-gray-700">Kecualikan Label</label>
+                                        <span id="count-kecualikan-label" class="text-sm text-gray-500">0 kontak</span>
+                                    </div>
+                                    <select id="select-kecualikan-label" multiple
+                                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="1">Nasabah Prioritas</option>
+                                        <option value="2">Anggota Aktif</option>
+                                        <option value="3">Pengurus Koperasi</option>
+                                        <option value="4">Peminjam Aktif</option>
+                                        <option value="5">Penyimpan Tetap</option>
+                                        <option value="6">Anggota Baru</option>
+                                        <option value="7">Calon Anggota</option>
+                                        <option value="8">Anggota VIP</option>
+                                        <option value="9">Mitra Bisnis</option>
+                                        <option value="10">Anggota Khusus</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Container CSV/Excel -->
+                            <div id="container-tipe-csv" class="mb-6 hidden">
+                                <div class="mb-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="block text-sm font-medium text-gray-700">Pilih File Csv /
+                                            Excel</label>
+                                        <a href="#" id="link-download-contoh"
+                                            class="text-sm text-primary hover:text-primary-dark underline">
+                                            Download Contoh
+                                        </a>
+                                    </div>
+                                    <input type="file" id="input-file-csv" accept=".csv,.xlsx,.xls"
+                                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <p id="nama-file-csv" class="mt-2 text-sm text-gray-600 hidden"></p>
+                                </div>
+                            </div>
+
+                            <!-- Pilih Tipe Pesan -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Tipe Pesan <span
+                                        class="text-red-500">*</span></label>
+                                <select id="select-tipe-pesan" required
+                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="text">Pesan Text</option>
+                                    <option value="gambar">Pesan Gambar</option>
+                                    <option value="video">Pesan Video</option>
+                                    <option value="dokumen">Pesan Dokumen</option>
+                                    <option value="template">Pesan Template</option>
+                                </select>
+                            </div>
+
+                            <!-- Container Pilih Template -->
+                            <div id="container-pilih-template" class="mb-6 hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Template <span
+                                        class="text-red-500">*</span></label>
+                                <select id="select-pilih-template" required
+                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">Pilih Template</option>
+                                </select>
+                            </div>
+
+                            <!-- File Input Container - Gambar -->
+                            <div id="container-file-gambar" class="mb-4 hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Gambar</label>
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex-1">
+                                        <input type="file" id="input-file-gambar" accept="image/*"
+                                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                    <button type="button" id="btn-hapus-gambar"
+                                        class="hidden p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors">
+                                        <i class="ri-delete-bin-line text-xl"></i>
+                                    </button>
+                                </div>
+                                <p id="nama-file-gambar" class="mt-2 text-sm text-gray-600 hidden"></p>
+                            </div>
+
+                            <!-- File Input Container - Video -->
+                            <div id="container-file-video" class="mb-4 hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Video</label>
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex-1">
+                                        <input type="file" id="input-file-video" accept="video/*"
+                                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                    <button type="button" id="btn-hapus-video"
+                                        class="hidden p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors">
+                                        <i class="ri-delete-bin-line text-xl"></i>
+                                    </button>
+                                </div>
+                                <p id="nama-file-video" class="mt-2 text-sm text-gray-600 hidden"></p>
+                            </div>
+
+                            <!-- File Input Container - Dokumen -->
+                            <div id="container-file-dokumen" class="mb-4 hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Dokumen</label>
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex-1">
+                                        <input type="file" id="input-file-dokumen"
+                                            accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+                                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                    <button type="button" id="btn-hapus-dokumen"
+                                        class="hidden p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors">
+                                        <i class="ri-delete-bin-line text-xl"></i>
+                                    </button>
+                                </div>
+                                <p id="nama-file-dokumen" class="mt-2 text-sm text-gray-600 hidden"></p>
+                            </div>
+
+                            <!-- Teks Pesan -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <label class="block text-sm font-medium text-gray-700">Teks Pesan <span
+                                            class="text-red-500">*</span></label>
+                                    <button type="button" id="btn-tambah-spintax"
+                                        class="text-sm text-primary hover:text-primary-dark font-medium flex items-center space-x-1">
+                                        <i class="ri-add-line"></i>
+                                        <span>Spintax</span>
+                                    </button>
+                                </div>
+                                <textarea id="input-teks-pesan" rows="8" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                                    placeholder="Ketikan Disini"></textarea>
+                            </div>
+
+                            <!-- Tips Penulisan -->
+                            <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                                <p class="text-sm font-medium text-gray-700 mb-2">Tips penulisan:</p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Gunakan <span class="font-semibold">*pesan*</span> untuk tulisan tebal</li>
+                                    <li>• Gunakan <span class="italic">_pesan_</span> untuk tulisan miring</li>
+                                    <li>• Gunakan <span class="line-through">~pesan~</span> untuk tulisan coret</li>
+                                </ul>
+                            </div>
+
+                            <!-- Konfigurasi -->
+                            <div class="mb-6">
+                                <h3 class="text-lg font-bold text-gray-800 mb-4">Konfigurasi</h3>
+
+                                <!-- Pilih Tipe Pengiriman -->
+                                <div class="mb-6">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Tipe
+                                        Pengiriman</label>
+                                    <select id="select-tipe-pengiriman-broadcast" required
+                                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="sekarang" selected>Broadcast Sekarang</option>
+                                        <option value="penjadwalan">Penjadwalan</option>
+                                    </select>
+                                </div>
+
+                                <!-- Waktu Pengiriman (Hidden by default, shown when Penjadwalan selected) -->
+                                <div id="container-waktu-pengiriman" class="mb-6 hidden">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Waktu Pengiriman</label>
+                                    <input type="text" id="input-waktu-pengiriman"
+                                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        placeholder="dd/mm/yyyy, --:--">
+                                </div>
+
+                                <!-- Aktifkan Jeda Random -->
+                                <div class="mb-6">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="block text-sm font-medium text-gray-700">Aktifkan Jeda Random
+                                            (Detik)</label>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" id="toggle-jeda-random" class="sr-only peer">
+                                            <div
+                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <!-- Jeda Waktu Range (Hidden by default, shown when toggle ON) -->
+                                    <div id="container-jeda-waktu" class="hidden">
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <input type="number" id="input-jeda-dari"
+                                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                                    placeholder="Dari" min="0">
+                                            </div>
+                                            <div>
+                                                <input type="number" id="input-jeda-sampai"
+                                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                                    placeholder="Sampai" min="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right: Preview -->
+                <div class="lg:sticky lg:top-20">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Preview</h3>
+
+                        <!-- Tabs -->
+                        <div class="flex space-x-2 mb-4">
+                            <button
+                                class="preview-tab-btn active px-4 py-2 text-sm font-medium text-primary bg-orange-50 rounded-lg border border-primary transition-all"
+                                data-tab="pesan">
+                                Pesan
+                            </button>
+                            <button
+                                class="preview-tab-btn px-4 py-2 text-sm font-medium text-gray-500 bg-gray-100 rounded-lg border border-gray-300 transition-all hover:bg-gray-200"
+                                data-tab="jumlah-kontak">
+                                Jumlah Kontak
+                            </button>
+                        </div>
+
+                        <!-- Tab Content: Pesan -->
+                        <div id="preview-tab-pesan" class="preview-tab-content">
+                            <!-- Preview Container -->
+                            <div
+                                class="bg-green-50 border-2 border-green-400 rounded-xl p-6 min-h-[400px] flex flex-col justify-end">
+                                <!-- WhatsApp-like Chat Bubble -->
+                                <div class="flex justify-end">
+                                    <div class="max-w-[75%]">
+                                        <!-- Preview Media (Gambar/Video/Dokumen) -->
+                                        <div id="preview-media-container" class="mb-2 hidden">
+                                            <!-- Preview Gambar -->
+                                            <div id="preview-gambar" class="hidden rounded-lg overflow-hidden mb-2">
+                                                <img id="preview-gambar-img" src="" alt="Preview Gambar"
+                                                    class="w-full max-h-64 object-cover hidden">
+                                                <div id="preview-gambar-placeholder"
+                                                    class="bg-gray-200 rounded-lg flex items-center justify-center"
+                                                    style="min-height: 200px;">
+                                                    <div
+                                                        class="flex flex-col items-center justify-center text-gray-500">
+                                                        <i class="ri-image-line text-6xl mb-2"></i>
+                                                        <p class="text-sm">No file chosen</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Preview Video -->
+                                            <div id="preview-video"
+                                                class="hidden rounded-lg overflow-hidden mb-2 bg-gray-200 flex items-center justify-center"
+                                                style="min-height: 200px;">
+                                                <video id="preview-video-player" src="" controls
+                                                    class="w-full max-h-64 hidden"></video>
+                                                <div id="preview-video-placeholder"
+                                                    class="flex flex-col items-center justify-center text-gray-500">
+                                                    <i class="ri-video-line text-6xl mb-2"></i>
+                                                    <p class="text-sm">No file chosen</p>
+                                                </div>
+                                            </div>
+                                            <!-- Preview Dokumen -->
+                                            <div id="preview-dokumen"
+                                                class="hidden rounded-lg overflow-hidden mb-2 bg-gray-200 flex items-center justify-center p-4"
+                                                style="min-height: 150px;">
+                                                <div id="preview-dokumen-content"
+                                                    class="flex flex-col items-center justify-center text-gray-500">
+                                                    <i class="ri-file-line text-6xl mb-2"></i>
+                                                    <p id="preview-dokumen-nama" class="text-sm font-medium">Nama
+                                                        Dokumen
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Preview Text -->
+                                        <div
+                                            class="bg-green-500 text-white rounded-lg rounded-tr-none p-3 shadow-sm relative">
+                                            <p id="preview-teks-pesan"
+                                                class="text-sm whitespace-pre-wrap break-words leading-relaxed">
+                                                Kata kata anda akan muncul disini
+                                            </p>
+                                        </div>
+                                        <div class="flex items-center justify-end mt-1 space-x-1 px-1">
+                                            <span class="text-xs text-gray-500">12:30</span>
+                                            <i class="ri-check-double-line text-xs text-blue-500"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content: Jumlah Kontak -->
+                        <div id="preview-tab-jumlah-kontak" class="preview-tab-content hidden">
+                            <!-- Total Penerima -->
+                            <div class="mb-4">
+                                <p class="text-sm text-gray-700">Total Penerima : <span id="preview-total-penerima"
+                                        class="font-semibold text-gray-800">0</span></p>
+                            </div>
+
+                            <!-- Kontak List -->
+                            <div id="preview-kontak-list"
+                                class="bg-gray-50 rounded-lg p-4 max-h-[500px] overflow-y-auto border border-gray-200">
+                                <p class="text-center text-gray-500 py-8">Pilih kontak atau label untuk melihat daftar
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-6 flex items-center justify-end space-x-3">
+                <a href="kampanye.html"
+                    class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    Batal
+                </a>
+                <button id="btn-simpan-perubahan"
+                    class="px-6 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors">
+                    Simpan Perubahan
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Tambah Spintax -->
+    <div id="modal-tambah-spintax"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-visible flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
+                <h3 class="text-xl font-bold text-gray-800">Tambahkan Spintax</h3>
+                <button id="modal-spintax-close" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+                <!-- Search -->
+                <div class="mb-6">
+                    <div class="relative">
+                        <input type="text" id="search-spintax" placeholder="Cari Spintax"
+                            class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <i class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Spintax Standar Section -->
+                <div class="mb-4">
+                    <button id="toggle-spintax-standar"
+                        class="w-full flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <span class="font-semibold text-gray-800">Spintax Standar</span>
+                        <i id="icon-spintax-standar" class="ri-arrow-up-s-line text-gray-600"></i>
+                    </button>
+
+                    <!-- Spintax List -->
+                    <div id="spintax-list" class="mt-2 space-y-1">
+                        <!-- Spintax Item -->
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Nama</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{nama}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Nama Belakang</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{nama_belakang}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Nama Panggilan</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{nama_panggilan}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Nomor Telepon</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{nomor}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Email</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{email}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Tanggal Lahir</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{tanggal_lahir}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Bulan Lahir</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{bulan_lahir}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Tahun Lahir</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{tahun_lahir}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Nama Perusahaan</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{perusahaan}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Posisi Perusahaan</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{posisi_perusahaan}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Jabatan</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{jabatan}">
+                                + Tambahkan
+                            </button>
+                        </div>
+
+                        <div
+                            class="spintax-item flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">Negara</span>
+                            <button
+                                class="btn-tambah-spintax px-3 py-1.5 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                                data-spintax="{negara}">
+                                + Tambahkan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- Kampanye Edit Page Specific JS -->
+    <script>
+        $(document).ready(function () {
+            let selectedFileGambar = null;
+            let selectedFileVideo = null;
+            let selectedFileDokumen = null;
+
+            // Get ID from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            // Sample kontak data (in real app, this would come from selected contacts/labels)
+            let kontakList = [];
+
+            // Sample data broadcast (in real app, this would come from API - same as kampanye.html)
+            // Mapping label name to ID: 'Testing 2' -> '2', 'Nasabah Prioritas' -> '1', 'Anggota Aktif' -> '2', 'Peminjam Aktif' -> '4', 'Penyimpan Tetap' -> '5'
+            const labelNameToId = {
+                'Testing 2': '2',
+                'Nasabah Prioritas': '1',
+                'Anggota Aktif': '2',
+                'Peminjam Aktif': '4',
+                'Penyimpan Tetap': '5'
+            };
+
+            // Mapping tipe pesan: 'Pesan Text' -> 'text', 'Pesan Gambar' -> 'gambar', 'Pesan Video' -> 'video', 'Pesan Template' -> 'template'
+            function mapTipePesan(tipe) {
+                const mapping = {
+                    'Pesan Text': 'text',
+                    'Pesan Gambar': 'gambar',
+                    'Pesan Video': 'video',
+                    'Pesan Template': 'template'
+                };
+                return mapping[tipe] || 'text';
+            }
+
+            // Sample data broadcast (in real app, this would come from API - same as kampanye.html)
+            const broadcastDataFromKampanye = {
+                '1': {
+                    judul: 'Pengumuman Rapat Anggota Tahunan 2025',
+                    tanggal: '17 Des 2025 16:26',
+                    tipe: 'Pesan Text',
+                    dikirimKe: { type: 'csv', value: '162 kontak (csv)' },
+                    status: 'Selesai',
+                    isi: 'Halo {nama}, kami mengundang Anda untuk menghadiri Rapat Anggota Tahunan 2025 yang akan dilaksanakan pada tanggal 25 Desember 2025. Harap hadir tepat waktu.'
+                },
+                '2': {
+                    judul: 'Informasi Pembagian SHU Tahunan',
+                    tanggal: '16 Des 2025 14:15',
+                    tipe: 'Pesan Gambar',
+                    dikirimKe: { type: 'label', value: 'Testing 2', color: 'bg-blue-500' },
+                    status: 'Selesai',
+                    isi: 'Selamat {nama}! Sisa Hasil Usaha (SHU) tahun ini telah dihitung. Anda akan menerima pembagian SHU sebesar Rp {jumlah}.'
+                },
+                '3': {
+                    judul: 'Undangan Rapat Pengurus Koperasi',
+                    tanggal: '15 Des 2025 10:30',
+                    tipe: 'Pesan Video',
+                    dikirimKe: { type: 'csv', value: '420 kontak (csv)' },
+                    status: 'Proses',
+                    isi: 'Kepada {nama}, kami mengundang Anda untuk menghadiri rapat pengurus koperasi pada {tanggal} di {lokasi}.'
+                },
+                '4': {
+                    judul: 'Pengumuman Program Simpan Pinjam Baru',
+                    tanggal: '14 Des 2025 09:45',
+                    tipe: 'Pesan Template',
+                    dikirimKe: { type: 'label', value: 'Nasabah Prioritas', color: 'bg-green-500' },
+                    status: 'Selesai',
+                    isi: 'Halo {nama}, koperasi kami telah meluncurkan program simpan pinjam baru dengan bunga menarik. Informasi lengkap dapat dilihat di website kami.'
+                },
+                '5': {
+                    judul: 'Pengingat Pembayaran Simpanan Wajib',
+                    tanggal: '13 Des 2025 11:20',
+                    tipe: 'Pesan Text',
+                    dikirimKe: { type: 'csv', value: '1,850 kontak (csv)' },
+                    status: 'Selesai',
+                    isi: 'Halo {nama}, ini adalah pengingat untuk pembayaran simpanan wajib bulanan Anda. Terima kasih.'
+                },
+                '6': {
+                    judul: 'Notifikasi Bunga Simpanan Bulanan',
+                    tanggal: '12 Des 2025 15:10',
+                    tipe: 'Pesan Gambar',
+                    dikirimKe: { type: 'label', value: 'Anggota Aktif', color: 'bg-purple-500' },
+                    status: 'Selesai',
+                    isi: 'Halo {nama}, bunga simpanan Anda untuk bulan ini telah ditambahkan. Saldo terbaru: Rp {saldo}.'
+                },
+                '7': {
+                    judul: 'Pemberitahuan Jadwal Pelatihan Koperasi',
+                    tanggal: '11 Des 2025 08:55',
+                    tipe: 'Pesan Video',
+                    dikirimKe: { type: 'csv', value: '950 kontak (csv)' },
+                    status: 'Proses',
+                    isi: 'Kepada {nama}, kami mengundang Anda untuk mengikuti pelatihan koperasi pada {tanggal}. Daftar segera, kuota terbatas!'
+                },
+                '8': {
+                    judul: 'Pengumuman Update Sistem Koperasi',
+                    tanggal: '10 Des 2025 13:40',
+                    tipe: 'Pesan Template',
+                    dikirimKe: { type: 'label', value: 'Peminjam Aktif', color: 'bg-orange-500' },
+                    status: 'Selesai',
+                    isi: 'Halo {nama}, sistem koperasi telah diperbarui dengan fitur-fitur baru. Silakan login untuk melihat perubahan.'
+                },
+                '9': {
+                    judul: 'Undangan Workshop Keuangan Koperasi',
+                    tanggal: '9 Des 2025 16:25',
+                    tipe: 'Pesan Text',
+                    dikirimKe: { type: 'csv', value: '680 kontak (csv)' },
+                    status: 'Selesai',
+                    isi: 'Kepada {nama}, kami mengundang Anda untuk menghadiri workshop keuangan koperasi pada {tanggal}.'
+                },
+                '10': {
+                    judul: 'Pengingat Pembayaran Angsuran Pinjaman',
+                    tanggal: '8 Des 2025 10:15',
+                    tipe: 'Pesan Gambar',
+                    dikirimKe: { type: 'label', value: 'Penyimpan Tetap', color: 'bg-red-500' },
+                    status: 'Selesai',
+                    isi: 'Halo {nama}, ini adalah pengingat untuk pembayaran angsuran pinjaman Anda yang jatuh tempo pada {tanggal}.'
+                }
+            };
+
+            // Load Broadcast Data
+            function loadBroadcastData() {
+                if (!id) {
+                    toastr.error('ID tidak ditemukan');
+                    setTimeout(() => {
+                        window.location.href = 'kampanye.html';
+                    }, 2000);
+                    return;
+                }
+
+                const data = broadcastDataFromKampanye[id];
+                if (!data) {
+                    toastr.error('Data broadcast tidak ditemukan');
+                    setTimeout(() => {
+                        window.location.href = 'kampanye.html';
+                    }, 2000);
+                    return;
+                }
+
+                // Pre-fill form
+                $('#input-id-broadcast').val(id);
+                $('#input-nama-pesan').val(data.judul);
+
+                // Set Tipe Pengiriman based on dikirimKe
+                const tipePengiriman = data.dikirimKe.type;
+                $('#select-tipe-pengiriman').val(tipePengiriman).trigger('change');
+
+                // Set Label selections (wait for Select2 to be ready)
+                if (tipePengiriman === 'label' && data.dikirimKe.value) {
+                    const labelId = labelNameToId[data.dikirimKe.value];
+                    if (labelId) {
+                        setTimeout(() => {
+                            $('#select-pilih-label').val([labelId]).trigger('change');
+                        }, 300);
+                    }
+                }
+
+                // Set Tipe Pesan (map from 'Pesan Text' to 'text')
+                const tipePesan = mapTipePesan(data.tipe);
+                $('#select-tipe-pesan').val(tipePesan).trigger('change');
+
+                // Set Template if tipe pesan is template (use template ID based on broadcast ID for demo)
+                if (tipePesan === 'template') {
+                    setTimeout(() => {
+                        // For demo, use broadcast ID as template ID
+                        $('#select-pilih-template').val(id).trigger('change');
+                    }, 400);
+                } else {
+                    // Set Teks Pesan
+                    $('#input-teks-pesan').val(data.isi);
+                }
+
+                // Set Konfigurasi (default values for demo)
+                $('#select-tipe-pengiriman-broadcast').val('sekarang').trigger('change');
+
+                // Update preview
+                setTimeout(() => {
+                    updatePreview();
+                }, 600);
+            }
+
+            // Load data on page load (after all initialization)
+            setTimeout(() => {
+                loadBroadcastData();
+            }, 500);
+
+            // Sample data pesan template (in real app, this would come from API)
+            const pesanTemplateData = {
+                '1': {
+                    nama: 'Pengingat Simpanan Bulanan',
+                    teks: 'Halo {nama}, jangan lupa untuk melakukan simpanan bulanan Anda. Terima kasih atas kepercayaan Anda kepada koperasi kami.',
+                    tipe: 'text'
+                },
+                '2': {
+                    nama: 'Notifikasi Pinjaman Disetujui',
+                    teks: 'Selamat {nama}! Pinjaman Anda sebesar Rp {jumlah} telah disetujui. Silakan hubungi kami untuk proses selanjutnya.',
+                    tipe: 'text'
+                },
+                '3': {
+                    nama: 'Pengingat Pembayaran Angsuran',
+                    teks: 'Halo {nama}, ini adalah pengingat untuk pembayaran angsuran pinjaman Anda yang jatuh tempo pada {tanggal}. Terima kasih.',
+                    tipe: 'text'
+                },
+                '4': {
+                    nama: 'Undangan Rapat Anggota',
+                    teks: 'Kepada {nama}, kami mengundang Anda untuk menghadiri rapat anggota koperasi pada {tanggal} di {lokasi}. Harap hadir tepat waktu.',
+                    tipe: 'text'
+                },
+                '5': {
+                    nama: 'Notifikasi Bunga Simpanan',
+                    teks: 'Halo {nama}, bunga simpanan Anda untuk bulan ini telah ditambahkan. Saldo terbaru: Rp {saldo}. Terima kasih.',
+                    tipe: 'text'
+                },
+                '6': {
+                    nama: 'Pemberitahuan SHU',
+                    teks: 'Selamat {nama}! Sisa Hasil Usaha (SHU) tahun ini telah dihitung. Anda akan menerima pembagian SHU sebesar Rp {jumlah}.',
+                    tipe: 'text'
+                },
+                '7': {
+                    nama: 'Pengingat Update Data Anggota',
+                    teks: 'Halo {nama}, mohon untuk memperbarui data anggota Anda. Data terbaru diperlukan untuk kelancaran layanan koperasi.',
+                    tipe: 'text'
+                },
+                '8': {
+                    nama: 'Notifikasi Produk Baru',
+                    teks: 'Halo {nama}, koperasi kami telah meluncurkan produk baru. Informasi lengkap dapat dilihat di website kami. Terima kasih.',
+                    tipe: 'text'
+                },
+                '9': {
+                    nama: 'Pemberitahuan Jadwal Pelatihan',
+                    teks: 'Kepada {nama}, kami mengundang Anda untuk mengikuti pelatihan koperasi pada {tanggal}. Daftar segera, kuota terbatas!',
+                    tipe: 'text'
+                },
+                '10': {
+                    nama: 'Pengingat Pembayaran Iuran',
+                    teks: 'Halo {nama}, ini adalah pengingat untuk pembayaran iuran bulanan Anda. Pembayaran dapat dilakukan melalui {metode}. Terima kasih.',
+                    tipe: 'text'
+                }
+            };
+
+            // Populate Template Select Options
+            function populateTemplateOptions() {
+                const select = $('#select-pilih-template');
+                select.empty();
+                select.append('<option value="">Pilih Template</option>');
+
+                Object.keys(pesanTemplateData).forEach(function (id) {
+                    const template = pesanTemplateData[id];
+                    select.append(`<option value="${id}">${template.nama}</option>`);
+                });
+            }
+
+            // Initialize Select2 for Template Select
+            function initializeTemplateSelect() {
+                $('#select-pilih-template').select2({
+                    theme: 'bootstrap-5',
+                    width: '100%',
+                    placeholder: 'Pilih Template',
+                    allowClear: true
+                });
+            }
+
+            // Populate and initialize template select on page load
+            populateTemplateOptions();
+            initializeTemplateSelect();
+
+            // Handle Template Selection
+            $('#select-pilih-template').on('change', function () {
+                const templateId = $(this).val();
+                if (templateId && pesanTemplateData[templateId]) {
+                    const template = pesanTemplateData[templateId];
+                    // Auto-fill teks pesan
+                    $('#input-teks-pesan').val(template.teks);
+                    // Update preview
+                    updatePreview();
+                } else {
+                    // Clear teks pesan if no template selected
+                    $('#input-teks-pesan').val('');
+                    updatePreview();
+                }
+            });
+
+            // Sample data kontak per label (in real app, this would come from API)
+            const kontakPerLabel = {
+                '1': [
+                    { nama: 'Ahmad Fauzi', nomor: '6281112223334' },
+                    { nama: 'Siti Nurhaliza', nomor: '6282223334445' },
+                    { nama: 'Bambang Sutrisno', nomor: '6283334445556' }
+                ],
+                '2': [
+                    { nama: 'Citra Dewi', nomor: '6284455667788' },
+                    { nama: 'Dedi Kurniawan', nomor: '6285566778899' },
+                    { nama: 'Eka Putri', nomor: '6286677889900' },
+                    { nama: 'Fajar Pratama', nomor: '6287788990011' }
+                ],
+                '3': [
+                    { nama: 'Gita Sari', nomor: '6288899001122' },
+                    { nama: 'Hadi Wijaya', nomor: '6289900112233' }
+                ],
+                '4': [
+                    { nama: 'Indah Permata', nomor: '6280011223344' },
+                    { nama: 'Joko Susilo', nomor: '6281122334455' },
+                    { nama: 'Kartika Sari', nomor: '6282233445566' }
+                ],
+                '5': [
+                    { nama: 'Lina Wati', nomor: '6283344556677' },
+                    { nama: 'Maman Sutrisno', nomor: '6284455667788' }
+                ],
+                '6': [
+                    { nama: 'Nina Sari', nomor: '6285566778899' },
+                    { nama: 'Oki Setiawan', nomor: '6286677889900' },
+                    { nama: 'Putri Lestari', nomor: '6287788990011' }
+                ],
+                '7': [
+                    { nama: 'Rudi Hartono', nomor: '6288899001122' }
+                ],
+                '8': [
+                    { nama: 'Sari Indah', nomor: '6289900112233' },
+                    { nama: 'Tono Wijaya', nomor: '6280011223344' }
+                ],
+                '9': [
+                    { nama: 'Udin Sedunia', nomor: '6281122334455' },
+                    { nama: 'Vina Sari', nomor: '6282233445566' },
+                    { nama: 'Wawan Setiawan', nomor: '6283344556677' }
+                ],
+                '10': [
+                    { nama: 'Xena Putri', nomor: '6284455667788' },
+                    { nama: 'Yoga Pratama', nomor: '6285566778899' }
+                ]
+            };
+
+            // Initialize Select2 for Label Selects
+            $('#select-pilih-label').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: 'Ketik Disini',
+                closeOnSelect: false
+            });
+
+            $('#select-kecualikan-label').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: 'Ketik Disini',
+                closeOnSelect: false
+            });
+
+            // Handle Tipe Pengiriman Change
+            $('#select-tipe-pengiriman').on('change', function () {
+                const tipePengiriman = $(this).val();
+                handleTipePengirimanChange(tipePengiriman);
+            });
+
+            // Initialize on page load
+            handleTipePengirimanChange($('#select-tipe-pengiriman').val());
+
+            function handleTipePengirimanChange(tipePengiriman) {
+                if (tipePengiriman === 'label') {
+                    $('#container-tipe-label').removeClass('hidden');
+                    $('#container-tipe-csv').addClass('hidden');
+                    // Reset CSV file
+                    $('#input-file-csv').val('');
+                    $('#nama-file-csv').addClass('hidden');
+                    // Update kontak from labels
+                    updateKontakFromLabel();
+                } else if (tipePengiriman === 'csv') {
+                    $('#container-tipe-label').addClass('hidden');
+                    $('#container-tipe-csv').removeClass('hidden');
+                    // Reset label selections
+                    $('#select-pilih-label').val(null).trigger('change');
+                    $('#select-kecualikan-label').val(null).trigger('change');
+                    // Reset kontak list if no CSV file
+                    if (!$('#input-file-csv')[0].files.length) {
+                        kontakList = [];
+                        renderKontakList(kontakList);
+                    }
+                }
+            }
+
+            // Handle Label Selection Change
+            $('#select-pilih-label, #select-kecualikan-label').on('change', function () {
+                updateKontakCounts();
+                updateKontakFromLabel();
+            });
+
+            // Update Kontak Counts
+            function updateKontakCounts() {
+                const selectedLabels = $('#select-pilih-label').val() || [];
+                const excludedLabels = $('#select-kecualikan-label').val() || [];
+
+                let totalPilih = 0;
+                selectedLabels.forEach(function (labelId) {
+                    if (kontakPerLabel[labelId]) {
+                        totalPilih += kontakPerLabel[labelId].length;
+                    }
+                });
+
+                let totalKecualikan = 0;
+                excludedLabels.forEach(function (labelId) {
+                    if (kontakPerLabel[labelId]) {
+                        totalKecualikan += kontakPerLabel[labelId].length;
+                    }
+                });
+
+                $('#count-pilih-label').text(totalPilih.toLocaleString('id-ID') + ' kontak');
+                $('#count-kecualikan-label').text(totalKecualikan.toLocaleString('id-ID') + ' kontak');
+            }
+
+            // Update Kontak List from Selected Labels
+            function updateKontakFromLabel() {
+                const selectedLabels = $('#select-pilih-label').val() || [];
+                const excludedLabels = $('#select-kecualikan-label').val() || [];
+
+                let allKontak = [];
+
+                // Get kontak from selected labels
+                selectedLabels.forEach(function (labelId) {
+                    if (kontakPerLabel[labelId]) {
+                        allKontak = allKontak.concat(kontakPerLabel[labelId]);
+                    }
+                });
+
+                // Remove kontak from excluded labels
+                excludedLabels.forEach(function (labelId) {
+                    if (kontakPerLabel[labelId]) {
+                        const excludedKontak = kontakPerLabel[labelId];
+                        allKontak = allKontak.filter(function (kontak) {
+                            return !excludedKontak.some(function (excluded) {
+                                return excluded.nomor === kontak.nomor;
+                            });
+                        });
+                    }
+                });
+
+                // Remove duplicates based on nomor
+                const uniqueKontak = [];
+                const seenNomor = {};
+                allKontak.forEach(function (kontak) {
+                    if (!seenNomor[kontak.nomor]) {
+                        seenNomor[kontak.nomor] = true;
+                        uniqueKontak.push(kontak);
+                    }
+                });
+
+                kontakList = uniqueKontak;
+                renderKontakList(kontakList);
+            }
+
+            // Handle CSV File Upload
+            $('#input-file-csv').on('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    $('#nama-file-csv').text(file.name).removeClass('hidden');
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        parseCSVFile(e.target.result);
+                    };
+                    reader.readAsText(file);
+                }
+            });
+
+            // Parse CSV File
+            function parseCSVFile(csvContent) {
+                const lines = csvContent.split('\n');
+                kontakList = [];
+
+                // Skip header row (assuming first row is header)
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue;
+
+                    // Simple CSV parsing (assuming format: nama,nomor or nomor,nama)
+                    const parts = line.split(',');
+                    if (parts.length >= 2) {
+                        const nama = parts[0].trim().replace(/"/g, '');
+                        const nomor = parts[1].trim().replace(/"/g, '');
+                        if (nomor) {
+                            kontakList.push({ nama: nama || '', nomor: nomor });
+                        }
+                    } else if (parts.length === 1 && parts[0].trim()) {
+                        // If only one column, assume it's nomor
+                        const nomor = parts[0].trim().replace(/"/g, '');
+                        if (nomor) {
+                            kontakList.push({ nama: '', nomor: nomor });
+                        }
+                    }
+                }
+
+                renderKontakList(kontakList);
+            }
+
+            // Download Contoh CSV
+            $('#link-download-contoh').on('click', function (e) {
+                e.preventDefault();
+                // Create sample CSV content
+                const csvContent = 'Nama,Nomor\nAhmad Fauzi,6281112223334\nSiti Nurhaliza,6282223334445\nBambang Sutrisno,6283334445556';
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'contoh_kontak.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            // Tab Switching
+            $('.preview-tab-btn').on('click', function () {
+                const tab = $(this).data('tab');
+
+                // Update tab buttons - inactive style
+                $('.preview-tab-btn').removeClass('active text-primary bg-orange-50 border-primary')
+                    .addClass('text-gray-500 bg-gray-100 border-gray-300');
+
+                // Active style
+                $(this).addClass('active text-primary bg-orange-50 border-primary')
+                    .removeClass('text-gray-500 bg-gray-100 border-gray-300');
+
+                // Show/hide tab content
+                $('.preview-tab-content').addClass('hidden');
+                $(`#preview-tab-${tab}`).removeClass('hidden');
+            });
+
+            // Generate Avatar Color
+            function getAvatarColor(str) {
+                const colors = [
+                    'bg-blue-600', 'bg-green-600', 'bg-purple-600', 'bg-red-600',
+                    'bg-yellow-600', 'bg-indigo-600', 'bg-pink-600', 'bg-teal-600',
+                    'bg-orange-600', 'bg-cyan-600', 'bg-gray-600', 'bg-emerald-600'
+                ];
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+                }
+                return colors[Math.abs(hash) % colors.length];
+            }
+
+            // Generate Avatar Text (2 characters)
+            function getAvatarText(nama, nomor) {
+                if (nama && nama.trim() !== '') {
+                    // Use initials from name
+                    const words = nama.trim().split(' ');
+                    if (words.length >= 2) {
+                        return (words[0][0] + words[1][0]).toUpperCase();
+                    } else {
+                        return nama.substring(0, 2).toUpperCase();
+                    }
+                } else if (nomor) {
+                    // Use first 2 digits of phone number
+                    return nomor.substring(0, 2);
+                }
+                return '??';
+            }
+
+            // Render Kontak List
+            function renderKontakList(kontakList) {
+                if (!kontakList || kontakList.length === 0) {
+                    $('#preview-kontak-list').html('<p class="text-center text-gray-500 py-8">Pilih kontak atau label untuk melihat daftar</p>');
+                    $('#preview-total-penerima').text('0');
+                    return;
+                }
+
+                let html = '';
+                kontakList.forEach(function (kontak) {
+                    const avatarColor = getAvatarColor(kontak.nama || kontak.nomor);
+                    const avatarText = getAvatarText(kontak.nama, kontak.nomor);
+                    const displayName = kontak.nama || kontak.nomor;
+                    const displayNumber = kontak.nama ? kontak.nomor : (kontak.nomor || '-');
+
+                    html += `
+                        <div class="flex items-center space-x-3 py-2 px-1">
+                            <div class="w-10 h-10 ${avatarColor} rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+                                ${avatarText}
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 truncate text-sm">${displayName}</p>
+                                <p class="text-sm text-gray-600 truncate">${displayNumber}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                $('#preview-kontak-list').html(html);
+                $('#preview-total-penerima').text(kontakList.length.toLocaleString('id-ID'));
+            }
+
+            // Initialize with sample data (for demo purposes)
+            // In real app, this would be populated when user selects contacts/labels
+            function loadSampleKontak() {
+                kontakList = [
+                    { nama: 'alfandigitalmarketer', nomor: '085276503666' },
+                    { nama: 'Gms Racing Product', nomor: '628136484861' },
+                    { nama: 'Pak Heru', nomor: '6281234567890' },
+                    { nama: '', nomor: '085276503666' },
+                    { nama: '', nomor: '628136484861' },
+                    { nama: 'Budi Santoso', nomor: '6281122334455' },
+                    { nama: 'Citra Dewi', nomor: '6282233445566' },
+                    { nama: 'Dedi Kurniawan', nomor: '6283344556677' },
+                    { nama: 'Eka Putri', nomor: '6284455667788' },
+                    { nama: 'Fajar Pratama', nomor: '6285566778899' },
+                    { nama: 'Gita Sari', nomor: '6286677889900' },
+                    { nama: 'Hadi Wijaya', nomor: '6287788990011' },
+                    { nama: 'Indah Permata', nomor: '6288899001122' },
+                    { nama: 'Joko Susilo', nomor: '6289900112233' },
+                    { nama: '', nomor: '6280011223344' }
+                ];
+                renderKontakList(kontakList);
+            }
+
+            // Initialize kontak list (empty on page load)
+            // Kontak will be loaded when user selects labels or uploads CSV
+            kontakList = [];
+            renderKontakList(kontakList);
+
+            // Initialize Flatpickr for Waktu Pengiriman
+            const flatpickrWaktu = flatpickr('#input-waktu-pengiriman', {
+                enableTime: true,
+                dateFormat: 'd/m/Y, H:i',
+                time_24hr: true,
+                locale: 'id',
+                minDate: 'today',
+                placeholder: 'dd/mm/yyyy, --:--'
+            });
+
+            // Handle Tipe Pengiriman Broadcast Change
+            $('#select-tipe-pengiriman-broadcast').on('change', function () {
+                const tipePengiriman = $(this).val();
+                if (tipePengiriman === 'penjadwalan') {
+                    $('#container-waktu-pengiriman').removeClass('hidden');
+                    $('#input-waktu-pengiriman').prop('required', true);
+                } else {
+                    $('#container-waktu-pengiriman').addClass('hidden');
+                    $('#input-waktu-pengiriman').prop('required', false);
+                    $('#input-waktu-pengiriman').val('');
+                }
+            });
+
+            // Handle Toggle Jeda Random
+            $('#toggle-jeda-random').on('change', function () {
+                const isChecked = $(this).is(':checked');
+                const container = $('#container-jeda-waktu');
+                const inputDari = $('#input-jeda-dari');
+                const inputSampai = $('#input-jeda-sampai');
+
+                if (isChecked) {
+                    container.slideDown(200);
+                    inputDari.prop('required', true);
+                    inputSampai.prop('required', true);
+                } else {
+                    container.slideUp(200);
+                    inputDari.prop('required', false);
+                    inputSampai.prop('required', false);
+                    inputDari.val('');
+                    inputSampai.val('');
+                }
+            });
+
+            // Handle Tipe Pesan Change
+            $('#select-tipe-pesan').on('change', function () {
+                const tipePesan = $(this).val();
+                handleTipePesanChange(tipePesan);
+            });
+
+            // Initialize on page load
+            handleTipePesanChange($('#select-tipe-pesan').val());
+
+            function handleTipePesanChange(tipePesan) {
+                // Hide all file containers
+                $('#container-file-gambar').addClass('hidden');
+                $('#container-file-video').addClass('hidden');
+                $('#container-file-dokumen').addClass('hidden');
+                $('#container-pilih-template').addClass('hidden');
+
+                // Hide all preview media
+                $('#preview-media-container').addClass('hidden');
+                $('#preview-gambar').addClass('hidden');
+                $('#preview-video').addClass('hidden');
+                $('#preview-dokumen').addClass('hidden');
+
+                // Show appropriate file container and preview based on type
+                if (tipePesan === 'gambar') {
+                    $('#container-file-gambar').removeClass('hidden');
+                    $('#preview-media-container').removeClass('hidden');
+                    $('#preview-gambar').removeClass('hidden');
+                    updatePreviewGambar();
+                } else if (tipePesan === 'video') {
+                    $('#container-file-video').removeClass('hidden');
+                    $('#preview-media-container').removeClass('hidden');
+                    $('#preview-video').removeClass('hidden');
+                    updatePreviewVideo();
+                } else if (tipePesan === 'dokumen') {
+                    $('#container-file-dokumen').removeClass('hidden');
+                    $('#preview-media-container').removeClass('hidden');
+                    $('#preview-dokumen').removeClass('hidden');
+                    updatePreviewDokumen();
+                } else if (tipePesan === 'template') {
+                    $('#container-pilih-template').removeClass('hidden');
+                    // Re-initialize Select2 if needed
+                    if (!$('#select-pilih-template').hasClass('select2-hidden-accessible')) {
+                        initializeTemplateSelect();
+                    }
+                    // Hide preview media for template
+                }
+
+                // Clear template selection when switching to non-template types
+                if (tipePesan !== 'template') {
+                    $('#select-pilih-template').val(null).trigger('change');
+                }
+
+                updatePreview();
+            }
+
+            // Handle File Selection - Gambar
+            $('#input-file-gambar').on('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    selectedFileGambar = file;
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#preview-gambar-img').attr('src', e.target.result).show();
+                        $('#preview-gambar-placeholder').hide();
+                        $('#btn-hapus-gambar').removeClass('hidden');
+                        $('#nama-file-gambar').text(file.name).removeClass('hidden');
+                        updatePreview();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Handle File Selection - Video
+            $('#input-file-video').on('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    selectedFileVideo = file;
+                    const url = URL.createObjectURL(file);
+                    $('#preview-video-player').attr('src', url).removeClass('hidden');
+                    $('#preview-video-placeholder').addClass('hidden');
+                    $('#btn-hapus-video').removeClass('hidden');
+                    $('#nama-file-video').text(file.name).removeClass('hidden');
+                    updatePreview();
+                }
+            });
+
+            // Handle File Selection - Dokumen
+            $('#input-file-dokumen').on('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    selectedFileDokumen = file;
+                    $('#preview-dokumen-nama').text(file.name);
+                    $('#btn-hapus-dokumen').removeClass('hidden');
+                    $('#nama-file-dokumen').text(file.name).removeClass('hidden');
+                    updatePreview();
+                }
+            });
+
+            // Handle File Deletion - Gambar
+            $('#btn-hapus-gambar').on('click', function () {
+                $('#input-file-gambar').val('');
+                selectedFileGambar = null;
+                $('#preview-gambar-img').attr('src', '').hide();
+                $('#preview-gambar-placeholder').show();
+                $('#btn-hapus-gambar').addClass('hidden');
+                $('#nama-file-gambar').addClass('hidden');
+                updatePreview();
+            });
+
+            // Handle File Deletion - Video
+            $('#btn-hapus-video').on('click', function () {
+                $('#input-file-video').val('');
+                if (selectedFileVideo) {
+                    URL.revokeObjectURL($('#preview-video-player').attr('src'));
+                }
+                selectedFileVideo = null;
+                $('#preview-video-player').attr('src', '').addClass('hidden');
+                $('#preview-video-placeholder').removeClass('hidden');
+                $('#btn-hapus-video').addClass('hidden');
+                $('#nama-file-video').addClass('hidden');
+                updatePreviewVideo();
+                updatePreview();
+            });
+
+            // Handle File Deletion - Dokumen
+            $('#btn-hapus-dokumen').on('click', function () {
+                $('#input-file-dokumen').val('');
+                selectedFileDokumen = null;
+                $('#preview-dokumen-nama').text('Nama Dokumen');
+                $('#btn-hapus-dokumen').addClass('hidden');
+                $('#nama-file-dokumen').addClass('hidden');
+                updatePreviewDokumen();
+                updatePreview();
+            });
+
+
+            function updatePreviewVideo() {
+                if (selectedFileVideo) {
+                    // Already handled in file change event
+                } else {
+                    // Show default placeholder
+                    $('#preview-video-player').addClass('hidden');
+                    $('#preview-video-placeholder').removeClass('hidden');
+                }
+            }
+
+            function updatePreviewDokumen() {
+                if (selectedFileDokumen) {
+                    // Already handled in file change event
+                } else {
+                    // Show default placeholder
+                    $('#preview-dokumen-nama').text('Nama Dokumen');
+                }
+            }
+
+            // Real-time Preview Update
+            $('#input-teks-pesan').on('input', function () {
+                updatePreview();
+            });
+
+            // Format text for preview (bold, italic, strikethrough)
+            function formatText(text) {
+                // Convert *text* to bold
+                text = text.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
+                // Convert _text_ to italic
+                text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
+                // Convert ~text~ to strikethrough
+                text = text.replace(/~([^~]+)~/g, '<del>$1</del>');
+                return text;
+            }
+
+            // Update Preview
+            function updatePreview() {
+                const teksPesan = $('#input-teks-pesan').val() || 'Kata kata anda akan muncul disini';
+                const formattedText = formatText(teksPesan);
+                $('#preview-teks-pesan').html(formattedText);
+            }
+
+
+            // Modal Spintax Functions
+            function openModalSpintax() {
+                $('#modal-tambah-spintax').removeClass('hidden');
+                $('#search-spintax').val('');
+                filterSpintax('');
+            }
+
+            function closeModalSpintax() {
+                $('#modal-tambah-spintax').addClass('hidden');
+                $('#search-spintax').val('');
+            }
+
+            // Tambah Spintax - Open Modal
+            $('#btn-tambah-spintax').on('click', function () {
+                openModalSpintax();
+            });
+
+            // Close Modal
+            $('#modal-spintax-close').on('click', closeModalSpintax);
+            $('#modal-tambah-spintax').on('click', function (e) {
+                if ($(e.target).attr('id') === 'modal-tambah-spintax') {
+                    closeModalSpintax();
+                }
+            });
+
+            // Toggle Spintax Standar Section
+            let spintaxStandarExpanded = true;
+            $('#toggle-spintax-standar').on('click', function () {
+                spintaxStandarExpanded = !spintaxStandarExpanded;
+                if (spintaxStandarExpanded) {
+                    $('#spintax-list').slideDown(200);
+                    $('#icon-spintax-standar').removeClass('ri-arrow-down-s-line').addClass('ri-arrow-up-s-line');
+                } else {
+                    $('#spintax-list').slideUp(200);
+                    $('#icon-spintax-standar').removeClass('ri-arrow-up-s-line').addClass('ri-arrow-down-s-line');
+                }
+            });
+
+            // Search Spintax
+            $('#search-spintax').on('keyup', function () {
+                const keyword = $(this).val().toLowerCase();
+                filterSpintax(keyword);
+            });
+
+            // Filter Spintax
+            function filterSpintax(keyword) {
+                $('.spintax-item').each(function () {
+                    const text = $(this).find('span').text().toLowerCase();
+                    if (text.includes(keyword)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+
+            // Tambah Spintax ke Textarea
+            $(document).on('click', '.btn-tambah-spintax', function () {
+                const spintax = $(this).data('spintax');
+                const textarea = $('#input-teks-pesan');
+                const cursorPos = textarea[0].selectionStart;
+                const textBefore = textarea.val().substring(0, cursorPos);
+                const textAfter = textarea.val().substring(cursorPos);
+
+                textarea.val(textBefore + spintax + textAfter);
+                textarea.focus();
+
+                // Set cursor position after inserted spintax
+                const newCursorPos = cursorPos + spintax.length;
+                textarea[0].setSelectionRange(newCursorPos, newCursorPos);
+
+                updatePreview();
+                closeModalSpintax();
+            });
+
+            // Simpan Perubahan
+            $('#btn-simpan-perubahan').on('click', function () {
+                const idBroadcast = $('#input-id-broadcast').val();
+                const namaPesan = $('#input-nama-pesan').val().trim();
+                const teksPesan = $('#input-teks-pesan').val().trim();
+
+                if (!namaPesan || !teksPesan) {
+                    toastr.warning('Judul Broadcast dan Teks Pesan wajib diisi');
+                    return;
+                }
+
+                // Simulate update
+                toastr.info('Menyimpan perubahan broadcast...');
+
+                setTimeout(() => {
+                    toastr.success('Broadcast berhasil diperbarui');
+                    setTimeout(() => {
+                        window.location.href = 'kampanye.html';
+                    }, 1000);
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+
+</html>

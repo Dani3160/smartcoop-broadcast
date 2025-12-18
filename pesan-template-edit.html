@@ -87,7 +87,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                    <a href="kampanye.html"
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
                         <i class="ri-megaphone-line text-xl mr-3"></i>
                         <span>Kampanye</span>
                     </a>
@@ -387,6 +388,68 @@
                                     placeholder="Masukkan nama pesan template">
                             </div>
 
+                            <!-- Pilih Tipe Pesan -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Tipe Pesan <span
+                                        class="text-red-500">*</span></label>
+                                <select id="select-tipe-pesan" required
+                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="text">Pesan Text</option>
+                                    <option value="gambar">Pesan Gambar</option>
+                                    <option value="video">Pesan Video</option>
+                                    <option value="dokumen">Pesan Dokumen</option>
+                                </select>
+                            </div>
+
+                            <!-- File Input Container - Gambar -->
+                            <div id="container-file-gambar" class="mb-4 hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Gambar</label>
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex-1">
+                                        <input type="file" id="input-file-gambar" accept="image/*"
+                                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                    <button type="button" id="btn-hapus-gambar"
+                                        class="hidden p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors">
+                                        <i class="ri-delete-bin-line text-xl"></i>
+                                    </button>
+                                </div>
+                                <p id="nama-file-gambar" class="mt-2 text-sm text-gray-600 hidden"></p>
+                            </div>
+
+                            <!-- File Input Container - Video -->
+                            <div id="container-file-video" class="mb-4 hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Video</label>
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex-1">
+                                        <input type="file" id="input-file-video" accept="video/*"
+                                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                    <button type="button" id="btn-hapus-video"
+                                        class="hidden p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors">
+                                        <i class="ri-delete-bin-line text-xl"></i>
+                                    </button>
+                                </div>
+                                <p id="nama-file-video" class="mt-2 text-sm text-gray-600 hidden"></p>
+                            </div>
+
+                            <!-- File Input Container - Dokumen -->
+                            <div id="container-file-dokumen" class="mb-4 hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Dokumen</label>
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex-1">
+                                        <input type="file" id="input-file-dokumen"
+                                            accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+                                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                    <button type="button" id="btn-hapus-dokumen"
+                                        class="hidden p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors">
+                                        <i class="ri-delete-bin-line text-xl"></i>
+                                    </button>
+                                </div>
+                                <p id="nama-file-dokumen" class="mt-2 text-sm text-gray-600 hidden"></p>
+                            </div>
+
                             <!-- Teks Pesan -->
                             <div class="mb-4">
                                 <div class="flex items-center justify-between mb-2">
@@ -400,7 +463,7 @@
                                 </div>
                                 <textarea id="input-teks-pesan" rows="8" required
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
-                                    placeholder="{nama}"></textarea>
+                                    placeholder="Ketikan Disini"></textarea>
                             </div>
 
                             <!-- Tips Penulisan -->
@@ -409,7 +472,7 @@
                                 <ul class="text-sm text-gray-600 space-y-1">
                                     <li>• Gunakan <span class="font-semibold">*pesan*</span> untuk tulisan tebal</li>
                                     <li>• Gunakan <span class="italic">_pesan_</span> untuk tulisan miring</li>
-                                    <li>• Gunakan <span class="line-through">-pesan-</span> untuk tulisan coret</li>
+                                    <li>• Gunakan <span class="line-through">~pesan~</span> untuk tulisan coret</li>
                                 </ul>
                             </div>
                         </form>
@@ -427,11 +490,51 @@
                             <!-- WhatsApp-like Chat Bubble -->
                             <div class="flex justify-end">
                                 <div class="max-w-[75%]">
+                                    <!-- Preview Media (Gambar/Video/Dokumen) -->
+                                    <div id="preview-media-container" class="mb-2 hidden">
+                                        <!-- Preview Gambar -->
+                                        <div id="preview-gambar" class="hidden rounded-lg overflow-hidden mb-2">
+                                            <img id="preview-gambar-img" src="" alt="Preview Gambar"
+                                                class="w-full max-h-64 object-cover hidden">
+                                            <div id="preview-gambar-placeholder"
+                                                class="bg-gray-200 rounded-lg flex items-center justify-center"
+                                                style="min-height: 200px;">
+                                                <div class="flex flex-col items-center justify-center text-gray-500">
+                                                    <i class="ri-image-line text-6xl mb-2"></i>
+                                                    <p class="text-sm">No file chosen</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Preview Video -->
+                                        <div id="preview-video"
+                                            class="hidden rounded-lg overflow-hidden mb-2 bg-gray-200 flex items-center justify-center"
+                                            style="min-height: 200px;">
+                                            <video id="preview-video-player" src="" controls
+                                                class="w-full max-h-64 hidden"></video>
+                                            <div id="preview-video-placeholder"
+                                                class="flex flex-col items-center justify-center text-gray-500">
+                                                <i class="ri-video-line text-6xl mb-2"></i>
+                                                <p class="text-sm">No file chosen</p>
+                                            </div>
+                                        </div>
+                                        <!-- Preview Dokumen -->
+                                        <div id="preview-dokumen"
+                                            class="hidden rounded-lg overflow-hidden mb-2 bg-gray-200 flex items-center justify-center p-4"
+                                            style="min-height: 150px;">
+                                            <div id="preview-dokumen-content"
+                                                class="flex flex-col items-center justify-center text-gray-500">
+                                                <i class="ri-file-line text-6xl mb-2"></i>
+                                                <p id="preview-dokumen-nama" class="text-sm font-medium">Nama Dokumen
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Preview Text -->
                                     <div
                                         class="bg-green-500 text-white rounded-lg rounded-tr-none p-3 shadow-sm relative">
                                         <p id="preview-teks-pesan"
                                             class="text-sm whitespace-pre-wrap break-words leading-relaxed">
-                                            {nama}
+                                            Kata kata anda akan muncul disini
                                         </p>
                                     </div>
                                     <div class="flex items-center justify-end mt-1 space-x-1 px-1">
@@ -633,23 +736,141 @@
     <!-- Pesan Template Edit Page Specific JS -->
     <script>
         $(document).ready(function () {
+            let selectedFileGambar = null;
+            let selectedFileVideo = null;
+            let selectedFileDokumen = null;
+
             // Get ID from URL parameter
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get('id');
 
             // Sample data (in real app, this would come from API)
             const pesanTemplateData = {
-                '1': { nama: 'Pengingat Simpanan Bulanan', teks: 'Halo {nama}, jangan lupa untuk melakukan simpanan bulanan Anda. Terima kasih atas kepercayaan Anda kepada koperasi kami.' },
-                '2': { nama: 'Notifikasi Pinjaman Disetujui', teks: 'Selamat {nama}! Pinjaman Anda sebesar Rp {jumlah} telah disetujui. Silakan hubungi kami untuk proses selanjutnya.' },
-                '3': { nama: 'Pengingat Pembayaran Angsuran', teks: 'Halo {nama}, ini adalah pengingat untuk pembayaran angsuran pinjaman Anda yang jatuh tempo pada {tanggal}. Terima kasih.' },
-                '4': { nama: 'Undangan Rapat Anggota', teks: 'Kepada {nama}, kami mengundang Anda untuk menghadiri rapat anggota koperasi pada {tanggal} di {lokasi}. Harap hadir tepat waktu.' },
-                '5': { nama: 'Notifikasi Bunga Simpanan', teks: 'Halo {nama}, bunga simpanan Anda untuk bulan ini telah ditambahkan. Saldo terbaru: Rp {saldo}. Terima kasih.' },
-                '6': { nama: 'Pemberitahuan SHU', teks: 'Selamat {nama}! Sisa Hasil Usaha (SHU) tahun ini telah dihitung. Anda akan menerima pembagian SHU sebesar Rp {jumlah}.' },
-                '7': { nama: 'Pengingat Update Data Anggota', teks: 'Halo {nama}, mohon untuk memperbarui data anggota Anda. Data terbaru diperlukan untuk kelancaran layanan koperasi.' },
-                '8': { nama: 'Notifikasi Produk Baru', teks: 'Halo {nama}, koperasi kami telah meluncurkan produk baru. Informasi lengkap dapat dilihat di website kami. Terima kasih.' },
-                '9': { nama: 'Pemberitahuan Jadwal Pelatihan', teks: 'Kepada {nama}, kami mengundang Anda untuk mengikuti pelatihan koperasi pada {tanggal}. Daftar segera, kuota terbatas!' },
-                '10': { nama: 'Pengingat Pembayaran Iuran', teks: 'Halo {nama}, ini adalah pengingat untuk pembayaran iuran bulanan Anda. Pembayaran dapat dilakukan melalui {metode}. Terima kasih.' }
+                '1': { nama: 'Pengingat Simpanan Bulanan', teks: 'Halo {nama}, jangan lupa untuk melakukan simpanan bulanan Anda. Terima kasih atas kepercayaan Anda kepada koperasi kami.', tipe: 'text' },
+                '2': { nama: 'Notifikasi Pinjaman Disetujui', teks: 'Selamat {nama}! Pinjaman Anda sebesar Rp {jumlah} telah disetujui. Silakan hubungi kami untuk proses selanjutnya.', tipe: 'text' },
+                '3': { nama: 'Pengingat Pembayaran Angsuran', teks: 'Halo {nama}, ini adalah pengingat untuk pembayaran angsuran pinjaman Anda yang jatuh tempo pada {tanggal}. Terima kasih.', tipe: 'text' },
+                '4': { nama: 'Undangan Rapat Anggota', teks: 'Kepada {nama}, kami mengundang Anda untuk menghadiri rapat anggota koperasi pada {tanggal} di {lokasi}. Harap hadir tepat waktu.', tipe: 'text' },
+                '5': { nama: 'Notifikasi Bunga Simpanan', teks: 'Halo {nama}, bunga simpanan Anda untuk bulan ini telah ditambahkan. Saldo terbaru: Rp {saldo}. Terima kasih.', tipe: 'text' },
+                '6': { nama: 'Pemberitahuan SHU', teks: 'Selamat {nama}! Sisa Hasil Usaha (SHU) tahun ini telah dihitung. Anda akan menerima pembagian SHU sebesar Rp {jumlah}.', tipe: 'text' },
+                '7': { nama: 'Pengingat Update Data Anggota', teks: 'Halo {nama}, mohon untuk memperbarui data anggota Anda. Data terbaru diperlukan untuk kelancaran layanan koperasi.', tipe: 'text' },
+                '8': { nama: 'Notifikasi Produk Baru', teks: 'Halo {nama}, koperasi kami telah meluncurkan produk baru. Informasi lengkap dapat dilihat di website kami. Terima kasih.', tipe: 'text' },
+                '9': { nama: 'Pemberitahuan Jadwal Pelatihan', teks: 'Kepada {nama}, kami mengundang Anda untuk mengikuti pelatihan koperasi pada {tanggal}. Daftar segera, kuota terbatas!', tipe: 'text' },
+                '10': { nama: 'Pengingat Pembayaran Iuran', teks: 'Halo {nama}, ini adalah pengingat untuk pembayaran iuran bulanan Anda. Pembayaran dapat dilakukan melalui {metode}. Terima kasih.', tipe: 'text' }
             };
+
+            // Handle Tipe Pesan Change
+            $('#select-tipe-pesan').on('change', function () {
+                const tipePesan = $(this).val();
+                handleTipePesanChange(tipePesan);
+            });
+
+            function handleTipePesanChange(tipePesan) {
+                // Hide all file containers
+                $('#container-file-gambar').addClass('hidden');
+                $('#container-file-video').addClass('hidden');
+                $('#container-file-dokumen').addClass('hidden');
+
+                // Hide all preview media
+                $('#preview-media-container').addClass('hidden');
+                $('#preview-gambar').addClass('hidden');
+                $('#preview-video').addClass('hidden');
+                $('#preview-dokumen').addClass('hidden');
+
+                // Show appropriate file container and preview based on type
+                if (tipePesan === 'gambar') {
+                    $('#container-file-gambar').removeClass('hidden');
+                    $('#preview-media-container').removeClass('hidden');
+                    $('#preview-gambar').removeClass('hidden');
+                } else if (tipePesan === 'video') {
+                    $('#container-file-video').removeClass('hidden');
+                    $('#preview-media-container').removeClass('hidden');
+                    $('#preview-video').removeClass('hidden');
+                } else if (tipePesan === 'dokumen') {
+                    $('#container-file-dokumen').removeClass('hidden');
+                    $('#preview-media-container').removeClass('hidden');
+                    $('#preview-dokumen').removeClass('hidden');
+                }
+
+                updatePreview();
+            }
+
+            // Handle File Selection - Gambar
+            $('#input-file-gambar').on('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    selectedFileGambar = file;
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#preview-gambar-img').attr('src', e.target.result).show();
+                        $('#preview-gambar-placeholder').hide();
+                        $('#btn-hapus-gambar').removeClass('hidden');
+                        $('#nama-file-gambar').text(file.name).removeClass('hidden');
+                        updatePreview();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Handle File Selection - Video
+            $('#input-file-video').on('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    selectedFileVideo = file;
+                    const url = URL.createObjectURL(file);
+                    $('#preview-video-player').attr('src', url).removeClass('hidden');
+                    $('#preview-video-placeholder').addClass('hidden');
+                    $('#btn-hapus-video').removeClass('hidden');
+                    $('#nama-file-video').text(file.name).removeClass('hidden');
+                    updatePreview();
+                }
+            });
+
+            // Handle File Selection - Dokumen
+            $('#input-file-dokumen').on('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    selectedFileDokumen = file;
+                    $('#preview-dokumen-nama').text(file.name);
+                    $('#btn-hapus-dokumen').removeClass('hidden');
+                    $('#nama-file-dokumen').text(file.name).removeClass('hidden');
+                    updatePreview();
+                }
+            });
+
+            // Handle File Deletion - Gambar
+            $('#btn-hapus-gambar').on('click', function () {
+                $('#input-file-gambar').val('');
+                selectedFileGambar = null;
+                $('#preview-gambar-img').attr('src', '').hide();
+                $('#preview-gambar-placeholder').show();
+                $('#btn-hapus-gambar').addClass('hidden');
+                $('#nama-file-gambar').addClass('hidden');
+                updatePreview();
+            });
+
+            // Handle File Deletion - Video
+            $('#btn-hapus-video').on('click', function () {
+                $('#input-file-video').val('');
+                if (selectedFileVideo) {
+                    URL.revokeObjectURL($('#preview-video-player').attr('src'));
+                }
+                selectedFileVideo = null;
+                $('#preview-video-player').attr('src', '').addClass('hidden');
+                $('#preview-video-placeholder').removeClass('hidden');
+                $('#btn-hapus-video').addClass('hidden');
+                $('#nama-file-video').addClass('hidden');
+                updatePreview();
+            });
+
+            // Handle File Deletion - Dokumen
+            $('#btn-hapus-dokumen').on('click', function () {
+                $('#input-file-dokumen').val('');
+                selectedFileDokumen = null;
+                $('#preview-dokumen-nama').text('Nama Dokumen');
+                $('#btn-hapus-dokumen').addClass('hidden');
+                $('#nama-file-dokumen').addClass('hidden');
+                updatePreview();
+            });
 
             // Load data based on ID
             function loadPesanTemplateData() {
@@ -675,6 +896,11 @@
                 $('#input-nama-pesan').val(data.nama);
                 $('#input-teks-pesan').val(data.teks);
 
+                // Set tipe pesan (default to text if not specified)
+                const tipePesan = data.tipe || 'text';
+                $('#select-tipe-pesan').val(tipePesan);
+                handleTipePesanChange(tipePesan);
+
                 // Update preview
                 updatePreview();
             }
@@ -693,14 +919,14 @@
                 text = text.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
                 // Convert _text_ to italic
                 text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
-                // Convert -text- to strikethrough
-                text = text.replace(/-([^-]+)-/g, '<del>$1</del>');
+                // Convert ~text~ to strikethrough
+                text = text.replace(/~([^~]+)~/g, '<del>$1</del>');
                 return text;
             }
 
             // Update Preview
             function updatePreview() {
-                const teksPesan = $('#input-teks-pesan').val() || '{nama}';
+                const teksPesan = $('#input-teks-pesan').val() || 'Kata kata anda akan muncul disini';
                 const formattedText = formatText(teksPesan);
                 $('#preview-teks-pesan').html(formattedText);
             }

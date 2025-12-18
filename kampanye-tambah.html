@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Pesan Template - Smartcoop Broadcast</title>
+    <title>Buat Broadcast - Smartcoop Broadcast</title>
 
     <!-- Poppins Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,8 +21,123 @@
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Custom Styles for Select2 -->
+    <style>
+        /* Select2 Custom Styling */
+        .select2-container--bootstrap-5 .select2-selection {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            min-height: 42px;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple {
+            padding: 0.5rem 0.75rem !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            margin-left: 0 !important;
+            list-style: none;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered li {
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__placeholder {
+            color: #9ca3af !important;
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            text-indent: 0 !important;
+            position: relative !important;
+            left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__placeholder {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-search--inline {
+            margin-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-search--inline .select2-search__field {
+            margin-top: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice {
+            background-color: #FF720D;
+            border: none;
+            color: white;
+            border-radius: 0.375rem;
+            padding: 0.25rem 0.5rem;
+            margin: 0.125rem 0.5rem 0.125rem 0;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove {
+            color: white;
+            margin-right: 0.25rem;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove:hover {
+            color: #fef2f2;
+        }
+
+        .select2-container--bootstrap-5 .select2-dropdown {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            z-index: 9999 !important;
+        }
+
+        /* Flatpickr Custom Styling */
+        .flatpickr-input {
+            cursor: pointer;
+        }
+
+        .flatpickr-calendar {
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+        }
+
+        .flatpickr-day.selected,
+        .flatpickr-day.startRange,
+        .flatpickr-day.endRange {
+            background: #FF720D;
+            border-color: #FF720D;
+        }
+
+        .flatpickr-day.selected:hover,
+        .flatpickr-day.startRange:hover,
+        .flatpickr-day.endRange:hover {
+            background: #E6650B;
+            border-color: #E6650B;
+        }
+
+        .flatpickr-time input.flatpickr-hour,
+        .flatpickr-time input.flatpickr-minute {
+            color: #FF720D;
+        }
+
+        .flatpickr-time .flatpickr-time-separator {
+            color: #FF720D;
+        }
+    </style>
 
     <!-- Tailwind Config -->
     <script>
@@ -81,14 +196,14 @@
                 </li>
                 <li>
                     <a href="pesan-template.html"
-                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg bg-primary text-white group">
+                        class="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg group">
                         <i class="ri-message-3-line text-xl mr-3"></i>
                         <span>Pesan Template</span>
                     </a>
                 </li>
                 <li>
                     <a href="kampanye.html"
-                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group">
+                        class="flex items-center px-3 py-2 text-gray-700 rounded-lg bg-primary text-white group">
                         <i class="ri-megaphone-line text-xl mr-3"></i>
                         <span>Kampanye</span>
                     </a>
@@ -367,7 +482,7 @@
         <main class="p-6 pt-20">
             <!-- Page Header -->
             <div class="mb-6">
-                <h1 class="text-3xl font-bold text-gray-800 mb-2">Tambah Pesan Template</h1>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Buat Broadcast</h1>
             </div>
 
             <!-- Form and Preview -->
@@ -377,13 +492,86 @@
                     <!-- Form Card -->
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                         <form id="form-pesan-template">
-                            <!-- Nama Pesan -->
+                            <!-- Judul Broadcast -->
                             <div class="mb-6">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Nama Pesan <span
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Judul Broadcast <span
                                         class="text-red-500">*</span></label>
                                 <input type="text" id="input-nama-pesan" required
                                     class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                                    placeholder="Masukkan nama pesan template">
+                                    placeholder="Masukkan judul broadcast">
+                            </div>
+
+                            <!-- Pilih Tipe Pengiriman -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Tipe Pengiriman <span
+                                        class="text-red-500">*</span></label>
+                                <select id="select-tipe-pengiriman" required
+                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="label" selected>Label</option>
+                                    <option value="csv">Csv / Excel</option>
+                                </select>
+                            </div>
+
+                            <!-- Container Label -->
+                            <div id="container-tipe-label" class="mb-6">
+                                <!-- Pilih Label -->
+                                <div class="mb-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="block text-sm font-medium text-gray-700">Pilih Label</label>
+                                        <span id="count-pilih-label" class="text-sm text-gray-500">0 kontak</span>
+                                    </div>
+                                    <select id="select-pilih-label" multiple
+                                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="1">Nasabah Prioritas</option>
+                                        <option value="2">Anggota Aktif</option>
+                                        <option value="3">Pengurus Koperasi</option>
+                                        <option value="4">Peminjam Aktif</option>
+                                        <option value="5">Penyimpan Tetap</option>
+                                        <option value="6">Anggota Baru</option>
+                                        <option value="7">Calon Anggota</option>
+                                        <option value="8">Anggota VIP</option>
+                                        <option value="9">Mitra Bisnis</option>
+                                        <option value="10">Anggota Khusus</option>
+                                    </select>
+                                </div>
+
+                                <!-- Kecualikan Label -->
+                                <div class="mb-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="block text-sm font-medium text-gray-700">Kecualikan Label</label>
+                                        <span id="count-kecualikan-label" class="text-sm text-gray-500">0 kontak</span>
+                                    </div>
+                                    <select id="select-kecualikan-label" multiple
+                                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="1">Nasabah Prioritas</option>
+                                        <option value="2">Anggota Aktif</option>
+                                        <option value="3">Pengurus Koperasi</option>
+                                        <option value="4">Peminjam Aktif</option>
+                                        <option value="5">Penyimpan Tetap</option>
+                                        <option value="6">Anggota Baru</option>
+                                        <option value="7">Calon Anggota</option>
+                                        <option value="8">Anggota VIP</option>
+                                        <option value="9">Mitra Bisnis</option>
+                                        <option value="10">Anggota Khusus</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Container CSV/Excel -->
+                            <div id="container-tipe-csv" class="mb-6 hidden">
+                                <div class="mb-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="block text-sm font-medium text-gray-700">Pilih File Csv /
+                                            Excel</label>
+                                        <a href="#" id="link-download-contoh"
+                                            class="text-sm text-primary hover:text-primary-dark underline">
+                                            Download Contoh
+                                        </a>
+                                    </div>
+                                    <input type="file" id="input-file-csv" accept=".csv,.xlsx,.xls"
+                                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <p id="nama-file-csv" class="mt-2 text-sm text-gray-600 hidden"></p>
+                                </div>
                             </div>
 
                             <!-- Pilih Tipe Pesan -->
@@ -396,6 +584,17 @@
                                     <option value="gambar">Pesan Gambar</option>
                                     <option value="video">Pesan Video</option>
                                     <option value="dokumen">Pesan Dokumen</option>
+                                    <option value="template">Pesan Template</option>
+                                </select>
+                            </div>
+
+                            <!-- Container Pilih Template -->
+                            <div id="container-pilih-template" class="mb-6 hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Template <span
+                                        class="text-red-500">*</span></label>
+                                <select id="select-pilih-template" required
+                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">Pilih Template</option>
                                 </select>
                             </div>
 
@@ -473,6 +672,60 @@
                                     <li>• Gunakan <span class="line-through">~pesan~</span> untuk tulisan coret</li>
                                 </ul>
                             </div>
+
+                            <!-- Konfigurasi -->
+                            <div class="mb-6">
+                                <h3 class="text-lg font-bold text-gray-800 mb-4">Konfigurasi</h3>
+
+                                <!-- Pilih Tipe Pengiriman -->
+                                <div class="mb-6">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Tipe
+                                        Pengiriman</label>
+                                    <select id="select-tipe-pengiriman-broadcast" required
+                                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="sekarang" selected>Broadcast Sekarang</option>
+                                        <option value="penjadwalan">Penjadwalan</option>
+                                    </select>
+                                </div>
+
+                                <!-- Waktu Pengiriman (Hidden by default, shown when Penjadwalan selected) -->
+                                <div id="container-waktu-pengiriman" class="mb-6 hidden">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Waktu Pengiriman</label>
+                                    <input type="text" id="input-waktu-pengiriman"
+                                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        placeholder="dd/mm/yyyy, --:--">
+                                </div>
+
+                                <!-- Aktifkan Jeda Random -->
+                                <div class="mb-6">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="block text-sm font-medium text-gray-700">Aktifkan Jeda Random
+                                            (Detik)</label>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" id="toggle-jeda-random" class="sr-only peer">
+                                            <div
+                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <!-- Jeda Waktu Range (Hidden by default, shown when toggle ON) -->
+                                    <div id="container-jeda-waktu" class="hidden">
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <input type="number" id="input-jeda-dari"
+                                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                                    placeholder="Dari" min="0">
+                                            </div>
+                                            <div>
+                                                <input type="number" id="input-jeda-sampai"
+                                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                                    placeholder="Sampai" min="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -480,66 +733,101 @@
                 <!-- Right: Preview -->
                 <div class="lg:sticky lg:top-20">
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Preview Pesan</h3>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Preview</h3>
 
-                        <!-- Preview Container -->
-                        <div
-                            class="bg-green-50 border-2 border-green-400 rounded-xl p-6 min-h-[400px] flex flex-col justify-end">
-                            <!-- WhatsApp-like Chat Bubble -->
-                            <div class="flex justify-end">
-                                <div class="max-w-[75%]">
-                                    <!-- Preview Media (Gambar/Video/Dokumen) -->
-                                    <div id="preview-media-container" class="mb-2 hidden">
-                                        <!-- Preview Gambar -->
-                                        <div id="preview-gambar" class="hidden rounded-lg overflow-hidden mb-2">
-                                            <img id="preview-gambar-img" src="" alt="Preview Gambar"
-                                                class="w-full max-h-64 object-cover hidden">
-                                            <div id="preview-gambar-placeholder"
-                                                class="bg-gray-200 rounded-lg flex items-center justify-center"
+                        <!-- Tabs -->
+                        <div class="flex space-x-2 mb-4">
+                            <button
+                                class="preview-tab-btn active px-4 py-2 text-sm font-medium text-primary bg-orange-50 rounded-lg border border-primary transition-all"
+                                data-tab="pesan">
+                                Pesan
+                            </button>
+                            <button
+                                class="preview-tab-btn px-4 py-2 text-sm font-medium text-gray-500 bg-gray-100 rounded-lg border border-gray-300 transition-all hover:bg-gray-200"
+                                data-tab="jumlah-kontak">
+                                Jumlah Kontak
+                            </button>
+                        </div>
+
+                        <!-- Tab Content: Pesan -->
+                        <div id="preview-tab-pesan" class="preview-tab-content">
+                            <!-- Preview Container -->
+                            <div
+                                class="bg-green-50 border-2 border-green-400 rounded-xl p-6 min-h-[400px] flex flex-col justify-end">
+                                <!-- WhatsApp-like Chat Bubble -->
+                                <div class="flex justify-end">
+                                    <div class="max-w-[75%]">
+                                        <!-- Preview Media (Gambar/Video/Dokumen) -->
+                                        <div id="preview-media-container" class="mb-2 hidden">
+                                            <!-- Preview Gambar -->
+                                            <div id="preview-gambar" class="hidden rounded-lg overflow-hidden mb-2">
+                                                <img id="preview-gambar-img" src="" alt="Preview Gambar"
+                                                    class="w-full max-h-64 object-cover hidden">
+                                                <div id="preview-gambar-placeholder"
+                                                    class="bg-gray-200 rounded-lg flex items-center justify-center"
+                                                    style="min-height: 200px;">
+                                                    <div
+                                                        class="flex flex-col items-center justify-center text-gray-500">
+                                                        <i class="ri-image-line text-6xl mb-2"></i>
+                                                        <p class="text-sm">No file chosen</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Preview Video -->
+                                            <div id="preview-video"
+                                                class="hidden rounded-lg overflow-hidden mb-2 bg-gray-200 flex items-center justify-center"
                                                 style="min-height: 200px;">
-                                                <div class="flex flex-col items-center justify-center text-gray-500">
-                                                    <i class="ri-image-line text-6xl mb-2"></i>
+                                                <video id="preview-video-player" src="" controls
+                                                    class="w-full max-h-64 hidden"></video>
+                                                <div id="preview-video-placeholder"
+                                                    class="flex flex-col items-center justify-center text-gray-500">
+                                                    <i class="ri-video-line text-6xl mb-2"></i>
                                                     <p class="text-sm">No file chosen</p>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- Preview Video -->
-                                        <div id="preview-video"
-                                            class="hidden rounded-lg overflow-hidden mb-2 bg-gray-200 flex items-center justify-center"
-                                            style="min-height: 200px;">
-                                            <video id="preview-video-player" src="" controls
-                                                class="w-full max-h-64 hidden"></video>
-                                            <div id="preview-video-placeholder"
-                                                class="flex flex-col items-center justify-center text-gray-500">
-                                                <i class="ri-video-line text-6xl mb-2"></i>
-                                                <p class="text-sm">No file chosen</p>
+                                            <!-- Preview Dokumen -->
+                                            <div id="preview-dokumen"
+                                                class="hidden rounded-lg overflow-hidden mb-2 bg-gray-200 flex items-center justify-center p-4"
+                                                style="min-height: 150px;">
+                                                <div id="preview-dokumen-content"
+                                                    class="flex flex-col items-center justify-center text-gray-500">
+                                                    <i class="ri-file-line text-6xl mb-2"></i>
+                                                    <p id="preview-dokumen-nama" class="text-sm font-medium">Nama
+                                                        Dokumen
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <!-- Preview Dokumen -->
-                                        <div id="preview-dokumen"
-                                            class="hidden rounded-lg overflow-hidden mb-2 bg-gray-200 flex items-center justify-center p-4"
-                                            style="min-height: 150px;">
-                                            <div id="preview-dokumen-content"
-                                                class="flex flex-col items-center justify-center text-gray-500">
-                                                <i class="ri-file-line text-6xl mb-2"></i>
-                                                <p id="preview-dokumen-nama" class="text-sm font-medium">Nama Dokumen
-                                                </p>
-                                            </div>
+                                        <!-- Preview Text -->
+                                        <div
+                                            class="bg-green-500 text-white rounded-lg rounded-tr-none p-3 shadow-sm relative">
+                                            <p id="preview-teks-pesan"
+                                                class="text-sm whitespace-pre-wrap break-words leading-relaxed">
+                                                Kata kata anda akan muncul disini
+                                            </p>
                                         </div>
-                                    </div>
-                                    <!-- Preview Text -->
-                                    <div
-                                        class="bg-green-500 text-white rounded-lg rounded-tr-none p-3 shadow-sm relative">
-                                        <p id="preview-teks-pesan"
-                                            class="text-sm whitespace-pre-wrap break-words leading-relaxed">
-                                            Kata kata anda akan muncul disini
-                                        </p>
-                                    </div>
-                                    <div class="flex items-center justify-end mt-1 space-x-1 px-1">
-                                        <span class="text-xs text-gray-500">12:30</span>
-                                        <i class="ri-check-double-line text-xs text-blue-500"></i>
+                                        <div class="flex items-center justify-end mt-1 space-x-1 px-1">
+                                            <span class="text-xs text-gray-500">12:30</span>
+                                            <i class="ri-check-double-line text-xs text-blue-500"></i>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content: Jumlah Kontak -->
+                        <div id="preview-tab-jumlah-kontak" class="preview-tab-content hidden">
+                            <!-- Total Penerima -->
+                            <div class="mb-4">
+                                <p class="text-sm text-gray-700">Total Penerima : <span id="preview-total-penerima"
+                                        class="font-semibold text-gray-800">0</span></p>
+                            </div>
+
+                            <!-- Kontak List -->
+                            <div id="preview-kontak-list"
+                                class="bg-gray-50 rounded-lg p-4 max-h-[500px] overflow-y-auto border border-gray-200">
+                                <p class="text-center text-gray-500 py-8">Pilih kontak atau label untuk melihat daftar
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -548,13 +836,13 @@
 
             <!-- Action Buttons -->
             <div class="mt-6 flex items-center justify-end space-x-3">
-                <a href="pesan-template.html"
+                <a href="kampanye.html"
                     class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
                     Batal
                 </a>
                 <button id="btn-buat-broadcast"
                     class="px-6 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors">
-                    Buat Template
+                    Buat Broadcast
                 </button>
             </div>
         </main>
@@ -728,6 +1016,13 @@
     <!-- Toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
+
     <!-- Custom JS -->
     <script src="assets/js/main.js"></script>
 
@@ -737,6 +1032,481 @@
             let selectedFileGambar = null;
             let selectedFileVideo = null;
             let selectedFileDokumen = null;
+
+            // Sample kontak data (in real app, this would come from selected contacts/labels)
+            let kontakList = [];
+
+            // Sample data pesan template (in real app, this would come from API)
+            const pesanTemplateData = {
+                '1': {
+                    nama: 'Pengingat Simpanan Bulanan',
+                    teks: 'Halo {nama}, jangan lupa untuk melakukan simpanan bulanan Anda. Terima kasih atas kepercayaan Anda kepada koperasi kami.',
+                    tipe: 'text'
+                },
+                '2': {
+                    nama: 'Notifikasi Pinjaman Disetujui',
+                    teks: 'Selamat {nama}! Pinjaman Anda sebesar Rp {jumlah} telah disetujui. Silakan hubungi kami untuk proses selanjutnya.',
+                    tipe: 'text'
+                },
+                '3': {
+                    nama: 'Pengingat Pembayaran Angsuran',
+                    teks: 'Halo {nama}, ini adalah pengingat untuk pembayaran angsuran pinjaman Anda yang jatuh tempo pada {tanggal}. Terima kasih.',
+                    tipe: 'text'
+                },
+                '4': {
+                    nama: 'Undangan Rapat Anggota',
+                    teks: 'Kepada {nama}, kami mengundang Anda untuk menghadiri rapat anggota koperasi pada {tanggal} di {lokasi}. Harap hadir tepat waktu.',
+                    tipe: 'text'
+                },
+                '5': {
+                    nama: 'Notifikasi Bunga Simpanan',
+                    teks: 'Halo {nama}, bunga simpanan Anda untuk bulan ini telah ditambahkan. Saldo terbaru: Rp {saldo}. Terima kasih.',
+                    tipe: 'text'
+                },
+                '6': {
+                    nama: 'Pemberitahuan SHU',
+                    teks: 'Selamat {nama}! Sisa Hasil Usaha (SHU) tahun ini telah dihitung. Anda akan menerima pembagian SHU sebesar Rp {jumlah}.',
+                    tipe: 'text'
+                },
+                '7': {
+                    nama: 'Pengingat Update Data Anggota',
+                    teks: 'Halo {nama}, mohon untuk memperbarui data anggota Anda. Data terbaru diperlukan untuk kelancaran layanan koperasi.',
+                    tipe: 'text'
+                },
+                '8': {
+                    nama: 'Notifikasi Produk Baru',
+                    teks: 'Halo {nama}, koperasi kami telah meluncurkan produk baru. Informasi lengkap dapat dilihat di website kami. Terima kasih.',
+                    tipe: 'text'
+                },
+                '9': {
+                    nama: 'Pemberitahuan Jadwal Pelatihan',
+                    teks: 'Kepada {nama}, kami mengundang Anda untuk mengikuti pelatihan koperasi pada {tanggal}. Daftar segera, kuota terbatas!',
+                    tipe: 'text'
+                },
+                '10': {
+                    nama: 'Pengingat Pembayaran Iuran',
+                    teks: 'Halo {nama}, ini adalah pengingat untuk pembayaran iuran bulanan Anda. Pembayaran dapat dilakukan melalui {metode}. Terima kasih.',
+                    tipe: 'text'
+                }
+            };
+
+            // Populate Template Select Options
+            function populateTemplateOptions() {
+                const select = $('#select-pilih-template');
+                select.empty();
+                select.append('<option value="">Pilih Template</option>');
+
+                Object.keys(pesanTemplateData).forEach(function (id) {
+                    const template = pesanTemplateData[id];
+                    select.append(`<option value="${id}">${template.nama}</option>`);
+                });
+            }
+
+            // Initialize Select2 for Template Select
+            function initializeTemplateSelect() {
+                $('#select-pilih-template').select2({
+                    theme: 'bootstrap-5',
+                    width: '100%',
+                    placeholder: 'Pilih Template',
+                    allowClear: true
+                });
+            }
+
+            // Populate and initialize template select on page load
+            populateTemplateOptions();
+            initializeTemplateSelect();
+
+            // Handle Template Selection
+            $('#select-pilih-template').on('change', function () {
+                const templateId = $(this).val();
+                if (templateId && pesanTemplateData[templateId]) {
+                    const template = pesanTemplateData[templateId];
+                    // Auto-fill teks pesan
+                    $('#input-teks-pesan').val(template.teks);
+                    // Update preview
+                    updatePreview();
+                } else {
+                    // Clear teks pesan if no template selected
+                    $('#input-teks-pesan').val('');
+                    updatePreview();
+                }
+            });
+
+            // Sample data kontak per label (in real app, this would come from API)
+            const kontakPerLabel = {
+                '1': [
+                    { nama: 'Ahmad Fauzi', nomor: '6281112223334' },
+                    { nama: 'Siti Nurhaliza', nomor: '6282223334445' },
+                    { nama: 'Bambang Sutrisno', nomor: '6283334445556' }
+                ],
+                '2': [
+                    { nama: 'Citra Dewi', nomor: '6284455667788' },
+                    { nama: 'Dedi Kurniawan', nomor: '6285566778899' },
+                    { nama: 'Eka Putri', nomor: '6286677889900' },
+                    { nama: 'Fajar Pratama', nomor: '6287788990011' }
+                ],
+                '3': [
+                    { nama: 'Gita Sari', nomor: '6288899001122' },
+                    { nama: 'Hadi Wijaya', nomor: '6289900112233' }
+                ],
+                '4': [
+                    { nama: 'Indah Permata', nomor: '6280011223344' },
+                    { nama: 'Joko Susilo', nomor: '6281122334455' },
+                    { nama: 'Kartika Sari', nomor: '6282233445566' }
+                ],
+                '5': [
+                    { nama: 'Lina Wati', nomor: '6283344556677' },
+                    { nama: 'Maman Sutrisno', nomor: '6284455667788' }
+                ],
+                '6': [
+                    { nama: 'Nina Sari', nomor: '6285566778899' },
+                    { nama: 'Oki Setiawan', nomor: '6286677889900' },
+                    { nama: 'Putri Lestari', nomor: '6287788990011' }
+                ],
+                '7': [
+                    { nama: 'Rudi Hartono', nomor: '6288899001122' }
+                ],
+                '8': [
+                    { nama: 'Sari Indah', nomor: '6289900112233' },
+                    { nama: 'Tono Wijaya', nomor: '6280011223344' }
+                ],
+                '9': [
+                    { nama: 'Udin Sedunia', nomor: '6281122334455' },
+                    { nama: 'Vina Sari', nomor: '6282233445566' },
+                    { nama: 'Wawan Setiawan', nomor: '6283344556677' }
+                ],
+                '10': [
+                    { nama: 'Xena Putri', nomor: '6284455667788' },
+                    { nama: 'Yoga Pratama', nomor: '6285566778899' }
+                ]
+            };
+
+            // Initialize Select2 for Label Selects
+            $('#select-pilih-label').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: 'Ketik Disini',
+                closeOnSelect: false
+            });
+
+            $('#select-kecualikan-label').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: 'Ketik Disini',
+                closeOnSelect: false
+            });
+
+            // Handle Tipe Pengiriman Change
+            $('#select-tipe-pengiriman').on('change', function () {
+                const tipePengiriman = $(this).val();
+                handleTipePengirimanChange(tipePengiriman);
+            });
+
+            // Initialize on page load
+            handleTipePengirimanChange($('#select-tipe-pengiriman').val());
+
+            function handleTipePengirimanChange(tipePengiriman) {
+                if (tipePengiriman === 'label') {
+                    $('#container-tipe-label').removeClass('hidden');
+                    $('#container-tipe-csv').addClass('hidden');
+                    // Reset CSV file
+                    $('#input-file-csv').val('');
+                    $('#nama-file-csv').addClass('hidden');
+                    // Update kontak from labels
+                    updateKontakFromLabel();
+                } else if (tipePengiriman === 'csv') {
+                    $('#container-tipe-label').addClass('hidden');
+                    $('#container-tipe-csv').removeClass('hidden');
+                    // Reset label selections
+                    $('#select-pilih-label').val(null).trigger('change');
+                    $('#select-kecualikan-label').val(null).trigger('change');
+                    // Reset kontak list if no CSV file
+                    if (!$('#input-file-csv')[0].files.length) {
+                        kontakList = [];
+                        renderKontakList(kontakList);
+                    }
+                }
+            }
+
+            // Handle Label Selection Change
+            $('#select-pilih-label, #select-kecualikan-label').on('change', function () {
+                updateKontakCounts();
+                updateKontakFromLabel();
+            });
+
+            // Update Kontak Counts
+            function updateKontakCounts() {
+                const selectedLabels = $('#select-pilih-label').val() || [];
+                const excludedLabels = $('#select-kecualikan-label').val() || [];
+
+                let totalPilih = 0;
+                selectedLabels.forEach(function (labelId) {
+                    if (kontakPerLabel[labelId]) {
+                        totalPilih += kontakPerLabel[labelId].length;
+                    }
+                });
+
+                let totalKecualikan = 0;
+                excludedLabels.forEach(function (labelId) {
+                    if (kontakPerLabel[labelId]) {
+                        totalKecualikan += kontakPerLabel[labelId].length;
+                    }
+                });
+
+                $('#count-pilih-label').text(totalPilih.toLocaleString('id-ID') + ' kontak');
+                $('#count-kecualikan-label').text(totalKecualikan.toLocaleString('id-ID') + ' kontak');
+            }
+
+            // Update Kontak List from Selected Labels
+            function updateKontakFromLabel() {
+                const selectedLabels = $('#select-pilih-label').val() || [];
+                const excludedLabels = $('#select-kecualikan-label').val() || [];
+
+                let allKontak = [];
+
+                // Get kontak from selected labels
+                selectedLabels.forEach(function (labelId) {
+                    if (kontakPerLabel[labelId]) {
+                        allKontak = allKontak.concat(kontakPerLabel[labelId]);
+                    }
+                });
+
+                // Remove kontak from excluded labels
+                excludedLabels.forEach(function (labelId) {
+                    if (kontakPerLabel[labelId]) {
+                        const excludedKontak = kontakPerLabel[labelId];
+                        allKontak = allKontak.filter(function (kontak) {
+                            return !excludedKontak.some(function (excluded) {
+                                return excluded.nomor === kontak.nomor;
+                            });
+                        });
+                    }
+                });
+
+                // Remove duplicates based on nomor
+                const uniqueKontak = [];
+                const seenNomor = {};
+                allKontak.forEach(function (kontak) {
+                    if (!seenNomor[kontak.nomor]) {
+                        seenNomor[kontak.nomor] = true;
+                        uniqueKontak.push(kontak);
+                    }
+                });
+
+                kontakList = uniqueKontak;
+                renderKontakList(kontakList);
+            }
+
+            // Handle CSV File Upload
+            $('#input-file-csv').on('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    $('#nama-file-csv').text(file.name).removeClass('hidden');
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        parseCSVFile(e.target.result);
+                    };
+                    reader.readAsText(file);
+                }
+            });
+
+            // Parse CSV File
+            function parseCSVFile(csvContent) {
+                const lines = csvContent.split('\n');
+                kontakList = [];
+
+                // Skip header row (assuming first row is header)
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue;
+
+                    // Simple CSV parsing (assuming format: nama,nomor or nomor,nama)
+                    const parts = line.split(',');
+                    if (parts.length >= 2) {
+                        const nama = parts[0].trim().replace(/"/g, '');
+                        const nomor = parts[1].trim().replace(/"/g, '');
+                        if (nomor) {
+                            kontakList.push({ nama: nama || '', nomor: nomor });
+                        }
+                    } else if (parts.length === 1 && parts[0].trim()) {
+                        // If only one column, assume it's nomor
+                        const nomor = parts[0].trim().replace(/"/g, '');
+                        if (nomor) {
+                            kontakList.push({ nama: '', nomor: nomor });
+                        }
+                    }
+                }
+
+                renderKontakList(kontakList);
+            }
+
+            // Download Contoh CSV
+            $('#link-download-contoh').on('click', function (e) {
+                e.preventDefault();
+                // Create sample CSV content
+                const csvContent = 'Nama,Nomor\nAhmad Fauzi,6281112223334\nSiti Nurhaliza,6282223334445\nBambang Sutrisno,6283334445556';
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'contoh_kontak.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            // Tab Switching
+            $('.preview-tab-btn').on('click', function () {
+                const tab = $(this).data('tab');
+
+                // Update tab buttons - inactive style
+                $('.preview-tab-btn').removeClass('active text-primary bg-orange-50 border-primary')
+                    .addClass('text-gray-500 bg-gray-100 border-gray-300');
+
+                // Active style
+                $(this).addClass('active text-primary bg-orange-50 border-primary')
+                    .removeClass('text-gray-500 bg-gray-100 border-gray-300');
+
+                // Show/hide tab content
+                $('.preview-tab-content').addClass('hidden');
+                $(`#preview-tab-${tab}`).removeClass('hidden');
+            });
+
+            // Generate Avatar Color
+            function getAvatarColor(str) {
+                const colors = [
+                    'bg-blue-600', 'bg-green-600', 'bg-purple-600', 'bg-red-600',
+                    'bg-yellow-600', 'bg-indigo-600', 'bg-pink-600', 'bg-teal-600',
+                    'bg-orange-600', 'bg-cyan-600', 'bg-gray-600', 'bg-emerald-600'
+                ];
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+                }
+                return colors[Math.abs(hash) % colors.length];
+            }
+
+            // Generate Avatar Text (2 characters)
+            function getAvatarText(nama, nomor) {
+                if (nama && nama.trim() !== '') {
+                    // Use initials from name
+                    const words = nama.trim().split(' ');
+                    if (words.length >= 2) {
+                        return (words[0][0] + words[1][0]).toUpperCase();
+                    } else {
+                        return nama.substring(0, 2).toUpperCase();
+                    }
+                } else if (nomor) {
+                    // Use first 2 digits of phone number
+                    return nomor.substring(0, 2);
+                }
+                return '??';
+            }
+
+            // Render Kontak List
+            function renderKontakList(kontakList) {
+                if (!kontakList || kontakList.length === 0) {
+                    $('#preview-kontak-list').html('<p class="text-center text-gray-500 py-8">Pilih kontak atau label untuk melihat daftar</p>');
+                    $('#preview-total-penerima').text('0');
+                    return;
+                }
+
+                let html = '';
+                kontakList.forEach(function (kontak) {
+                    const avatarColor = getAvatarColor(kontak.nama || kontak.nomor);
+                    const avatarText = getAvatarText(kontak.nama, kontak.nomor);
+                    const displayName = kontak.nama || kontak.nomor;
+                    const displayNumber = kontak.nama ? kontak.nomor : (kontak.nomor || '-');
+
+                    html += `
+                        <div class="flex items-center space-x-3 py-2 px-1">
+                            <div class="w-10 h-10 ${avatarColor} rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+                                ${avatarText}
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 truncate text-sm">${displayName}</p>
+                                <p class="text-sm text-gray-600 truncate">${displayNumber}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                $('#preview-kontak-list').html(html);
+                $('#preview-total-penerima').text(kontakList.length.toLocaleString('id-ID'));
+            }
+
+            // Initialize with sample data (for demo purposes)
+            // In real app, this would be populated when user selects contacts/labels
+            function loadSampleKontak() {
+                kontakList = [
+                    { nama: 'alfandigitalmarketer', nomor: '085276503666' },
+                    { nama: 'Gms Racing Product', nomor: '628136484861' },
+                    { nama: 'Pak Heru', nomor: '6281234567890' },
+                    { nama: '', nomor: '085276503666' },
+                    { nama: '', nomor: '628136484861' },
+                    { nama: 'Budi Santoso', nomor: '6281122334455' },
+                    { nama: 'Citra Dewi', nomor: '6282233445566' },
+                    { nama: 'Dedi Kurniawan', nomor: '6283344556677' },
+                    { nama: 'Eka Putri', nomor: '6284455667788' },
+                    { nama: 'Fajar Pratama', nomor: '6285566778899' },
+                    { nama: 'Gita Sari', nomor: '6286677889900' },
+                    { nama: 'Hadi Wijaya', nomor: '6287788990011' },
+                    { nama: 'Indah Permata', nomor: '6288899001122' },
+                    { nama: 'Joko Susilo', nomor: '6289900112233' },
+                    { nama: '', nomor: '6280011223344' }
+                ];
+                renderKontakList(kontakList);
+            }
+
+            // Initialize kontak list (empty on page load)
+            // Kontak will be loaded when user selects labels or uploads CSV
+            kontakList = [];
+            renderKontakList(kontakList);
+
+            // Initialize Flatpickr for Waktu Pengiriman
+            const flatpickrWaktu = flatpickr('#input-waktu-pengiriman', {
+                enableTime: true,
+                dateFormat: 'd/m/Y, H:i',
+                time_24hr: true,
+                locale: 'id',
+                minDate: 'today',
+                placeholder: 'dd/mm/yyyy, --:--'
+            });
+
+            // Handle Tipe Pengiriman Broadcast Change
+            $('#select-tipe-pengiriman-broadcast').on('change', function () {
+                const tipePengiriman = $(this).val();
+                if (tipePengiriman === 'penjadwalan') {
+                    $('#container-waktu-pengiriman').removeClass('hidden');
+                    $('#input-waktu-pengiriman').prop('required', true);
+                } else {
+                    $('#container-waktu-pengiriman').addClass('hidden');
+                    $('#input-waktu-pengiriman').prop('required', false);
+                    $('#input-waktu-pengiriman').val('');
+                }
+            });
+
+            // Handle Toggle Jeda Random
+            $('#toggle-jeda-random').on('change', function () {
+                const isChecked = $(this).is(':checked');
+                const container = $('#container-jeda-waktu');
+                const inputDari = $('#input-jeda-dari');
+                const inputSampai = $('#input-jeda-sampai');
+
+                if (isChecked) {
+                    container.slideDown(200);
+                    inputDari.prop('required', true);
+                    inputSampai.prop('required', true);
+                } else {
+                    container.slideUp(200);
+                    inputDari.prop('required', false);
+                    inputSampai.prop('required', false);
+                    inputDari.val('');
+                    inputSampai.val('');
+                }
+            });
 
             // Handle Tipe Pesan Change
             $('#select-tipe-pesan').on('change', function () {
@@ -752,6 +1522,7 @@
                 $('#container-file-gambar').addClass('hidden');
                 $('#container-file-video').addClass('hidden');
                 $('#container-file-dokumen').addClass('hidden');
+                $('#container-pilih-template').addClass('hidden');
 
                 // Hide all preview media
                 $('#preview-media-container').addClass('hidden');
@@ -775,6 +1546,18 @@
                     $('#preview-media-container').removeClass('hidden');
                     $('#preview-dokumen').removeClass('hidden');
                     updatePreviewDokumen();
+                } else if (tipePesan === 'template') {
+                    $('#container-pilih-template').removeClass('hidden');
+                    // Re-initialize Select2 if needed
+                    if (!$('#select-pilih-template').hasClass('select2-hidden-accessible')) {
+                        initializeTemplateSelect();
+                    }
+                    // Hide preview media for template
+                }
+
+                // Clear template selection when switching to non-template types
+                if (tipePesan !== 'template') {
+                    $('#select-pilih-template').val(null).trigger('change');
                 }
 
                 updatePreview();
@@ -903,21 +1686,6 @@
                 $('#preview-teks-pesan').html(formattedText);
             }
 
-            // Toggle Jeda Random
-            $('#toggle-jeda-random').on('change', function () {
-                const isChecked = $(this).is(':checked');
-                const container = $('#container-jeda-waktu');
-                const input = $('#input-jeda-waktu');
-
-                if (isChecked) {
-                    container.slideDown(200);
-                    input.prop('disabled', false);
-                } else {
-                    container.slideUp(200);
-                    input.prop('disabled', true);
-                    input.val('');
-                }
-            });
 
             // Modal Spintax Functions
             function openModalSpintax() {
@@ -1005,12 +1773,12 @@
                 }
 
                 // Simulate save
-                toastr.info('Menyimpan pesan template...');
+                toastr.info('Menyimpan broadcast...');
 
                 setTimeout(() => {
-                    toastr.success('Pesan template berhasil dibuat');
+                    toastr.success('Broadcast berhasil dibuat');
                     setTimeout(() => {
-                        window.location.href = 'pesan-template.html';
+                        window.location.href = 'kampanye.html';
                     }, 1000);
                 }, 1000);
             });
